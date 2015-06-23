@@ -1,14 +1,38 @@
 <resources>
     <string name="app_name">CovoiCar</string>
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="title_section1">Profil</string>
+    <string name="title_section2">Vos trajets</string>
+    <string name="title_section3">Recherche Proposer</string>
+    <string name="title_section4">Proposer</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="Ceconnexion">Ce connecter</string>
+    <string name="ou">ou</string>
+    <string name="inscription">S\'inscrire</string>
+    <string name="tilte_connexion">Bienvenue dans l\'Application</string>
+
+    <string name="email">E-mail</string>
+    <string name="password">Mot de passe</string>
+    <string name="confirmation">Confirmation</string>
+
+    <string name="gender">Civilité</string>
+    <string name="name">Prénom</string>
+    <string name="lastName">Nom</string>
+    <string name="birthday">Année de naissance</string>
+    <string name="inscrption">Inscription</string>
+    <string name="connexion">Connexion</string>
+
     <string name="action_example">Example action</string>
 
     <string name="action_settings">Settings</string>
+
+    <string-array name="gender_array">
+        <item>Année de naissance</item>
+        <item>Homme</item>
+        <item>Femme</item>
+    </string-array>
+
 </resources>
