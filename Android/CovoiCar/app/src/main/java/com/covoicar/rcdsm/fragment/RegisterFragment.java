@@ -40,8 +40,10 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
         // Apply the adapter to the spinner
         gender.setAdapter(adapterGender);
 
+
         ArrayList<String> years = new ArrayList<String>();
-        for (int i = 1900; i <= 1997; i++) {
+        years.add("Année de naissance");
+        for (int i = 1997; i >= 1900; i--) {
             years.add(Integer.toString(i));
         }
         ArrayAdapter<String> adapterBirthday = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, years);

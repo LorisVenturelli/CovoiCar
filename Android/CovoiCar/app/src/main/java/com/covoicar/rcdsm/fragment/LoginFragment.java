@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.covoicar.rcdsm.covoicar.R;
 
@@ -15,6 +16,7 @@ import com.covoicar.rcdsm.covoicar.R;
 public class LoginFragment extends Fragment {
 
     private Button login;
+    private TextView register;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -23,6 +25,7 @@ public class LoginFragment extends Fragment {
         /**
          * Inflate the layout for this fragment
          */
+
         login = (Button)view.findViewById(R.id.buttonLogin);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,11 +33,24 @@ public class LoginFragment extends Fragment {
                 ((OnLoginClickListener)(getActivity())).onLoginClick();
             }
         });
+
+        register = (TextView)view.findViewById(R.id.inscriptionLogin);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((OnRegisterPageClickListener)(getActivity())).onRegisterPageClick();
+            }
+        });
+
         return view;
     }
 
     public interface OnLoginClickListener {
         public void onLoginClick();
+    }
+
+    public interface OnRegisterPageClickListener {
+        public void onRegisterPageClick();
     }
 
 }

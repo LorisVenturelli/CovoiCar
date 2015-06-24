@@ -13,6 +13,9 @@ import com.covoicar.rcdsm.models.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.realm.Realm;
 
 /**
@@ -42,57 +45,49 @@ public class ClientAPI {
     public void connect(final String email,final String password,APIListener listener){
 
         preferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE);
-        //On crée un JSOnObject et on recupère les informations email/password
-        JSONObject requete = new JSONObject();
-        //Puis on crée un deuxième JSONObject user ou l'on va mettre les informations recuperé précedement
-        JSONObject userJson = new JSONObject();
 
         final APIListener _listener = listener;
         aq = new AQuery(context);
 
-        Log.i("Note", requete.toString());
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("password", password);
+        params.put("email",email);
 
-        try {
-            userJson.putOpt("email", email);
-            userJson.putOpt("password",password);
 
-            requete.putOpt("user", userJson);
-            Log.i("Note","Paramètre : "+ requete.toString());
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        String url = "http://notes.lloyd66.fr/api/v1/user/connect";
-        aq.post(url, requete, JSONObject.class, new AjaxCallback<JSONObject>() {
+        String url = "http://172.31.1.36:8888/covoicar/user/connect";
+        aq.ajax(url, params, JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
 
                 if (json != null) {
                     User user = User.getInstance();
-                    user.setEmail(email);
                     try {
-                        user.setToken(json.getJSONObject("token").getString("value"));
+                        if (json.getString("reponse").equals("success")) {
+                            Toast.makeText(aq.getContext(), "Welcom : " + email, Toast.LENGTH_LONG).show();
 
-                        if (preferences.contains("Token") == false) {
-                            editor = preferences.edit();
-                            editor.putString("Token", json.getJSONObject("token").getString("value"));
-                            editor.commit();
+                            user.setId(json.getJSONObject("data").getLong("id"));
+                            user.setToken(json.getJSONObject("data").getString("token"));
+                            user.setEmail(json.getJSONObject("data").getString("email"));
+                            user.setFirtname(json.getJSONObject("data").getString("firstname"));
+                            user.setLastName(json.getJSONObject("data").getString("lastname"));
+                            user.setPhone(json.getJSONObject("data").getString("phone"));
+                            user.setBio(json.getJSONObject("data").getString("bio"));
+                            user.setBirthday(json.getJSONObject("data").getString("birthday"));
+                            user.setGender(json.getJSONObject("data").getString("gender"));
+
+                            if (preferences.contains("Token") == false) {
+                                editor = preferences.edit();
+                                editor.putString("Token", json.getJSONObject("data").getString("token"));
+                                editor.commit();
+                            }
+                            Log.i("Token", user.getToken());
+                            _listener.callback();
+                        } else {
+                            Toast.makeText(aq.getContext(), json.getString("message"), Toast.LENGTH_LONG).show();
                         }
-
-                        Log.i("Token", user.getToken());
-                        user.setSucces(json.getBoolean("success"));
                     } catch (JSONException e) {
                         e.printStackTrace();
-                    }
-                    //successful ajax call, show status code and json content
-                    //Toast.makeText(aq.getContext(), status.getCode() + ":" + json.toString(), Toast.LENGTH_LONG).show();
-                    if (user.isSucces()) {
-                        Toast.makeText(aq.getContext(), "Welcom : " + email, Toast.LENGTH_LONG).show();
-                        _listener.callback();
-                    } else {
-                        Toast.makeText(aq.getContext(), "Email or Password is wrong !", Toast.LENGTH_LONG).show();
                     }
 
                 } else {
@@ -103,50 +98,39 @@ public class ClientAPI {
         });
     }
 
-    public void subscrib(final String email,final String password,final String confirmPassword,APIListener listener){
+    public void subscrib(final String email,final String password,final String confirmPassword,String lastname,String firstname,int gender,String birthday,APIListener listener){
 
-        //On crée un JSOnObject et on recupère les informations email/password
-        JSONObject requete = new JSONObject();
-        //Puis on crée un deuxième JSONObject user ou l'on va mettre les informations recuperé précedement
-        JSONObject user = new JSONObject();
 
         final APIListener _listener = listener;
-
-        Log.i("CovoiCar", requete.toString());
-
-        try {
-            user.putOpt("email",email);
-            user.putOpt("password",password);
-
-            requete.putOpt("user", user);
-            Log.i("CovoiCar", requete.toString());
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
         aq = new AQuery(context);
-        String url = "http://notes.lloyd66.fr/api/v1/user/";
-        aq.post(url, requete, JSONObject.class, new AjaxCallback<JSONObject>() {
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("password", password);
+        params.put("email",email);
+        params.put("repassword", confirmPassword);
+        params.put("lastname", lastname);
+        params.put("firstname", firstname);
+        params.put("gender", String.valueOf(gender));
+        params.put("birthday", birthday);
+
+        Log.e("Info dans params"," : "+params);
+
+        String url = "http://172.31.1.36:8888/covoicar/user/add";
+        aq.ajax(url, params, JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
 
                 User user = User.getInstance();
-                user.setEmail(email);
-                user.setStatus(status.getCode());
-                try {
-                    user.setSucces(json.getBoolean("success"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                //successful ajax call, show status code and json content
-                //Toast.makeText(aq.getContext(), status.getCode() + ":" + json.toString(), Toast.LENGTH_LONG).show();
                 if (confirmPassword.equals(password)) {
-                    if (user.isSucces()) {
-                        connect(email, password, _listener);
-                    } else {
-                        Toast.makeText(aq.getContext(), "User already exist !", Toast.LENGTH_LONG).show();
+                    try {
+                        if (json.getString("reponse").equals("success")) {
+                            connect(email, password, _listener);
+                        } else {
+                            Toast.makeText(aq.getContext(), json.getString("message"), Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 } else {
                     Toast.makeText(aq.getContext(), "The confirm password is wrong !", Toast.LENGTH_LONG).show();

@@ -3,16 +3,19 @@
 
     <string name="title_section1">Profil</string>
     <string name="title_section2">Vos trajets</string>
-    <string name="title_section3">Recherche Proposer</string>
-    <string name="title_section4">Proposer</string>
+    <string name="title_section3">Recherche</string>
+    <string name="title_section4">Proposer un trajet</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="Ceconnexion">Ce connecter</string>
+    <string name="Ceconnexion">Se connecter</string>
     <string name="ou">ou</string>
     <string name="inscription">S\'inscrire</string>
     <string name="tilte_connexion">Bienvenue dans l\'Application</string>
+
+    <string name="info">Pas encore membre ?</string>
+    <string name="inscriptionLogin">Inscrivez-vous</string>
 
     <string name="email">E-mail</string>
     <string name="password">Mot de passe</string>
@@ -25,12 +28,20 @@
     <string name="inscrption">Inscription</string>
     <string name="connexion">Connexion</string>
 
+    <string name="start">De (lieu de rdv précis)</string>
+    <string name="arrival">Á (lieu d\'arrivée précis)</string>
+    <string name="highway">Autoroute</string>
+    <string name="roadTrip">Aller-Retour</string>
+    <string name="dateStart">Date et heure de départ</string>
+    <string name="dateArrival">Date et heure de retour</string>
+    <string name="continuer">Continuer</string>
+
     <string name="action_example">Example action</string>
 
     <string name="action_settings">Settings</string>
 
     <string-array name="gender_array">
-        <item>Année de naissance</item>
+        <item>Civilité</item>
         <item>Homme</item>
         <item>Femme</item>
     </string-array>

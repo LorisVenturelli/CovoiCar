@@ -35,18 +35,17 @@
                 android:layout_height="wrap_content"
                 android:text="@string/email"
                 android:id="@+id/textView10"
-                android:layout_marginTop="28dp"
                 android:layout_centerVertical="true"/>
 
             <EditText
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:inputType="textEmailAddress"
-                android:ems="13"
+                android:ems="10"
                 android:background="#00000000"
                 android:hint="@string/email"
                 android:id="@+id/emailLogin"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentRight="true" />
         </RelativeLayout>
 
         <View
@@ -68,18 +67,17 @@
                 android:layout_height="wrap_content"
                 android:text="@string/password"
                 android:id="@+id/textView11"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="28dp" />
+                android:layout_centerVertical="true" />
 
             <EditText
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:inputType="textPassword"
                 android:background="#00000000"
                 android:hint="@string/password"
-                android:ems="13"
+                android:ems="10"
                 android:id="@+id/passwordLogin"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentRight="true" />
 
         </RelativeLayout>
 
@@ -96,8 +94,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativeLogin"
-        android:text="New Button"
+        android:text="@string/connexion"
         android:id="@+id/buttonLogin"
         android:layout_centerHorizontal="true"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/info"
+            android:textSize="20dp"
+            android:id="@+id/infoLogin"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/inscriptionLogin"
+            android:textSize="20dp"
+            android:id="@+id/inscriptionLogin"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
 
 </RelativeLayout>

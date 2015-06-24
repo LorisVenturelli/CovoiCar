@@ -29,7 +29,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/buttonInscription"
                 android:text="@string/ou"
                 android:layout_alignBottom="@+id/buttonConnection"
                 android:layout_centerHorizontal="true"
@@ -39,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/inscription"
-                android:id="@+id/textView3Connexion"
+                android:id="@+id/buttonInscription"
                 android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
@@ -53,5 +52,6 @@
             android:layout_above="@+id/linearConnexion"
             android:id="@+id/textView4Connexion"
             android:paddingBottom="20dp" />
+
     </RelativeLayout>
 </FrameLayout>

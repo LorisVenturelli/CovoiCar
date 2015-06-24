@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/start">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageStart"
+                android:src="@drawable/ic_start"
+                android:layout_alignParentLeft="true"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:hint="@string/start"
+                android:id="@+id/editStart"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageStart"
+                android:layout_toEndOf="@+id/imageStart" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view10"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/start"
+            android:layout_centerVertical="true"
+            android:background="#cfcfcf" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/arrival"
+            android:layout_below="@+id/view10">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageArrival"
+                android:src="@drawable/ic_arrival"
+                android:layout_alignParentLeft="true" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/arrival"
+                android:background="#00000000"
+                android:id="@+id/editArrival"
+                android:layout_toRightOf="@+id/imageArrival"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view15"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/arrival"
+            android:layout_centerVertical="true"
+            android:background="#cfcfcf" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/highway"
+            android:layout_below="@+id/view15">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageHighway"
+                android:src="@drawable/ic_logo_highway"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/highway"
+                android:id="@+id/editHighway"
+                android:textSize="17dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageHighway"
+                android:layout_toEndOf="@+id/imageHighway" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/switchHighway"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view11"
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:layout_below="@+id/highway"
+            android:layout_centerVertical="true"
+            android:background="#cfcfcf" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/roadTrip"
+            android:layout_below="@+id/view11">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageRoadTrip"
+                android:src="@drawable/ic_directions"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/roadTrip"
+                android:id="@+id/editRoadTrip"
+                android:textSize="17dp"
+                android:layout_toRightOf="@+id/imageRoadTrip"
+                android:layout_centerVertical="true" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/switchRoadTrip"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view12"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/roadTrip"
+            android:layout_centerVertical="true"
+            android:background="#cfcfcf" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateStart"
+            android:layout_below="@+id/view12">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageDateStart"
+                android:src="@drawable/ic_calendar"
+                android:layout_alignParentLeft="true"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/dateStart"
+                android:id="@+id/editDateStart"
+                android:background="#00000000"
+                android:layout_toRightOf="@+id/imageDateStart"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view13"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/dateStart"
+            android:layout_centerVertical="true"
+            android:background="#cfcfcf" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateArrival"
+            android:layout_below="@+id/view13">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageDateArrival"
+                android:src="@drawable/ic_calendar"
+                android:layout_alignParentLeft="true"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/dateArrival"
+                android:id="@+id/editDateArrival"
+                android:background="#00000000"
+                android:layout_toRightOf="@+id/imageDateArrival"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view14"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/dateArrival"
+            android:layout_centerVertical="true"
+            android:background="#cfcfcf" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/continuer"
+            android:id="@+id/button"
+            android:layout_below="@+id/dateArrival"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+</FrameLayout>

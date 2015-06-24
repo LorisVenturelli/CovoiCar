@@ -19,9 +19,6 @@ public class User extends RealmObject {
     private String      birthday;
     private String      gender;
     private String      token;
-    private boolean     succes;
-    private int         status;
-
     private static User instance;
 
     public static User getInstance(){
@@ -42,14 +39,6 @@ public class User extends RealmObject {
         this.id = valueId;
     }
 
-
-    public boolean isSucces() {
-        return succes;
-    }
-
-    public void setSucces(boolean succes) {
-        this.succes = succes;
-    }
 
     public String getEmail() {
         return email;
@@ -114,14 +103,5 @@ public class User extends RealmObject {
     public void setToken(String token) {
         this.token = token;
     }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
 }
 

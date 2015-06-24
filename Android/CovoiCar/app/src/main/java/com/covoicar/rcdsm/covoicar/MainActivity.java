@@ -13,10 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.covoicar.rcdsm.fragment.TripFragment;
+
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks{
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -64,6 +65,13 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 4:
                 mTitle = getString(R.string.title_section4);
+
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                Fragment trip = new TripFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, trip)
+                        .commit();
                 break;
         }
     }
@@ -143,5 +151,13 @@ public class MainActivity extends ActionBarActivity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
+
+    /*public void switchFragment(TripFragment newFragment, String tag) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.container, newFragment)
+                .addToBackStack(tag)
+                .commit();
+    }*/
 
 }
