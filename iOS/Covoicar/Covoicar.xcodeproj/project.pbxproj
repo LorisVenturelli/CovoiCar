@@ -1,0 +1,578 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		94E040CA1B3A98FB00497FCB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040C91B3A98FB00497FCB /* main.m */; };
+		94E040CD1B3A98FB00497FCB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040CC1B3A98FB00497FCB /* AppDelegate.m */; };
+		94E040D01B3A98FB00497FCB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040CF1B3A98FB00497FCB /* ViewController.m */; };
+		94E040D31B3A98FB00497FCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94E040D11B3A98FB00497FCB /* Main.storyboard */; };
+		94E040D51B3A98FB00497FCB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94E040D41B3A98FB00497FCB /* Images.xcassets */; };
+		94E040D81B3A98FB00497FCB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94E040D61B3A98FB00497FCB /* LaunchScreen.xib */; };
+		94E040E41B3A98FB00497FCB /* CovoicarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040E31B3A98FB00497FCB /* CovoicarTests.m */; };
+		94E040F01B3A9AB100497FCB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040EF1B3A9AB100497FCB /* LoginViewController.m */; };
+		94E041091B3A9D2C00497FCB /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040F71B3A9D2C00497FCB /* AFHTTPRequestOperation.m */; };
+		94E0410A1B3A9D2C00497FCB /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040F91B3A9D2C00497FCB /* AFHTTPRequestOperationManager.m */; };
+		94E0410B1B3A9D2C00497FCB /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040FB1B3A9D2C00497FCB /* AFHTTPSessionManager.m */; };
+		94E0410C1B3A9D2C00497FCB /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040FE1B3A9D2C00497FCB /* AFNetworkReachabilityManager.m */; };
+		94E0410D1B3A9D2C00497FCB /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E041001B3A9D2C00497FCB /* AFSecurityPolicy.m */; };
+		94E0410E1B3A9D2C00497FCB /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E041021B3A9D2C00497FCB /* AFURLConnectionOperation.m */; };
+		94E0410F1B3A9D2C00497FCB /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E041041B3A9D2C00497FCB /* AFURLRequestSerialization.m */; };
+		94E041101B3A9D2C00497FCB /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E041061B3A9D2C00497FCB /* AFURLResponseSerialization.m */; };
+		94E041111B3A9D2C00497FCB /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E041081B3A9D2C00497FCB /* AFURLSessionManager.m */; };
+		94E041131B3AA8A500497FCB /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E041121B3AA8A500497FCB /* Realm.framework */; };
+		94E041151B3AA8EC00497FCB /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E041141B3AA8EC00497FCB /* libc++.dylib */; };
+		94E0411B1B3AA9D200497FCB /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E0411A1B3AA9D200497FCB /* User.m */; };
+		94E041201B3AB31F00497FCB /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E0411F1B3AB31F00497FCB /* UserManager.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		94E040DE1B3A98FB00497FCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 94E040BC1B3A98FB00497FCB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94E040C31B3A98FB00497FCB;
+			remoteInfo = Covoicar;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		94E040C41B3A98FB00497FCB /* Covoicar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Covoicar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		94E040C81B3A98FB00497FCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94E040C91B3A98FB00497FCB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		94E040CB1B3A98FB00497FCB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		94E040CC1B3A98FB00497FCB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		94E040CE1B3A98FB00497FCB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		94E040CF1B3A98FB00497FCB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		94E040D21B3A98FB00497FCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		94E040D41B3A98FB00497FCB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		94E040D71B3A98FB00497FCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		94E040DD1B3A98FB00497FCB /* CovoicarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CovoicarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		94E040E21B3A98FB00497FCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94E040E31B3A98FB00497FCB /* CovoicarTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CovoicarTests.m; sourceTree = "<group>"; };
+		94E040EE1B3A9AB100497FCB /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		94E040EF1B3A9AB100497FCB /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		94E040F61B3A9D2C00497FCB /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
+		94E040F71B3A9D2C00497FCB /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
+		94E040F81B3A9D2C00497FCB /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
+		94E040F91B3A9D2C00497FCB /* AFHTTPRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperationManager.m; sourceTree = "<group>"; };
+		94E040FA1B3A9D2C00497FCB /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
+		94E040FB1B3A9D2C00497FCB /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
+		94E040FC1B3A9D2C00497FCB /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
+		94E040FD1B3A9D2C00497FCB /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
+		94E040FE1B3A9D2C00497FCB /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
+		94E040FF1B3A9D2C00497FCB /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
+		94E041001B3A9D2C00497FCB /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
+		94E041011B3A9D2C00497FCB /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLConnectionOperation.h; sourceTree = "<group>"; };
+		94E041021B3A9D2C00497FCB /* AFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLConnectionOperation.m; sourceTree = "<group>"; };
+		94E041031B3A9D2C00497FCB /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLRequestSerialization.h; sourceTree = "<group>"; };
+		94E041041B3A9D2C00497FCB /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLRequestSerialization.m; sourceTree = "<group>"; };
+		94E041051B3A9D2C00497FCB /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLResponseSerialization.h; sourceTree = "<group>"; };
+		94E041061B3A9D2C00497FCB /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
+		94E041071B3A9D2C00497FCB /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
+		94E041081B3A9D2C00497FCB /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		94E041121B3AA8A500497FCB /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Covoicar/Realm.framework; sourceTree = "<group>"; };
+		94E041141B3AA8EC00497FCB /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		94E041191B3AA9D200497FCB /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		94E0411A1B3AA9D200497FCB /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		94E0411E1B3AB31F00497FCB /* UserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
+		94E0411F1B3AB31F00497FCB /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		94E040C11B3A98FB00497FCB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94E041151B3AA8EC00497FCB /* libc++.dylib in Frameworks */,
+				94E041131B3AA8A500497FCB /* Realm.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94E040DA1B3A98FB00497FCB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		94E040BB1B3A98FB00497FCB = {
+			isa = PBXGroup;
+			children = (
+				94E040C61B3A98FB00497FCB /* Covoicar */,
+				94E040E01B3A98FB00497FCB /* CovoicarTests */,
+				94E040C51B3A98FB00497FCB /* Products */,
+				94E041161B3AA94800497FCB /* Plugins */,
+			);
+			sourceTree = "<group>";
+		};
+		94E040C51B3A98FB00497FCB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				94E040C41B3A98FB00497FCB /* Covoicar.app */,
+				94E040DD1B3A98FB00497FCB /* CovoicarTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		94E040C61B3A98FB00497FCB /* Covoicar */ = {
+			isa = PBXGroup;
+			children = (
+				94E0411C1B3AB2F800497FCB /* Manager */,
+				94E041171B3AA97C00497FCB /* Entity */,
+				94E040ED1B3A9A5100497FCB /* Login */,
+				94E040CB1B3A98FB00497FCB /* AppDelegate.h */,
+				94E040CC1B3A98FB00497FCB /* AppDelegate.m */,
+				94E040CE1B3A98FB00497FCB /* ViewController.h */,
+				94E040CF1B3A98FB00497FCB /* ViewController.m */,
+				94E040D11B3A98FB00497FCB /* Main.storyboard */,
+				94E040D41B3A98FB00497FCB /* Images.xcassets */,
+				94E040D61B3A98FB00497FCB /* LaunchScreen.xib */,
+				94E040C71B3A98FB00497FCB /* Supporting Files */,
+			);
+			path = Covoicar;
+			sourceTree = "<group>";
+		};
+		94E040C71B3A98FB00497FCB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				94E040C81B3A98FB00497FCB /* Info.plist */,
+				94E040C91B3A98FB00497FCB /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		94E040E01B3A98FB00497FCB /* CovoicarTests */ = {
+			isa = PBXGroup;
+			children = (
+				94E040E31B3A98FB00497FCB /* CovoicarTests.m */,
+				94E040E11B3A98FB00497FCB /* Supporting Files */,
+			);
+			path = CovoicarTests;
+			sourceTree = "<group>";
+		};
+		94E040E11B3A98FB00497FCB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				94E040E21B3A98FB00497FCB /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		94E040ED1B3A9A5100497FCB /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				94E040EE1B3A9AB100497FCB /* LoginViewController.h */,
+				94E040EF1B3A9AB100497FCB /* LoginViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		94E040F51B3A9D2C00497FCB /* AFNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				94E040F61B3A9D2C00497FCB /* AFHTTPRequestOperation.h */,
+				94E040F71B3A9D2C00497FCB /* AFHTTPRequestOperation.m */,
+				94E040F81B3A9D2C00497FCB /* AFHTTPRequestOperationManager.h */,
+				94E040F91B3A9D2C00497FCB /* AFHTTPRequestOperationManager.m */,
+				94E040FA1B3A9D2C00497FCB /* AFHTTPSessionManager.h */,
+				94E040FB1B3A9D2C00497FCB /* AFHTTPSessionManager.m */,
+				94E040FC1B3A9D2C00497FCB /* AFNetworking.h */,
+				94E040FD1B3A9D2C00497FCB /* AFNetworkReachabilityManager.h */,
+				94E040FE1B3A9D2C00497FCB /* AFNetworkReachabilityManager.m */,
+				94E040FF1B3A9D2C00497FCB /* AFSecurityPolicy.h */,
+				94E041001B3A9D2C00497FCB /* AFSecurityPolicy.m */,
+				94E041011B3A9D2C00497FCB /* AFURLConnectionOperation.h */,
+				94E041021B3A9D2C00497FCB /* AFURLConnectionOperation.m */,
+				94E041031B3A9D2C00497FCB /* AFURLRequestSerialization.h */,
+				94E041041B3A9D2C00497FCB /* AFURLRequestSerialization.m */,
+				94E041051B3A9D2C00497FCB /* AFURLResponseSerialization.h */,
+				94E041061B3A9D2C00497FCB /* AFURLResponseSerialization.m */,
+				94E041071B3A9D2C00497FCB /* AFURLSessionManager.h */,
+				94E041081B3A9D2C00497FCB /* AFURLSessionManager.m */,
+			);
+			name = AFNetworking;
+			path = Covoicar/AFNetworking;
+			sourceTree = "<group>";
+		};
+		94E041161B3AA94800497FCB /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				94E040F51B3A9D2C00497FCB /* AFNetworking */,
+				94E041121B3AA8A500497FCB /* Realm.framework */,
+				94E041141B3AA8EC00497FCB /* libc++.dylib */,
+			);
+			name = Plugins;
+			sourceTree = "<group>";
+		};
+		94E041171B3AA97C00497FCB /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				94E041181B3AA9AE00497FCB /* User */,
+			);
+			name = Entity;
+			sourceTree = "<group>";
+		};
+		94E041181B3AA9AE00497FCB /* User */ = {
+			isa = PBXGroup;
+			children = (
+				94E041191B3AA9D200497FCB /* User.h */,
+				94E0411A1B3AA9D200497FCB /* User.m */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		94E0411C1B3AB2F800497FCB /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				94E0411D1B3AB2FD00497FCB /* UserManager */,
+			);
+			name = Manager;
+			sourceTree = "<group>";
+		};
+		94E0411D1B3AB2FD00497FCB /* UserManager */ = {
+			isa = PBXGroup;
+			children = (
+				94E0411E1B3AB31F00497FCB /* UserManager.h */,
+				94E0411F1B3AB31F00497FCB /* UserManager.m */,
+			);
+			name = UserManager;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		94E040C31B3A98FB00497FCB /* Covoicar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 94E040E71B3A98FB00497FCB /* Build configuration list for PBXNativeTarget "Covoicar" */;
+			buildPhases = (
+				94E040C01B3A98FB00497FCB /* Sources */,
+				94E040C11B3A98FB00497FCB /* Frameworks */,
+				94E040C21B3A98FB00497FCB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Covoicar;
+			productName = Covoicar;
+			productReference = 94E040C41B3A98FB00497FCB /* Covoicar.app */;
+			productType = "com.apple.product-type.application";
+		};
+		94E040DC1B3A98FB00497FCB /* CovoicarTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 94E040EA1B3A98FB00497FCB /* Build configuration list for PBXNativeTarget "CovoicarTests" */;
+			buildPhases = (
+				94E040D91B3A98FB00497FCB /* Sources */,
+				94E040DA1B3A98FB00497FCB /* Frameworks */,
+				94E040DB1B3A98FB00497FCB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				94E040DF1B3A98FB00497FCB /* PBXTargetDependency */,
+			);
+			name = CovoicarTests;
+			productName = CovoicarTests;
+			productReference = 94E040DD1B3A98FB00497FCB /* CovoicarTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		94E040BC1B3A98FB00497FCB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Loris Venturelli";
+				TargetAttributes = {
+					94E040C31B3A98FB00497FCB = {
+						CreatedOnToolsVersion = 6.3;
+					};
+					94E040DC1B3A98FB00497FCB = {
+						CreatedOnToolsVersion = 6.3;
+						TestTargetID = 94E040C31B3A98FB00497FCB;
+					};
+				};
+			};
+			buildConfigurationList = 94E040BF1B3A98FB00497FCB /* Build configuration list for PBXProject "Covoicar" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 94E040BB1B3A98FB00497FCB;
+			productRefGroup = 94E040C51B3A98FB00497FCB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				94E040C31B3A98FB00497FCB /* Covoicar */,
+				94E040DC1B3A98FB00497FCB /* CovoicarTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		94E040C21B3A98FB00497FCB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94E040D31B3A98FB00497FCB /* Main.storyboard in Resources */,
+				94E040D81B3A98FB00497FCB /* LaunchScreen.xib in Resources */,
+				94E040D51B3A98FB00497FCB /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94E040DB1B3A98FB00497FCB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		94E040C01B3A98FB00497FCB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94E040F01B3A9AB100497FCB /* LoginViewController.m in Sources */,
+				94E0410D1B3A9D2C00497FCB /* AFSecurityPolicy.m in Sources */,
+				94E040D01B3A98FB00497FCB /* ViewController.m in Sources */,
+				94E0410A1B3A9D2C00497FCB /* AFHTTPRequestOperationManager.m in Sources */,
+				94E0410E1B3A9D2C00497FCB /* AFURLConnectionOperation.m in Sources */,
+				94E041091B3A9D2C00497FCB /* AFHTTPRequestOperation.m in Sources */,
+				94E040CD1B3A98FB00497FCB /* AppDelegate.m in Sources */,
+				94E041201B3AB31F00497FCB /* UserManager.m in Sources */,
+				94E0410F1B3A9D2C00497FCB /* AFURLRequestSerialization.m in Sources */,
+				94E0411B1B3AA9D200497FCB /* User.m in Sources */,
+				94E0410B1B3A9D2C00497FCB /* AFHTTPSessionManager.m in Sources */,
+				94E0410C1B3A9D2C00497FCB /* AFNetworkReachabilityManager.m in Sources */,
+				94E041101B3A9D2C00497FCB /* AFURLResponseSerialization.m in Sources */,
+				94E041111B3A9D2C00497FCB /* AFURLSessionManager.m in Sources */,
+				94E040CA1B3A98FB00497FCB /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94E040D91B3A98FB00497FCB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94E040E41B3A98FB00497FCB /* CovoicarTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		94E040DF1B3A98FB00497FCB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94E040C31B3A98FB00497FCB /* Covoicar */;
+			targetProxy = 94E040DE1B3A98FB00497FCB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		94E040D11B3A98FB00497FCB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				94E040D21B3A98FB00497FCB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		94E040D61B3A98FB00497FCB /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				94E040D71B3A98FB00497FCB /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		94E040E51B3A98FB00497FCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		94E040E61B3A98FB00497FCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		94E040E81B3A98FB00497FCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Covoicar",
+				);
+				INFOPLIST_FILE = Covoicar/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		94E040E91B3A98FB00497FCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Covoicar",
+				);
+				INFOPLIST_FILE = Covoicar/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		94E040EB1B3A98FB00497FCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CovoicarTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Covoicar.app/Covoicar";
+			};
+			name = Debug;
+		};
+		94E040EC1B3A98FB00497FCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CovoicarTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Covoicar.app/Covoicar";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		94E040BF1B3A98FB00497FCB /* Build configuration list for PBXProject "Covoicar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94E040E51B3A98FB00497FCB /* Debug */,
+				94E040E61B3A98FB00497FCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		94E040E71B3A98FB00497FCB /* Build configuration list for PBXNativeTarget "Covoicar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94E040E81B3A98FB00497FCB /* Debug */,
+				94E040E91B3A98FB00497FCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		94E040EA1B3A98FB00497FCB /* Build configuration list for PBXNativeTarget "CovoicarTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94E040EB1B3A98FB00497FCB /* Debug */,
+				94E040EC1B3A98FB00497FCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 94E040BC1B3A98FB00497FCB /* Project object */;
+}
