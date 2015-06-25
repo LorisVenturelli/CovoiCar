@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">CovoiCar</string>
 
-    <string name="title_section1">Profil</string>
-    <string name="title_section2">Vos trajets</string>
+    <string name="title_section1">Vos trajets</string>
+    <string name="title_section2">Profil</string>
     <string name="title_section3">Recherche</string>
     <string name="title_section4">Proposer un trajet</string>
 
@@ -31,10 +31,14 @@
     <string name="start">De (lieu de rdv précis)</string>
     <string name="arrival">Á (lieu d\'arrivée précis)</string>
     <string name="highway">Autoroute</string>
-    <string name="roadTrip">Aller-Retour</string>
-    <string name="dateStart">Date et heure de départ</string>
-    <string name="dateArrival">Date et heure de retour</string>
+    <string name="roundTrip">Aller-Retour</string>
+    <string name="dateStart">Date de départ</string>
+    <string name="hoursStart">Heure de départ </string>
+    <string name="datesArrival">Date de retour</string>
+    <string name="hoursArrival">Heure de retour </string>
     <string name="continuer">Continuer</string>
+    <string name="search">Rechercher</string>
+    <string name="comment">Commentaire de trajet</string>
 
     <string name="action_example">Example action</string>
 

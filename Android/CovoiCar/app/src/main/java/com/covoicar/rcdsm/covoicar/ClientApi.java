@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.covoicar.rcdsm.models.Trip;
 import com.covoicar.rcdsm.models.User;
 
 import org.json.JSONException;
@@ -113,7 +114,7 @@ public class ClientAPI {
         params.put("gender", String.valueOf(gender));
         params.put("birthday", birthday);
 
-        Log.e("Info dans params"," : "+params);
+        Log.e("Info dans params", " : " + params);
 
         String url = "http://172.31.1.36:8888/covoicar/user/add";
         aq.ajax(url, params, JSONObject.class, new AjaxCallback<JSONObject>() {
@@ -138,6 +139,49 @@ public class ClientAPI {
             }
         });
     }
+
+    public void addTrip(final String start,final String arrival, final String highway, final String hoursStart, final int price, final int place, final String comment,APIListener listener){
+
+        preferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE);
+        final APIListener _listener = listener;
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("start", start);
+        params.put("arrival",arrival);
+        params.put("highway", highway);
+        params.put("hoursStart", hoursStart);
+        params.put("price", String.valueOf(price));
+        params.put("place", String.valueOf(place));
+        params.put("comment", comment);
+
+        Log.e("Info dans params", " : " + params);
+
+        aq = new AQuery(context);
+        String url = "http://172.31.1.36:8888/covoicar/trip/add";
+        aq.ajax(url, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+
+            @Override
+            public void callback(String url, JSONObject json, AjaxStatus status) {
+                try {
+                    if (json.getString("reponse").equals("success")) {
+                        Log.e("TAG", "Add new note : ");
+                        Trip trip = new Trip();
+                        trip.setStart(start);
+                        trip.setArrival(arrival);
+                        trip.setHighway(highway);
+                        trip.setHoursArrival(hoursStart);
+                        trip.setPrice(price);
+                        trip.setPlace(place);
+                        trip.setComment(comment);
+                        _listener.callback();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 
     public interface APIListener{
         public void callback();

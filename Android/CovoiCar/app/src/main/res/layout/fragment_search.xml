@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startSearch">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageStart"
+                android:src="@drawable/ic_start"
+                android:layout_alignParentLeft="true"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:hint="@string/start"
+                android:id="@+id/editStartSearch"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageStart"
+                android:layout_toEndOf="@+id/imageStart" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view10"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/startSearch"
+            android:layout_centerVertical="true"
+            android:background="#cfcfcf" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/arrivalSearch"
+            android:layout_below="@+id/view10">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageArrival"
+                android:src="@drawable/ic_arrival"
+                android:layout_alignParentLeft="true" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/arrival"
+                android:background="#00000000"
+                android:id="@+id/editArrival"
+                android:layout_toRightOf="@+id/imageArrival"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view12"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:background="#cfcfcf"
+            android:layout_below="@+id/arrivalSearch" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateStartSearch"
+            android:layout_below="@+id/view12">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageDateStart"
+                android:src="@drawable/ic_calendar"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dateStart"
+                android:onClick="showDateStartSearchPickerDialog"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageDateStart"
+                android:layout_toEndOf="@+id/imageDateStart"
+                android:id="@+id/textDateStartSearch"
+                android:textSize="17sp"
+                android:textColor="@android:color/black" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view13"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="#cfcfcf"
+            android:layout_below="@+id/dateStartSearch"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search"
+            android:id="@+id/button"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/view13" />
+
+    </RelativeLayout>
+
+</FrameLayout>
