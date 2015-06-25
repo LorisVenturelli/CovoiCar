@@ -41,6 +41,16 @@
     return [[UserManager sharedInstance] userWithThisId:self.idUserInstance];
 }
 
+- (BOOL) userIsInstancied{
+    bool ret = (self.idUserInstance != 0);
+    
+    if(ret)
+        NSLog(@"User is instancied !");
+    else
+        NSLog(@"User is not instancied : %@", [NSNumber numberWithInt:self.idUserInstance]);
+    
+    return ret;
+}
 
 - (void) addUser:(User*)user {
     

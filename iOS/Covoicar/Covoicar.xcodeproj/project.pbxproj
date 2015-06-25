@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		947227BD1B3C2826007F67DA /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 947227BC1B3C2826007F67DA /* HomeViewController.m */; };
+		947227C51B3C3DCD007F67DA /* TravelAddTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 947227C41B3C3DCD007F67DA /* TravelAddTableViewController.m */; };
 		9486A89A1B3BEA5000BC9852 /* RegisterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9486A8991B3BEA5000BC9852 /* RegisterTableViewController.m */; };
 		9486A89D1B3BF00800BC9852 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9486A89C1B3BF00800BC9852 /* RegisterViewController.m */; };
 		94E040CA1B3A98FB00497FCB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040C91B3A98FB00497FCB /* main.m */; };
 		94E040CD1B3A98FB00497FCB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040CC1B3A98FB00497FCB /* AppDelegate.m */; };
-		94E040D01B3A98FB00497FCB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040CF1B3A98FB00497FCB /* ViewController.m */; };
 		94E040D31B3A98FB00497FCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94E040D11B3A98FB00497FCB /* Main.storyboard */; };
 		94E040D51B3A98FB00497FCB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94E040D41B3A98FB00497FCB /* Images.xcassets */; };
 		94E040D81B3A98FB00497FCB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94E040D61B3A98FB00497FCB /* LaunchScreen.xib */; };
@@ -43,6 +44,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		947227BB1B3C2826007F67DA /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		947227BC1B3C2826007F67DA /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		947227C31B3C3DCD007F67DA /* TravelAddTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelAddTableViewController.h; sourceTree = "<group>"; };
+		947227C41B3C3DCD007F67DA /* TravelAddTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelAddTableViewController.m; sourceTree = "<group>"; };
 		9486A8981B3BEA5000BC9852 /* RegisterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterTableViewController.h; sourceTree = "<group>"; };
 		9486A8991B3BEA5000BC9852 /* RegisterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterTableViewController.m; sourceTree = "<group>"; };
 		9486A89B1B3BF00800BC9852 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -52,8 +57,6 @@
 		94E040C91B3A98FB00497FCB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		94E040CB1B3A98FB00497FCB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		94E040CC1B3A98FB00497FCB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		94E040CE1B3A98FB00497FCB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		94E040CF1B3A98FB00497FCB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		94E040D21B3A98FB00497FCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		94E040D41B3A98FB00497FCB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		94E040D71B3A98FB00497FCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -109,6 +112,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		947227BA1B3C27FB007F67DA /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				947227BB1B3C2826007F67DA /* HomeViewController.h */,
+				947227BC1B3C2826007F67DA /* HomeViewController.m */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		947227C11B3C3D8F007F67DA /* Travels */ = {
+			isa = PBXGroup;
+			children = (
+				947227C21B3C3D9F007F67DA /* Add */,
+			);
+			name = Travels;
+			sourceTree = "<group>";
+		};
+		947227C21B3C3D9F007F67DA /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				947227C31B3C3DCD007F67DA /* TravelAddTableViewController.h */,
+				947227C41B3C3DCD007F67DA /* TravelAddTableViewController.m */,
+			);
+			name = Add;
+			sourceTree = "<group>";
+		};
 		9486A8911B3BDC6E00BC9852 /* Register */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,16 +171,16 @@
 		94E040C61B3A98FB00497FCB /* Covoicar */ = {
 			isa = PBXGroup;
 			children = (
+				947227C11B3C3D8F007F67DA /* Travels */,
 				94E0411C1B3AB2F800497FCB /* Manager */,
 				94E041171B3AA97C00497FCB /* Entity */,
 				94E040ED1B3A9A5100497FCB /* Login */,
 				9486A8911B3BDC6E00BC9852 /* Register */,
+				947227BA1B3C27FB007F67DA /* Home */,
 				94E040CB1B3A98FB00497FCB /* AppDelegate.h */,
 				94E040CC1B3A98FB00497FCB /* AppDelegate.m */,
-				94E040CE1B3A98FB00497FCB /* ViewController.h */,
-				94E040CF1B3A98FB00497FCB /* ViewController.m */,
-				94E040D11B3A98FB00497FCB /* Main.storyboard */,
 				94E040D41B3A98FB00497FCB /* Images.xcassets */,
+				94E040D11B3A98FB00497FCB /* Main.storyboard */,
 				94E040D61B3A98FB00497FCB /* LaunchScreen.xib */,
 				94E040C71B3A98FB00497FCB /* Supporting Files */,
 			);
@@ -367,8 +396,8 @@
 				94E040F01B3A9AB100497FCB /* LoginViewController.m in Sources */,
 				9486A89D1B3BF00800BC9852 /* RegisterViewController.m in Sources */,
 				94E0410D1B3A9D2C00497FCB /* AFSecurityPolicy.m in Sources */,
-				94E040D01B3A98FB00497FCB /* ViewController.m in Sources */,
 				94E0410A1B3A9D2C00497FCB /* AFHTTPRequestOperationManager.m in Sources */,
+				947227BD1B3C2826007F67DA /* HomeViewController.m in Sources */,
 				9486A89A1B3BEA5000BC9852 /* RegisterTableViewController.m in Sources */,
 				94E0410E1B3A9D2C00497FCB /* AFURLConnectionOperation.m in Sources */,
 				94E041091B3A9D2C00497FCB /* AFHTTPRequestOperation.m in Sources */,
@@ -379,6 +408,7 @@
 				94E0410B1B3A9D2C00497FCB /* AFHTTPSessionManager.m in Sources */,
 				94E0410C1B3A9D2C00497FCB /* AFNetworkReachabilityManager.m in Sources */,
 				94E041101B3A9D2C00497FCB /* AFURLResponseSerialization.m in Sources */,
+				947227C51B3C3DCD007F67DA /* TravelAddTableViewController.m in Sources */,
 				94E041111B3A9D2C00497FCB /* AFURLSessionManager.m in Sources */,
 				94E040CA1B3A98FB00497FCB /* main.m in Sources */,
 			);

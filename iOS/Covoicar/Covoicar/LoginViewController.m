@@ -76,16 +76,15 @@
             User* us = [[UserManager sharedInstance] getUserInstance];
             NSLog(@"User instancied = %@", us.firstname);
             
-            /*
+            
             // Next UIView
             UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             UIViewController* arrivee = [storyboard instantiateViewControllerWithIdentifier:@"home"];
+            
             // Transition UIView
             arrivee.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-            [self presentViewController:arrivee animated:YES completion:^(){
-                self.emailField.text = @"";
-                self.passwordField.text = @"";
-            }];*/
+            [self presentViewController:arrivee animated:YES completion:nil];
+            
         }
         else{
             // Error login

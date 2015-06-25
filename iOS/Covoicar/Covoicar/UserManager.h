@@ -16,6 +16,7 @@
 
 - (void) setUserInstance:(User *)userInstance;
 - (User*) getUserInstance;
+- (BOOL) userIsInstancied;
 
 + (UserManager*) sharedInstance;
 
