@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9486A89A1B3BEA5000BC9852 /* RegisterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9486A8991B3BEA5000BC9852 /* RegisterTableViewController.m */; };
+		9486A89D1B3BF00800BC9852 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9486A89C1B3BF00800BC9852 /* RegisterViewController.m */; };
 		94E040CA1B3A98FB00497FCB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040C91B3A98FB00497FCB /* main.m */; };
 		94E040CD1B3A98FB00497FCB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040CC1B3A98FB00497FCB /* AppDelegate.m */; };
 		94E040D01B3A98FB00497FCB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040CF1B3A98FB00497FCB /* ViewController.m */; };
@@ -41,6 +43,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9486A8981B3BEA5000BC9852 /* RegisterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterTableViewController.h; sourceTree = "<group>"; };
+		9486A8991B3BEA5000BC9852 /* RegisterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterTableViewController.m; sourceTree = "<group>"; };
+		9486A89B1B3BF00800BC9852 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		9486A89C1B3BF00800BC9852 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		94E040C41B3A98FB00497FCB /* Covoicar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Covoicar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E040C81B3A98FB00497FCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94E040C91B3A98FB00497FCB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -103,6 +109,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9486A8911B3BDC6E00BC9852 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				9486A8981B3BEA5000BC9852 /* RegisterTableViewController.h */,
+				9486A8991B3BEA5000BC9852 /* RegisterTableViewController.m */,
+				9486A89B1B3BF00800BC9852 /* RegisterViewController.h */,
+				9486A89C1B3BF00800BC9852 /* RegisterViewController.m */,
+			);
+			name = Register;
+			sourceTree = "<group>";
+		};
 		94E040BB1B3A98FB00497FCB = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +145,7 @@
 				94E0411C1B3AB2F800497FCB /* Manager */,
 				94E041171B3AA97C00497FCB /* Entity */,
 				94E040ED1B3A9A5100497FCB /* Login */,
+				9486A8911B3BDC6E00BC9852 /* Register */,
 				94E040CB1B3A98FB00497FCB /* AppDelegate.h */,
 				94E040CC1B3A98FB00497FCB /* AppDelegate.m */,
 				94E040CE1B3A98FB00497FCB /* ViewController.h */,
@@ -347,9 +365,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				94E040F01B3A9AB100497FCB /* LoginViewController.m in Sources */,
+				9486A89D1B3BF00800BC9852 /* RegisterViewController.m in Sources */,
 				94E0410D1B3A9D2C00497FCB /* AFSecurityPolicy.m in Sources */,
 				94E040D01B3A98FB00497FCB /* ViewController.m in Sources */,
 				94E0410A1B3A9D2C00497FCB /* AFHTTPRequestOperationManager.m in Sources */,
+				9486A89A1B3BEA5000BC9852 /* RegisterTableViewController.m in Sources */,
 				94E0410E1B3A9D2C00497FCB /* AFURLConnectionOperation.m in Sources */,
 				94E041091B3A9D2C00497FCB /* AFHTTPRequestOperation.m in Sources */,
 				94E040CD1B3A98FB00497FCB /* AppDelegate.m in Sources */,
@@ -563,6 +583,7 @@
 				94E040E91B3A98FB00497FCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		94E040EA1B3A98FB00497FCB /* Build configuration list for PBXNativeTarget "CovoicarTests" */ = {
 			isa = XCConfigurationList;
@@ -571,6 +592,7 @@
 				94E040EC1B3A98FB00497FCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
