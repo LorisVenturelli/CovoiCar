@@ -19,6 +19,17 @@ import java.util.Calendar;
 public  class TimePickerFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
 
+    TheListenerTimeStart listenerTimeStart;
+    TheListenerTimeEnd listenerTimeEnd;
+
+    public interface TheListenerTimeStart{
+        public void returnTimeStart(String timeStart);
+    }
+
+    public interface TheListenerTimeEnd{
+        public void returnTimeEnd(String timeEnd);
+    }
+
     private int info;
 
     @Override
@@ -27,6 +38,8 @@ public  class TimePickerFragment extends DialogFragment
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
+        listenerTimeStart = (TheListenerTimeStart) getActivity();
+        listenerTimeEnd = (TheListenerTimeEnd) getActivity();
 
         // Create a new instance of TimePickerDialog and return it
         return new TimePickerDialog(getActivity(), this, hour, minute,
@@ -45,14 +58,18 @@ public  class TimePickerFragment extends DialogFragment
         SimpleDateFormat sdf = new SimpleDateFormat("kk:mm:ss");
         String formattedDate = sdf.format(c.getTime());
 
-        Bundle args = new Bundle();
-
         if (info==0){
             ((TextView) getActivity().findViewById(R.id.textTimeStart)).setText("Heure : "+formattedDate);
-            args.putString("hoursStart",formattedDate);
+            if (listenerTimeStart != null)
+            {
+                listenerTimeStart.returnTimeStart(formattedDate);
+            }
         }else if(info==1) {
-            ((TextView) getActivity().findViewById(R.id.textTimeArrival)).setText("Heure : "+formattedDate);
-            args.putString("hoursArrival",formattedDate);
+            ((TextView) getActivity().findViewById(R.id.textTimeArrival)).setText("Heure : " + formattedDate);
+            if (listenerTimeEnd != null)
+            {
+                listenerTimeEnd.returnTimeEnd(formattedDate);
+            }
         }
     }
 }

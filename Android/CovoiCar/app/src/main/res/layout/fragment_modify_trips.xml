@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/startModify">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageStart"
+                android:src="@drawable/ic_start"
+                android:layout_alignParentLeft="true"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:hint="@string/start"
+                android:id="@+id/editStartModify"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageStart"
+                android:layout_toEndOf="@+id/imageStart" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view10"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/startModify"
+            android:layout_centerVertical="true"
+            android:background="#cfcfcf" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/arrivalModify"
+            android:layout_below="@+id/view10">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageArrival"
+                android:src="@drawable/ic_arrival"
+                android:layout_alignParentLeft="true" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/arrival"
+                android:background="#00000000"
+                android:id="@+id/editArrivalModify"
+                android:layout_toRightOf="@+id/imageArrival"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view15"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/arrivalModify"
+            android:layout_centerVertical="true"
+            android:background="#cfcfcf" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/highwayModify"
+            android:layout_below="@+id/view15">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageHighway"
+                android:src="@drawable/ic_logo_highway"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/highway"
+                android:id="@+id/editHighwayModify"
+                android:textSize="17dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageHighway"
+                android:layout_toEndOf="@+id/imageHighway" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/switchHighwayModify"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view11"
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:layout_below="@+id/highwayModify"
+            android:layout_centerVertical="true"
+            android:background="#cfcfcf" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/roundTripModify"
+            android:layout_below="@+id/view11">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageRoundTrip"
+                android:src="@drawable/ic_directions"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/roundTrip"
+                android:id="@+id/editRoundTripModify"
+                android:textSize="17dp"
+                android:layout_toRightOf="@+id/imageRoundTrip"
+                android:layout_centerVertical="true" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/switchRoundTripModify"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+
+        <View
+            android:id="@+id/view12"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/roundTripModify"
+            android:layout_centerVertical="true"
+            android:background="#cfcfcf" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateStartModify"
+            android:layout_below="@+id/view12">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageDateStart"
+                android:src="@drawable/ic_calendar"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dateStart"
+                android:onClick="showDateStartPickerDialog"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageDateStart"
+                android:layout_toEndOf="@+id/imageDateStart"
+                android:id="@+id/textDateStartModify"
+                android:textSize="17sp"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textTimeStartModify"
+                android:text="@string/hoursStart"
+                android:onClick="showTimeStartPickerDialog"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textSize="17dp"
+                android:textColor="@android:color/black"
+                android:paddingRight="10dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view13"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/dateStartModify"
+            android:layout_centerVertical="true"
+            android:background="#cfcfcf" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateArrivalModify"
+            android:layout_below="@+id/view13">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageDateArrival"
+                android:src="@drawable/ic_calendar"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/datesArrival"
+                android:onClick="showDateArrivalPickerDialog"
+                android:textSize="17sp"
+                android:textColor="@android:color/black"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageDateArrival"
+                android:layout_toEndOf="@+id/imageDateArrival"
+                android:id="@+id/textDateArrivalModify" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hoursArrival"
+                android:id="@+id/textTimeArrivalModify"
+                android:onClick="showTimeArrivalPickerDialog"
+                android:textSize="17sp"
+                android:textColor="@android:color/black"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:paddingRight="14dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view14"
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:layout_below="@+id/dateArrivalModify"
+            android:layout_centerVertical="true"
+            android:background="#cfcfcf" />
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/relativePriceModify"
+            android:layout_below="@+id/view14">
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/spinnerPriceModify"/>
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view16"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@+id/relativePriceModify"
+            android:layout_centerVertical="true"
+            android:background="#cfcfcf" />
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/relativePlaceModify"
+            android:layout_below="@+id/view16">
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/spinnerPlaceModify"/>
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view17"
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:layout_below="@+id/relativePlaceModify"
+            android:layout_centerVertical="true"
+            android:background="#cfcfcf" />
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/relativeCommentModify"
+            android:layout_below="@+id/view17">
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/comment"
+                android:id="@+id/editCommentModify"/>
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/modify"
+            android:id="@+id/buttonCreateTripModify"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+
+
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -11,9 +11,11 @@ import com.androidquery.callback.AjaxStatus;
 import com.covoicar.rcdsm.models.Trip;
 import com.covoicar.rcdsm.models.User;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -182,8 +184,47 @@ public class ClientAPI {
         });
     }
 
+    public ArrayList<Trip> takeTravel(final String token,APIListener listener){
+
+        final ArrayList<Trip> listTrip = new ArrayList<Trip>();
+        final APIListener _listener = listener;
+        preferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE);
+        realm = Realm.getInstance(context);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("token", token);
+
+        aq = new AQuery(context);
+        String url = "http://172.31.1.36:8888/covoicar/travel/list";
+        aq.ajax(url,params,JSONObject.class, new AjaxCallback<JSONObject>() {
+
+            @Override
+            public void callback(String url, JSONObject json, AjaxStatus status) {
+                try {
+                    if (json.getString("reponse").equals("success")) {
+                        Toast.makeText(aq.getContext(), json.getString("message"), Toast.LENGTH_LONG).show();
+                        JSONArray jArray  = json.getJSONArray("data");
+                        realm.beginTransaction();
+                        for(int i=0;i<jArray.length();i++)
+                        {
+                            realm.createOrUpdateObjectFromJson(Trip.class, jArray.getJSONObject(i));
+                        }
+                        realm.commitTransaction();
+                    } else {
+                        Toast.makeText(aq.getContext(), json.getString("message"), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                _listener.callback();
+            }
+        });
+        return listTrip;
+    }
+
 
     public interface APIListener{
         public void callback();
     }
 }
+

@@ -9,27 +9,41 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.covoicar.rcdsm.adapter.TripAdapter;
 import com.covoicar.rcdsm.fragment.DatePickerFragment;
+import com.covoicar.rcdsm.fragment.NavigationDrawerFragment;
 import com.covoicar.rcdsm.fragment.SearchFragment;
 import com.covoicar.rcdsm.fragment.TimePickerFragment;
 import com.covoicar.rcdsm.fragment.TripFragment;
 import com.covoicar.rcdsm.manager.TripManager;
 import com.covoicar.rcdsm.models.Trip;
+import com.covoicar.rcdsm.utils.GetDistance;
+
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks,TripFragment.OnCreateTripListener{
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,TripFragment.OnCreateTripListener,DatePickerFragment.TheListenerDateStart,TimePickerFragment.TheListenerTimeStart,DatePickerFragment.TheListenerDateEnd,TimePickerFragment.TheListenerTimeEnd{
 
     private EditText start,arrival,comment;
     private Spinner price,place;
+    private String dateStart;
+    private String dateEnd;
+    private String timeStart;
+    private String timeEnd;
+
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -53,6 +67,7 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
     }
 
     @Override
@@ -138,14 +153,9 @@ public class MainActivity extends ActionBarActivity
         comment = (EditText)findViewById(R.id.editComment);
         price =(Spinner)findViewById(R.id.spinnerPrice);
         place =(Spinner)findViewById(R.id.spinnerPlace);
+
         int intPrice = Integer.parseInt(price.getSelectedItem().toString());
         int intPlace = Integer.parseInt(place.getSelectedItem().toString());
-
-        Bundle args = new Bundle();
-        String dateStart = args.getString("dateStart");
-        String dateArrival = args.getString("dateArrival");
-        String hoursStart = args.getString("hoursStart");
-        String hoursArrival = args.getString("hoursArrival");
 
         TripManager trip = new TripManager(this);
         Trip trip2 = new Trip();
@@ -157,15 +167,31 @@ public class MainActivity extends ActionBarActivity
         trip2.setRoundTrip(roundTrip);
         trip2.setPlace(intPlace);
         trip2.setPrice(intPrice);
-        /*trip2.setDateStart(dateStart);
-        trip2.setDateArrival(dateArrival);
-        trip2.setHoursStart(hoursStart);
-        trip2.setHoursArrival(hoursArrival);*/
+        trip2.setDateStart(dateStart);
+        trip2.setDateArrival(dateEnd);
+        trip2.setHoursStart(timeStart);
+        trip2.setHoursArrival(timeEnd);
         trip2.setComment(comment.getText().toString());
         trip.addTravel(trip2);
 
-        String DateStart = dateArrival+" "+hoursStart;
-        System.out.println("Tien on test : "+DateStart);
+        String duration;
+        String distance;
+
+        GetDistance task = new GetDistance();
+        try {
+            String[] result = task.execute(43.300,5.367,43.600,3.883).get();
+            distance = result[0];
+            duration = result[1];
+            Toast.makeText(this,"DISTANCE : "+distance+" DURATION : "+duration,Toast.LENGTH_SHORT).show();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
+        String DateStart = dateEnd+" "+timeStart;
+        Log.e("TEST DATE & HOUR : ", dateStart + " , " + dateEnd + " , " + timeStart + " , " + timeEnd+" = "+DateStart);
 
        /* ClientAPI.getInstance().addTrip(start.getText().toString(),arrival.getText().toString(),highway,roundTrip,new ClientAPI.APIListener() {
             @Override
@@ -175,10 +201,40 @@ public class MainActivity extends ActionBarActivity
         });*/
     }
 
+    @Override
+    public void returnDateStart(String dateStart) {
+        this.dateStart = dateStart;
+        Log.e("TEST DATE  : ", this.dateStart);
+    }
+
+    @Override
+    public void returnTimeStart(String timeStart) {
+        this.timeStart = timeStart;
+        Log.e("TEST DATE  : ", this.timeStart);
+    }
+
+    @Override
+    public void returnDateEnd(String dateEnd) {
+        this.dateEnd = dateEnd;
+        Log.e("TEST DATE  : ", this.dateEnd);
+    }
+
+    @Override
+    public void returnTimeEnd(String timeEnd) {
+        this.timeEnd = timeEnd;
+        Log.e("TEST DATE  : ", this.timeEnd);
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
+
+        private ArrayList<Trip> trips;
+        private ListView tripList;
+        private TripAdapter adapter;
+        private TripManager trip;
+
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -204,8 +260,32 @@ public class MainActivity extends ActionBarActivity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+            tripList = (ListView)rootView.findViewById(R.id.tripsListView);
+
+            ClientAPI.getInstance().takeTravel("7d0fcac2ad0d2080e56f", new ClientAPI.APIListener() {
+                @Override
+                public void callback() {
+                    trips = new ArrayList<Trip>();
+                    adapter = new TripAdapter(getActivity(), trips);
+                    tripList.setAdapter(adapter);
+                    trips.clear();
+                    trips.addAll(trip.allListTrip());
+                }
+            });
+
+            sendTrip();
             return rootView;
-        }
+    }
+
+    public void sendTrip(){
+        trip = new TripManager(getActivity());
+        trips = new ArrayList<Trip>();
+        adapter = new TripAdapter(getActivity(),trips);
+        tripList.setAdapter(adapter);
+        trips.clear();
+        trips.addAll(trip.allListTrip());
+    }
 
         @Override
         public void onAttach(Activity activity) {
@@ -259,13 +339,4 @@ public class MainActivity extends ActionBarActivity
         newFragment.setArguments(args);
         newFragment.show(ft, "datePicker");
     }
-
-    /*public void switchFragment(TripFragment newFragment, String tag) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.container, newFragment)
-                .addToBackStack(tag)
-                .commit();
-    }*/
-
 }

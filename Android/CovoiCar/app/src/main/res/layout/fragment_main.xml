@@ -7,9 +7,12 @@
     android:id="@+id/fragment_main"
     tools:context=".MainActivity$PlaceholderFragment">
 
-    <TextView android:id="@+id/section_label" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Test"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="8dp"
+        android:divider="@android:color/transparent"
+        android:id="@+id/tripsListView"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"

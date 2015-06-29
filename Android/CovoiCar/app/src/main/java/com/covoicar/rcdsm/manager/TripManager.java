@@ -3,9 +3,14 @@ package com.covoicar.rcdsm.manager;
 import android.content.Context;
 import android.util.Log;
 
+import com.covoicar.rcdsm.covoicar.ClientAPI;
 import com.covoicar.rcdsm.models.Trip;
+import com.covoicar.rcdsm.models.User;
+
+import java.util.ArrayList;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by rcdsm on 25/06/15.
@@ -23,22 +28,20 @@ public class TripManager {
             Log.d("TripManager","Display");
         }
     }
-
-    /*public ArrayList<Trip> allListNote(){
+    public ArrayList<Trip> allListTrip(){
+        User user = User.getInstance();
         ArrayList<Trip> items = new ArrayList<Trip>();
-        RealmResults<Trip> results = realm.where(Trip.class).findAllSorted("created_at",RealmResults.SORT_ORDER_DESCENDING);
+        RealmResults<Trip> results = realm.where(Trip.class).findAll();
         for(Trip travel : results){
             items.add(travel);
         }
-
-        ClientAPI.getInstance().takeTravel(new ClientAPI.APIListener() {
+        ClientAPI.getInstance().takeTravel("7d0fcac2ad0d2080e56f",new ClientAPI.APIListener() {
             @Override
             public void callback() {
             }
         });
-
         return items;
-    }*/
+    }
 
     //Verifie si il y a un resultat dans realm
     public boolean isPopulated(){
