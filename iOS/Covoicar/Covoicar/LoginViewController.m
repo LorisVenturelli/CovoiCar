@@ -59,25 +59,22 @@
         // Si success login
         if([[jsonResponse valueForKey:@"reponse"] isEqualToString:@"success"])
         {
-            UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Bravo !" message:@"Connected BROW !" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alertView show];
-            
             NSDictionary *data = [jsonResponse objectForKey:@"data"];
             
             NSLog(@"data json = %@", data);
             
+            
             User *user = [User userWithId:[[data valueForKey:@"id"] intValue]
-                                   token:[data valueForKey:@"token"]
-                                   email:[data valueForKey:@"email"]
-                               firstName:[data valueForKey:@"firstname"]
-                                lastName:[data valueForKey:@"lastname"]
-                                   phone:[data valueForKey:@"phone"]
-                                     bio:[data valueForKey:@"bio"]
-                                birthday:[data valueForKey:@"birthday"]
-                                  gender:[[data valueForKey:@"gender"] intValue]];
+                                    token:[data valueForKey:@"token"]
+                                    email:[data valueForKey:@"email"]
+                                firstName:[data valueForKey:@"firstname"]
+                                 lastName:[data valueForKey:@"lastname"]
+                                    phone:[data valueForKey:@"phone"]
+                                      bio:[data valueForKey:@"bio"]
+                                 birthday:[data valueForKey:@"birthday"]
+                                   gender:[[data valueForKey:@"gender"] intValue]];
             
             [[UserManager sharedInstance] setUserInstance:user];
-            
             [[TravelManager sharedInstance] refreshTravelsFromApi:^{
                 // Next UIView
                 UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

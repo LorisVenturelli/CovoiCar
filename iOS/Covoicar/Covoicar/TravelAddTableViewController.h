@@ -11,7 +11,7 @@
 #import "UserManager.h"
 #import "TravelManager.h"
 
-@interface TravelAddTableViewController : UITableViewController<UITabBarControllerDelegate,UITabBarDelegate>
+@interface TravelAddTableViewController : UITableViewController <UITabBarControllerDelegate, UITabBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *startField;
 @property (weak, nonatomic) IBOutlet UITextField *arrivalField;
@@ -29,5 +29,7 @@
 - (IBAction)submitTabBarAction:(id)sender;
 
 - (void)addTripAction:(NSNotification *)notification;
+
+-(void)updateTextFieldForDate:(UIDatePicker *)sender;
 
 @end

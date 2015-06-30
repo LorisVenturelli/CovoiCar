@@ -29,5 +29,6 @@
 - (void) refreshTravelsFromApi:(void (^)(void))completionBlock;
 - (void) getDistanceForTheTravel:(Travel*)travel completion:(void (^)(float totalDistance))completionBlock;
 - (void) sendTravelToApiWithParameters:(NSDictionary*)parameters success:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock;
+- (void) searchTravelsWithStart:(NSString*)start arrival:(NSString*)arrival hourStart:(NSDate*)hourStart completion:(void (^)(NSMutableArray* list))completionBlock;
 
 @end

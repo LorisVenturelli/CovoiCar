@@ -32,13 +32,13 @@
 }
 
 
-- (void) setUserInstance:(User *)userInstance{
-    [[UserManager sharedInstance] addOrUpdateUser:userInstance];
+- (void) setUserInstance:(User *)userInstance {
+    [self addOrUpdateUser:userInstance];
     self.idUserInstance = userInstance.id;
 }
 
 - (User*) getUserInstance{
-    return [[UserManager sharedInstance] userWithThisId:self.idUserInstance];
+    return [self userWithThisId:self.idUserInstance];
 }
 
 - (BOOL) userIsInstancied{
@@ -55,8 +55,9 @@
 - (void) addOrUpdateUser:(User*)user {
     
     RLMRealm *realm = [RLMRealm defaultRealm];
+    
     [realm beginWriteTransaction];
-    [User createOrUpdateInDefaultRealmWithObject:user];
+    [realm addOrUpdateObject:user];
     [realm commitWriteTransaction];
     
     _users = [User allObjects];
@@ -115,8 +116,7 @@
 
 - (void) getUserFromApiWithId:(int)identifier completion:(void (^)(void))completionBlock {
     
-    UserManager* usermanager = [UserManager sharedInstance];
-    User* user = [usermanager getUserInstance];
+    User* user = [self getUserInstance];
     
     // HTTP POST
     NSDictionary *parameters = @{@"token":user.token, @"userid":[NSString stringWithFormat:@"%d", identifier]};

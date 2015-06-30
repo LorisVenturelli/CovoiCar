@@ -1,56 +1,53 @@
 //
-//  ListTravelsTableViewController.m
+//  SearchTravelViewController.m
 //  Covoicar
 //
-//  Created by Loris on 29/06/2015.
+//  Created by Loris on 30/06/2015.
 //  Copyright (c) 2015 Loris Venturelli. All rights reserved.
 //
 
-#import "ListTravelsTableViewController.h"
+#import "SearchTravelViewController.h"
 
-@interface ListTravelsTableViewController ()
+@interface SearchTravelViewController ()
 
 @end
 
-@implementation ListTravelsTableViewController
+@implementation SearchTravelViewController {
+    NSMutableArray* _travels;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if(_travels == nil)
+        _travels = [[NSMutableArray alloc] init];
+    
     self.tableView.dataSource = self;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor grayColor];
-    self.refreshControl.tintColor = [UIColor whiteColor];
-    [self.refreshControl addTarget:self action:@selector(refreshTableView) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:self.refreshControl];
-    
-    [self refreshTableView];
-}
-
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+    UIDatePicker *datePicker = [[UIDatePicker alloc] init];
+    datePicker.datePickerMode = UIDatePickerModeDateAndTime;
+    [datePicker addTarget:self action:@selector(updateTextFieldForDate:)
+         forControlEvents:UIControlEventValueChanged];
+    [self.hourStartField setInputView:datePicker];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[TravelManager sharedInstance] count];
+    return _travels.count;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     TravelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TravelCell" forIndexPath:indexPath];
     
-    Travel* travel = [[TravelManager sharedInstance] travelAtIndex:(int)indexPath.row];
+    Travel* travel = [_travels objectAtIndex:indexPath.row];
     
     NSDate *date = travel.hourStart;
     NSDateFormatter *heureFormat = [[NSDateFormatter alloc] init];
@@ -82,27 +79,43 @@
     return cell;
 }
 
-- (void)refreshTableView
-{
-    self.tableView.scrollEnabled = NO;
+- (IBAction)submitAction:(id)sender {
     
-    if(self.refreshControl){
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"d MMM, HH:mm"];
-        NSString *title = [NSString stringWithFormat:@"Dernière mise à jour: %@", [formatter stringFromDate:[NSDate date]]];
-        NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor]
-                                                                    forKey:NSForegroundColorAttributeName];
-        NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
-        self.refreshControl.attributedTitle = attributedTitle;
-    }
+    [self.view endEditing:YES];
     
-    [[TravelManager sharedInstance] refreshTravelsFromApi:^{
-        [self.tableView reloadData];
-        [self.refreshControl endRefreshing];
-        self.tableView.scrollEnabled = YES;
+    // Conversion string to date format
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"dd/MM/yyyy HH:mm"];
+    NSDate* hourStartDate = [dateFormat dateFromString:self.hourStartField.text];
+    
+    [[TravelManager sharedInstance] searchTravelsWithStart:self.startField.text arrival:self.arrivalField.text hourStart:hourStartDate completion:^(NSMutableArray *list) {
+        
+        _travels = list;
+        
+        [self refreshTableView];
     }];
     
 }
 
+-(void)updateTextFieldForDate:(UIDatePicker *)sender
+{
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"dd/MM/yyyy HH:mm"];
+    
+    if ([self.hourStartField isFirstResponder])
+    {
+        self.hourStartField.text = [dateFormat stringFromDate:sender.date];
+    }
+}
+
+- (void)refreshTableView
+{
+    self.tableView.scrollEnabled = NO;
+    
+    [self.tableView reloadData];
+    
+    self.tableView.scrollEnabled = YES;
+    
+}
 
 @end

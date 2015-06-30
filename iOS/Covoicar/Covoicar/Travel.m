@@ -14,7 +14,7 @@
     return @"id";
 }
 
-- (instancetype) initWithId:(int)id driver:(User*)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place comment:(NSString *)comment
+- (instancetype) initWithId:(int)id driver:(NSInteger)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place comment:(NSString *)comment
 {
     self = [super init];
     if (self != nil) {
@@ -37,7 +37,7 @@
     return self;
 }
 
-+ (Travel*) travelWithId:(int)id driver:(User*)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place comment:(NSString *)comment {
++ (Travel*) travelWithId:(int)id driver:(NSInteger)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place comment:(NSString *)comment {
     
     return [[Travel alloc] initWithId:id driver:driver start:start arrival:arrival highway:highway hourStart:hourStart price:price place:place comment:comment];
 }

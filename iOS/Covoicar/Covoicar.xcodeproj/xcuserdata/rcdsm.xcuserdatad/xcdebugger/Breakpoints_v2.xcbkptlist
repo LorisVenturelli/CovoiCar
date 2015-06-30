@@ -6,32 +6,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Covoicar/UserManager.m"
-            timestampString = "457341887.444617"
+            filePath = "Covoicar/TravelAddTableViewController.m"
+            timestampString = "457368843.570976"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "-userWithThisId:"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "-addTripAction:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Covoicar/UserManager.m"
-            timestampString = "457341905.539159"
+            filePath = "Covoicar/TravelManager.m"
+            timestampString = "457370326.591459"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "-userWithThisId:"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
+            landmarkName = "-searchTravelsWithStart:arrival:hourStart:completion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

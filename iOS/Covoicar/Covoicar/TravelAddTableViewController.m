@@ -20,6 +20,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addTripAction:) name:@"addTripAction" object:nil];
     
     self.navigationItem.title = @"Proposer un trajet";
+    
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+    
+    
+    UIDatePicker *datePicker = [[UIDatePicker alloc] init];
+    datePicker.datePickerMode = UIDatePickerModeDateAndTime;
+    [datePicker addTarget:self action:@selector(updateTextFieldForDate:)
+         forControlEvents:UIControlEventValueChanged];
+    [self.hourStartField setInputView:datePicker];
+    [self.roundTripField setInputView:datePicker];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,6 +53,22 @@
     [self addTripAction:nil];
 }
 
+
+-(void)updateTextFieldForDate:(UIDatePicker *)sender
+{
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"dd/MM/yyyy HH:mm"];
+    
+    if ([self.hourStartField isFirstResponder])
+    {
+        self.hourStartField.text = [dateFormat stringFromDate:sender.date];
+    }
+    else if ([self.roundTripField isFirstResponder])
+    {
+        self.roundTripField.text = [dateFormat stringFromDate:sender.date];
+    }
+}
+
 - (void)addTripAction:(NSNotification *)notification{
     
     User* user = [[UserManager sharedInstance] getUserInstance];
@@ -51,12 +78,24 @@
     if(self.highwaySwitch.isOn)
         highway = @"1";
     
+    // Conversion string to date format
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"dd/MM/yyyy HH:mm"];
+    NSDate* hourStartDate = [dateFormat dateFromString:self.hourStartField.text];
+    NSDate* roundTripDate = [dateFormat dateFromString:self.roundTripField.text];
+    
+    // Conversion date to string with other format for API
+    NSDateFormatter *otherDateFormat = [[NSDateFormatter alloc] init];
+    [otherDateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString* hourStart = [otherDateFormat stringFromDate:hourStartDate];
+    NSString* roundTrip = [otherDateFormat stringFromDate:roundTripDate];
+    
     NSDictionary *parameters = @{@"token":user.token,
                                  @"start":self.startField.text,
                                  @"arrival":self.arrivalField.text,
                                  @"highway":highway,
-                                 @"hourStart":self.hourStartField.text,
-                                 @"roundTrip":self.roundTripField.text,
+                                 @"hourStart":hourStart,
+                                 @"roundTrip":roundTrip,
                                  @"price":self.priceField.text,
                                  @"place":self.placeField.text,
                                  @"comment":self.commentField.text};
@@ -81,29 +120,6 @@
     [alertView show];
 }
 
--(IBAction)datePickerBtnAction:(id)sender
-{
-    UIDatePicker *datePicker = (UIDatePicker *) sender;
-    datePicker =[[UIDatePicker alloc]initWithFrame:CGRectMake(0, 0,10, 50)];
-    datePicker.datePickerMode=UIDatePickerModeDate;
-    datePicker.hidden=NO;
-    datePicker.date=[NSDate date];
-    [datePicker addTarget:self action:@selector(LabelTitle:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:datePicker];
-    
-    UIBarButtonItem* rightBtn = [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(save:)];
-    
-    self.navigationItem.rightBarButtonItem=rightBtn;
-}
--(void)LabelTitle:(id)sender
-{
-    NSLog(@"label title");
-}
-
--(void)save:(id)sender
-{
-    NSLog(@"Save");
-}
 
 
 

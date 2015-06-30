@@ -14,7 +14,7 @@
 
 @property int id;
 
-@property User* driver;
+@property NSInteger driver;
 @property NSString* start;
 @property NSString* arrival;
 @property float distanceMeter;
@@ -25,8 +25,8 @@
 @property NSInteger place;
 @property NSString* comment;
 
-+ (Travel*) travelWithId:(int)id driver:(User*)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place comment:(NSString *)comment;
++ (Travel*) travelWithId:(int)id driver:(NSInteger)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place comment:(NSString *)comment;
 
-- (instancetype) initWithId:(int)id driver:(User*)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place comment:(NSString *)comment;
+- (instancetype) initWithId:(int)id driver:(NSInteger)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place comment:(NSString *)comment;
 
 @end
