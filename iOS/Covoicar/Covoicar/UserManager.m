@@ -33,7 +33,7 @@
 
 
 - (void) setUserInstance:(User *)userInstance{
-    [[UserManager sharedInstance] addUser:userInstance];
+    [[UserManager sharedInstance] addOrUpdateUser:userInstance];
     self.idUserInstance = userInstance.id;
 }
 
@@ -52,17 +52,14 @@
     return ret;
 }
 
-- (void) addUser:(User*)user {
+- (void) addOrUpdateUser:(User*)user {
     
-    if([self userExistWithThisId:user.id] == false){
-        RLMRealm *realm = [RLMRealm defaultRealm];
-        [realm beginWriteTransaction];
-        [realm addObject:user];
-        [realm commitWriteTransaction];
-        
-        _users = [User allObjects];
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    [realm beginWriteTransaction];
+    [User createOrUpdateInDefaultRealmWithObject:user];
+    [realm commitWriteTransaction];
     
-    }
+    _users = [User allObjects];
     
 }
 
@@ -114,6 +111,51 @@
     }
     
     return nil;
+}
+
+- (void) getUserFromApiWithId:(int)identifier completion:(void (^)(void))completionBlock {
+    
+    UserManager* usermanager = [UserManager sharedInstance];
+    User* user = [usermanager getUserInstance];
+    
+    // HTTP POST
+    NSDictionary *parameters = @{@"token":user.token, @"userid":[NSString stringWithFormat:@"%d", identifier]};
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager POST:@"http://172.31.1.36:8888/covoicar/user/getbyid" parameters:parameters success:^(AFHTTPRequestOperation *operation, id jsonResponse) {
+        
+        NSArray *dataUser = [jsonResponse objectForKey:@"data"];
+        
+        // Si success login
+        if([[jsonResponse valueForKey:@"reponse"] isEqualToString:@"success"])
+        {
+            int gender = 1;
+            if([[dataUser valueForKey:@"gender"] isEqualToString:@"0"])
+                gender = 0;
+            
+            User* newUser = [User userWithId:identifier
+                                    token:[dataUser valueForKey:@"token"]
+                                    email:[dataUser valueForKey:@"email"]
+                                firstName:[dataUser valueForKey:@"firstname"]
+                                 lastName:[dataUser valueForKey:@"lastname"]
+                                    phone:[dataUser valueForKey:@"phone"]
+                                      bio:[dataUser valueForKey:@"bio"]
+                                 birthday:[dataUser valueForKey:@"birthday"]
+                                   gender:gender];
+            
+            [self addOrUpdateUser:newUser];
+            
+            completionBlock();
+            
+        }
+        else{
+            NSLog(@"getuserbyid from api error = %@", jsonResponse);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"getuserbyid from api timeout = %@", error);
+    }];
+    
 }
 
 @end

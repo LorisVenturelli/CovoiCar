@@ -38,9 +38,6 @@
 }
 
 - (IBAction)submitAction:(id)sender {
-    
-    NSLog(@"submit register click");
-    
     [self submitRegister:nil];
 }
 

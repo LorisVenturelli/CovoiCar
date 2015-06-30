@@ -7,6 +7,7 @@
 //
 
 #import "UserManager.h"
+#import "TravelManager.h"
 #import "AFNetworking.h"
 
 @interface LoginViewController : UIViewController
@@ -17,5 +18,6 @@
 @property (strong, nonatomic) UIViewController *viewController;
 
 - (IBAction)connexionAction:(id)sender;
+- (IBAction)superLoginAction:(id)sender;
 
 @end

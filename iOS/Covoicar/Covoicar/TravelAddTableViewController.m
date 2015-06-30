@@ -63,33 +63,17 @@
     
     NSLog(@"register action void : %@", parameters);
     
-    // HTTP POST
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:@"http://172.31.1.36:8888/covoicar/trip/add" parameters:parameters success:^(AFHTTPRequestOperation *operation, id jsonResponse) {
-        
-        // Si success login
-        if([[jsonResponse valueForKey:@"reponse"] isEqualToString:@"success"])
-        {
-            UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Bravo !" message:[jsonResponse valueForKey:@"message"] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-            [alertView show];
-            
-            /*// Next UIView
-            UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            UIViewController* arrivee = [storyboard instantiateViewControllerWithIdentifier:@"home"];
-            
-            // Transition UIView
-            arrivee.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-            [self presentViewController:arrivee animated:YES completion:nil];*/
-        }
-        else{
-            // Error login
-            [self ShowAlertErrorWithMessage:[jsonResponse valueForKey:@"message"]];
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    [[TravelManager sharedInstance] sendTravelToApiWithParameters:parameters success:^(NSDictionary* responseJson) {
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Bravo !" message:[responseJson valueForKey:@"message"] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alertView show];
+    } error:^(NSDictionary* responseJson) {
+        // Error login
+        [self ShowAlertErrorWithMessage:[responseJson valueForKey:@"message"]];
+    } failure:^(NSError *error) {
         [self ShowAlertErrorWithMessage:@"Connexion échouée au serveur."];
     }];
-
+    
+    
 }
 
 - (void)ShowAlertErrorWithMessage:(NSString *)message {

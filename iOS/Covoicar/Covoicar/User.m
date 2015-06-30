@@ -10,6 +10,10 @@
 
 @implementation User
 
++ (NSString*)primaryKey {
+    return @"id";
+}
+
 - (instancetype) initWithId:(int)id
                       token:(NSString *)token
                       email:(NSString *)email
@@ -54,3 +58,4 @@
 
 
 @end
+RLM_ARRAY_TYPE(User)

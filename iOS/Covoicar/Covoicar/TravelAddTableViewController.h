@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AFNetworking.h"
 #import "UserManager.h"
+#import "TravelManager.h"
 
 @interface TravelAddTableViewController : UITableViewController<UITabBarControllerDelegate,UITabBarDelegate>
 

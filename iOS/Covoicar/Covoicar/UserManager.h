@@ -8,23 +8,26 @@
 
 #import <Foundation/Foundation.h>
 #import <Realm/Realm.h>
+#import "AFNetworking.h"
 #import "User.h"
 
 @interface UserManager : NSObject
 
 @property int idUserInstance;
 
++ (UserManager*) sharedInstance;
+
 - (void) setUserInstance:(User *)userInstance;
 - (User*) getUserInstance;
 - (BOOL) userIsInstancied;
 
-+ (UserManager*) sharedInstance;
-
-- (void) addUser:(User*)user;
+- (void) addOrUpdateUser:(User*)user;
 - (void) removeUser:(User*)user;
 
 - (NSUInteger) count;
 - (User*) userAtIndex:(int)index;
-
+- (BOOL) userExistWithThisId:(int)identifier;
+- (User*) userWithThisId:(int)identifier;
+- (void) getUserFromApiWithId:(int)identifier completion:(void (^)(void))completionBlock;
 
 @end
