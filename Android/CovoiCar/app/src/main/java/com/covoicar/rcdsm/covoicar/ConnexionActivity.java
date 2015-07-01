@@ -20,6 +20,7 @@ import com.androidquery.AQuery;
 import com.covoicar.rcdsm.fragment.ConnexionFragment;
 import com.covoicar.rcdsm.fragment.LoginFragment;
 import com.covoicar.rcdsm.fragment.RegisterFragment;
+import com.covoicar.rcdsm.models.User;
 
 public class ConnexionActivity extends ActionBarActivity implements ConnexionFragment.OnRegisterClickListener,ConnexionFragment.OnConnexionClickListener,RegisterFragment.OnFirstConnexionClickListener,LoginFragment.OnLoginClickListener,LoginFragment.OnRegisterPageClickListener {
 
@@ -38,13 +39,20 @@ public class ConnexionActivity extends ActionBarActivity implements ConnexionFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
 
-        ClientAPI.createInstance(getApplicationContext());
+        ClientApi.createInstance(getApplicationContext());
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("Login", Context.MODE_PRIVATE);
 
         if(preferences.contains("Token")){
-            Intent intent = new Intent(ConnexionActivity.this,MainActivity.class);
-            startActivity(intent);
-            finish();
+            User user = User.getInstance();
+            user.setToken(preferences.getString("Token", "error"));
+            ClientApi.getInstance().infoUser(user.getToken().toString(), new ClientApi.APIListener() {
+                @Override
+                public void callback() {
+                    Intent intent = new Intent(ConnexionActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
         }
 
         FragmentManager fragmentManager = getFragmentManager();
@@ -95,7 +103,7 @@ public class ConnexionActivity extends ActionBarActivity implements ConnexionFra
         Log.e("Text Spinner Birthday"," : "+textBirthday);
         Log.e("Text Spinner Gender", " : " + textGender);
 
-        ClientAPI.getInstance().subscrib(newEmail.getText().toString(), newPassword.getText().toString(), confirmationPassword.getText().toString(), lastName.getText().toString(), firstName.getText().toString(), intGender, textBirthday, new ClientAPI.APIListener() {
+        ClientApi.getInstance().subscrib(newEmail.getText().toString(), newPassword.getText().toString(), confirmationPassword.getText().toString(), lastName.getText().toString(), firstName.getText().toString(), intGender, textBirthday, new ClientApi.APIListener() {
             @Override
             public void callback() {
                 Intent intent = new Intent(ConnexionActivity.this, MainActivity.class);
@@ -138,7 +146,7 @@ public class ConnexionActivity extends ActionBarActivity implements ConnexionFra
         email = (EditText)findViewById(R.id.emailLogin);
         password = (EditText)findViewById(R.id.passwordLogin);
 
-        ClientAPI.getInstance().connect(email.getText().toString(), password.getText().toString(), new ClientAPI.APIListener() {
+        ClientApi.getInstance().connect(email.getText().toString(), password.getText().toString(), new ClientApi.APIListener() {
             @Override
             public void callback() {
                 Intent intent = new Intent(ConnexionActivity.this, MainActivity.class);

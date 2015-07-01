@@ -2,17 +2,19 @@ package com.covoicar.rcdsm.models;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.RealmClass;
 
 /**
  * Created by rcdsm on 25/06/15.
  */
+@RealmClass
 public class Trip extends RealmObject  {
 
     @PrimaryKey
     private long     id;
 
     private String start;
-    private User driver;
+    private int idDriver;
     private String arrival;
     private String highway;
     private String roundTrip;
@@ -23,6 +25,60 @@ public class Trip extends RealmObject  {
     private int price;
     private int place;
     private String comment;
+    private String distance;
+    private String duration;
+    private String dateTimeStart;
+    private String dateTimeReturn;
+    private int placeAvailable;
+    private User driver;
+
+    public int getPlaceAvailable() {
+        return placeAvailable;
+    }
+
+    public void setPlaceAvailable(int placeAvailable) {
+        this.placeAvailable = placeAvailable;
+    }
+
+    public int getIdDriver() {
+        return idDriver;
+    }
+
+    public void setIdDriver(int idDriver) {
+        this.idDriver = idDriver;
+    }
+
+    public String getDateTimeReturn() {
+        return dateTimeReturn;
+    }
+
+    public void setDateTimeReturn(String dateTimeReturn) {
+        this.dateTimeReturn = dateTimeReturn;
+    }
+
+    public String getDateTimeStart() {
+        return dateTimeStart;
+    }
+
+    public void setDateTimeStart(String dateTimeStart) {
+        this.dateTimeStart = dateTimeStart;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
 
     public long getId() {
         return id;
@@ -47,15 +103,6 @@ public class Trip extends RealmObject  {
     public void setArrival(String arrival) {
         this.arrival = arrival;
     }
-
-    public User getDriver() {
-        return driver;
-    }
-
-    public void setDriver(User driver) {
-        this.driver = driver;
-    }
-
     public String getHighway() {
         return highway;
     }
@@ -125,6 +172,21 @@ public class Trip extends RealmObject  {
 
     public void setDateArrival(String dateArrival) {
         this.dateArrival = dateArrival;
+    }
+
+        public User getDriver() {
+            return driver;
+        }
+
+       public void setDriver(User driver) {
+        driver.setBirthday(driver.getBirthday());
+        driver.setBio(driver.getBio());
+        driver.setId(driver.getId());
+        driver.setPhone(driver.getPhone());
+        driver.setEmail(driver.getEmail());
+        driver.setFirstName(driver.getFirstName());
+        driver.setLastName(driver.getLastName());
+        driver.setGender(driver.getGender());
     }
 
 }

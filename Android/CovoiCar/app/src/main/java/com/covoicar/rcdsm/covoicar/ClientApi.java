@@ -8,40 +8,42 @@ import android.widget.Toast;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.covoicar.rcdsm.manager.TripManager;
 import com.covoicar.rcdsm.models.Trip;
 import com.covoicar.rcdsm.models.User;
+import com.covoicar.rcdsm.utils.GetDistance;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import io.realm.Realm;
 
 /**
  * Created by rcdsm on 23/06/15.
  */
-public class ClientAPI {
+public class ClientApi {
 
     private Context context;
     private AQuery aq;
     protected Realm realm;
-    private static ClientAPI instance;
+    private static ClientApi instance;
     private SharedPreferences.Editor editor;
     private SharedPreferences preferences;
 
     public static void createInstance(Context context){
-        instance = new ClientAPI(context);
+        instance = new ClientApi(context);
     }
 
-    public static ClientAPI getInstance(){
+    public static ClientApi getInstance(){
         return instance;
     }
 
-    public ClientAPI(Context appContext){
+    public ClientApi(Context appContext){
         this.context = appContext;
     }
 
@@ -54,7 +56,7 @@ public class ClientAPI {
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("password", password);
-        params.put("email",email);
+        params.put("email", email);
 
 
         String url = "http://172.31.1.36:8888/covoicar/user/connect";
@@ -72,7 +74,7 @@ public class ClientAPI {
                             user.setId(json.getJSONObject("data").getLong("id"));
                             user.setToken(json.getJSONObject("data").getString("token"));
                             user.setEmail(json.getJSONObject("data").getString("email"));
-                            user.setFirtname(json.getJSONObject("data").getString("firstname"));
+                            user.setFirstName(json.getJSONObject("data").getString("firstname"));
                             user.setLastName(json.getJSONObject("data").getString("lastname"));
                             user.setPhone(json.getJSONObject("data").getString("phone"));
                             user.setBio(json.getJSONObject("data").getString("bio"));
@@ -142,19 +144,22 @@ public class ClientAPI {
         });
     }
 
-    public void addTrip(final String start,final String arrival, final String highway, final String hoursStart, final int price, final int place, final String comment,APIListener listener){
+    public void addTrip(final Trip trip, APIListener listener){
 
         preferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE);
         final APIListener _listener = listener;
+        realm = Realm.getInstance(context);
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("start", start);
-        params.put("arrival",arrival);
-        params.put("highway", highway);
-        params.put("hoursStart", hoursStart);
-        params.put("price", String.valueOf(price));
-        params.put("place", String.valueOf(place));
-        params.put("comment", comment);
+        params.put("start", trip.getStart());
+        params.put("arrival",trip.getArrival());
+        params.put("token",User.getInstance().getToken());
+        params.put("highway", trip.getHighway());
+        params.put("hourStart", trip.getDateTimeStart());
+        params.put("price", String.valueOf(trip.getPrice()));
+        params.put("place", String.valueOf(trip.getPlace()));
+        params.put("comment", trip.getComment());
+        params.put("roundTrip", trip.getDateTimeReturn());
 
         Log.e("Info dans params", " : " + params);
 
@@ -166,16 +171,10 @@ public class ClientAPI {
             public void callback(String url, JSONObject json, AjaxStatus status) {
                 try {
                     if (json.getString("reponse").equals("success")) {
-                        Log.e("TAG", "Add new note : ");
-                        Trip trip = new Trip();
-                        trip.setStart(start);
-                        trip.setArrival(arrival);
-                        trip.setHighway(highway);
-                        trip.setHoursArrival(hoursStart);
-                        trip.setPrice(price);
-                        trip.setPlace(place);
-                        trip.setComment(comment);
+                        Toast.makeText(aq.getContext(), json.getString("message"), Toast.LENGTH_SHORT).show();
                         _listener.callback();
+                    } else {
+                        Toast.makeText(aq.getContext(), json.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -184,9 +183,8 @@ public class ClientAPI {
         });
     }
 
-    public ArrayList<Trip> takeTravel(final String token,APIListener listener){
+    public void takeTravel(final String token,APIListener listener){
 
-        final ArrayList<Trip> listTrip = new ArrayList<Trip>();
         final APIListener _listener = listener;
         preferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE);
         realm = Realm.getInstance(context);
@@ -202,16 +200,46 @@ public class ClientAPI {
             public void callback(String url, JSONObject json, AjaxStatus status) {
                 try {
                     if (json.getString("reponse").equals("success")) {
-                        Toast.makeText(aq.getContext(), json.getString("message"), Toast.LENGTH_LONG).show();
+                        Toast.makeText(aq.getContext(), json.getString("message"), Toast.LENGTH_SHORT).show();
                         JSONArray jArray  = json.getJSONArray("data");
+
                         realm.beginTransaction();
+
                         for(int i=0;i<jArray.length();i++)
                         {
-                            realm.createOrUpdateObjectFromJson(Trip.class, jArray.getJSONObject(i));
+                            JSONObject obj = jArray.getJSONObject(i);
+                            final Trip trip = new Trip();
+                            trip.setStart(obj.getString("start"));
+                            trip.setArrival(obj.getString("arrival"));
+                            trip.setIdDriver(obj.getInt("driver"));
+                            trip.setComment(obj.getString("comment"));
+                            trip.setDateTimeStart(obj.getString("hourStart"));
+                            trip.setHighway(obj.getString("highway"));
+                            trip.setId(obj.getLong("id"));
+                            trip.setPlace(obj.getInt("place"));
+                            trip.setPrice(obj.getInt("price"));
+                            trip.setPlaceAvailable(obj.getInt("placeAvailable"));
+
+                            try{
+                                realm.copyToRealm(trip);
+                            }catch (Exception e){
+                                Log.e("Realm Error", "error"+e);
+                            } finally {
+                                realm.commitTransaction();
+                            }
+
+                           /* trip.setIdDriver(new User());
+                            getIdDriver(User.getInstance().getToken(), trip, obj.getString("driver"), new ClientApi.APIListener() {
+                                @Override
+                                public void callback() {
+
+
+                                }
+                            });*/
                         }
-                        realm.commitTransaction();
+
                     } else {
-                        Toast.makeText(aq.getContext(), json.getString("message"), Toast.LENGTH_LONG).show();
+                        Toast.makeText(aq.getContext(), json.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -219,8 +247,172 @@ public class ClientAPI {
                 _listener.callback();
             }
         });
-        return listTrip;
     }
+
+    public void infoUser(final String token,APIListener listener){
+
+        preferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE);
+        final APIListener _listener = listener;
+        aq = new AQuery(context);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("token", token);
+
+
+        String url = "http://172.31.1.36:8888/covoicar/user/info";
+        aq.ajax(url, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+
+            @Override
+            public void callback(String url, JSONObject json, AjaxStatus status) {
+
+                if (json != null) {
+                    User user = User.getInstance();
+                    try {
+                        if (json.getString("reponse").equals("success")) {
+
+                            user.setId(json.getJSONObject("data").getLong("id"));
+                            user.setEmail(json.getJSONObject("data").getString("email"));
+                            user.setFirstName(json.getJSONObject("data").getString("firstname"));
+                            user.setLastName(json.getJSONObject("data").getString("lastname"));
+                            user.setPhone(json.getJSONObject("data").getString("phone"));
+                            user.setBio(json.getJSONObject("data").getString("bio"));
+                            user.setBirthday(json.getJSONObject("data").getString("birthday"));
+                            user.setGender(json.getJSONObject("data").getString("gender"));
+
+                            Log.i("Token", user.getToken());
+                            _listener.callback();
+                        } else {
+                            Toast.makeText(aq.getContext(), json.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    //ajax error, show error code
+                    Toast.makeText(aq.getContext(), "Error:" + status.getCode(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void getDriver(final String token,final Trip trip,final String id,APIListener listener){
+
+        preferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE);
+
+        final APIListener _listener = listener;
+        aq = new AQuery(context);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("token", token);
+        params.put("userid", id);
+
+
+        String url = "http://172.31.1.36:8888/covoicar/user/getbyid";
+        aq.ajax(url, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+
+            @Override
+            public void callback(String url, JSONObject json, AjaxStatus status) {
+                User driver = new User();
+                if (json != null) {
+                    try {
+                        if (json.getString("reponse").equals("success")) {
+                          //  Toast.makeText(aq.getContext(), json.getString("message"), Toast.LENGTH_SHORT).show();
+                            driver.setId(json.getJSONObject("data").getInt("id"));
+                            driver.setEmail(json.getJSONObject("data").getString("email"));
+                            driver.setLastName(json.getJSONObject("data").getString("lastname"));
+                            driver.setFirstName(json.getJSONObject("data").getString("firstname"));
+                            driver.setGender(json.getJSONObject("data").getString("gender"));
+                            driver.setPhone(json.getJSONObject("data").getString("phone"));
+                            driver.setBio(json.getJSONObject("data").getString("bio"));
+                            driver.setBirthday(json.getJSONObject("data").getString("birthday"));
+
+                             trip.setDriver(driver);
+                            _listener.callback();
+                        } else {
+                            Toast.makeText(aq.getContext(), json.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    //ajax error, show error code
+                    Toast.makeText(aq.getContext(), "Error:" + status.getCode(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    public void getCoordinate(final Trip trip, APIListener listener){
+
+        preferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE);
+
+        final APIListener _listener = listener;
+        aq = new AQuery(context);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("token", User.getInstance().getToken());
+        params.put("start", trip.getStart());
+        params.put("arrival", trip.getArrival());
+
+
+        String url = "http://172.31.1.36:8888/covoicar/coordinate";
+        aq.ajax(url, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+
+            @Override
+            public void callback(String url, JSONObject json, AjaxStatus status) {
+                if (json != null) {
+                    try {
+                        if (json.getString("reponse").equals("success")) {
+                            Toast.makeText(aq.getContext(), json.getString("message"), Toast.LENGTH_SHORT).show();
+                            final GetDistance task = new GetDistance();
+                            try {
+                                JSONObject date = json.getJSONObject("data");
+                                JSONObject start = date.getJSONObject("start");
+                                JSONObject arrival = date.getJSONObject("arrival");
+
+                                double latitudeStart = Double.parseDouble(start.getString("latitude"));
+                                double longitureStart = Double.parseDouble(start.getString("longitude"));
+                                double latitudeEnd = Double.parseDouble(arrival.getString("latitude"));
+                                double longitudeEnd = Double.parseDouble(arrival.getString("longitude"));
+
+                                String[] result = task.execute(latitudeStart, longitureStart, latitudeEnd, longitudeEnd).get();
+                                String distance = result[0];
+                                String duration = result[1];
+
+                                trip.setDistance(distance);
+                                trip.setDuration(duration);
+
+                                TripManager tripManager = new TripManager(context);
+                                tripManager.addInfoDistDur(trip);
+
+                                Toast.makeText(aq.getContext(),"DISTANCE : "+distance+" Duration : "+duration , Toast.LENGTH_SHORT).show();
+
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            }
+
+                            _listener.callback();
+
+                        } else {
+                            Toast.makeText(aq.getContext(), json.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    //ajax error, show error code
+                    Toast.makeText(aq.getContext(), "Error:" + status.getCode(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+
 
 
     public interface APIListener{

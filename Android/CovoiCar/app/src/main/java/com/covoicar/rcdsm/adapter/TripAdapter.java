@@ -1,6 +1,8 @@
 package com.covoicar.rcdsm.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,13 @@ import android.widget.TextView;
 import com.covoicar.rcdsm.covoicar.R;
 import com.covoicar.rcdsm.models.Trip;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
 
 /**
  * Created by rcdsm on 25/06/15.
@@ -53,6 +61,7 @@ public class TripAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.date = (TextView)convertView.findViewById(R.id.dayInfo);
             holder.hours = (TextView)convertView.findViewById(R.id.hourInfo);
+            holder.price = (TextView)convertView.findViewById(R.id.priceInfo);
             holder.startTravel = (TextView) convertView.findViewById(R.id.startTravel);
             holder.arrivalTravel = (TextView) convertView.findViewById(R.id.arrivalTravel);
             holder.infoPlace = (TextView)convertView.findViewById(R.id.infoPlace);
@@ -62,12 +71,66 @@ public class TripAdapter extends BaseAdapter {
         else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.date.setText(trips.get(position).getDateStart());
-        holder.hours.setText(trips.get(position).getHoursStart());
-        holder.startTravel.setText(trips.get(position).getStart());
-        holder.arrivalTravel.setText(trips.get(position).getArrival());
-//        holder.infoPlace.setText(trips.get(position).getPlace());
 
+        try{
+
+            Trip currentTrip = trips.get(position);
+
+            holder.startTravel.setText(currentTrip.getStart());
+            holder.arrivalTravel.setText(currentTrip.getArrival());
+            holder.price.setText(String.valueOf(currentTrip.getPrice()+"€"));
+            holder.price.setTextColor(Color.rgb(0, 200, 0));
+            holder.infoPlace.setText(String.valueOf(currentTrip.getPlace()));
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+            Calendar c = Calendar.getInstance();
+            System.out.println("Current time => " + c.getTime());
+            String formattedDate = formatter.format(c.getTime());
+            Date date2 = formatter.parse(formattedDate);
+
+            String dateInString = currentTrip.getDateTimeStart();
+            Date date1 = null;
+            String dateInfo = null;
+            String timeInfo = null;
+
+            try {
+                StringTokenizer date = new StringTokenizer(dateInString, " ");
+                 dateInfo = date.nextToken();
+                 timeInfo = date.nextToken();
+            }catch (NoSuchElementException e){
+                Log.e("INFO ERROR", ""+trips);
+                Log.e("INFO ERROR POSITION", ""+position);
+                Log.e("ERROR ", " ERROR "+currentTrip);
+            }
+
+            if(dateInfo!=null){
+                 date1  = formatter.parse(dateInfo);
+
+                if (date1.compareTo(date2)<0)
+                {
+                    holder.date.setText("Demain");
+
+                }else if(date1.equals(date2)){
+                    holder.date.setText("Aujourd'hui");
+                }else{
+                    holder.date.setText(dateInString);
+                }
+            }
+
+            if(timeInfo != null) {
+                StringTokenizer time = new StringTokenizer(timeInfo, ":");
+                String hourInfo = time.nextToken();
+                String minuteInfo = time.nextToken();
+                String test = hourInfo + ":" + minuteInfo;
+                holder.hours.setText(test);
+            }else {
+                Log.e("ERROR 2 ", " ERROR 2");
+            }
+
+        }catch (ParseException e1){
+            e1.printStackTrace();
+        }
         return convertView;
     }
 
@@ -77,7 +140,7 @@ public class TripAdapter extends BaseAdapter {
         public TextView startTravel;
         public TextView arrivalTravel;
         public TextView infoPlace;
+        public TextView price;
         public ImageView more;
-
     }
 }

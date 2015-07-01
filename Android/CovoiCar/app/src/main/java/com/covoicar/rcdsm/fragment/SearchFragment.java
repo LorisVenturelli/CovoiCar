@@ -11,7 +11,7 @@ import com.covoicar.rcdsm.covoicar.R;
 /**
  * Created by rcdsm on 25/06/15.
  */
-public class SearchFragment   extends Fragment {
+public class SearchFragment extends Fragment {
 
 
     @Override

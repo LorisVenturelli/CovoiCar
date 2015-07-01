@@ -5,10 +5,10 @@ import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.RealmClass;
 
 /**
- * Created by rcdsm on 23/06/15.
+ * Created by rcdsm on 29/06/15.
  */
 @RealmClass
-public class User extends RealmObject {
+public class Driver extends RealmObject {
 
     @PrimaryKey
     private long        id;
@@ -21,16 +21,21 @@ public class User extends RealmObject {
     private String      birthday;
     private String      gender;
     private String      token;
-    private static User instance;
 
-    public static User getInstance(){
-        if (instance == null) {
-            instance = new User();
-        }
-        return instance;
+    public Driver(){
     }
 
-    public User(){
+    public long getId(){
+        return id;
+    }
+
+    public void setId(long valueId){
+        this.id = valueId;
+    }
+
+
+    public String getEmail() {
+        return email;
     }
 
     public String getLastName() {
@@ -41,52 +46,12 @@ public class User extends RealmObject {
         this.lastName = lastName;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getFirstName() {
         return firstName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
     }
 
     public String getGender() {
@@ -97,6 +62,34 @@ public class User extends RealmObject {
         this.gender = gender;
     }
 
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getToken() {
         return token;
     }
@@ -104,7 +97,5 @@ public class User extends RealmObject {
     public void setToken(String token) {
         this.token = token;
     }
-
-
 }
 

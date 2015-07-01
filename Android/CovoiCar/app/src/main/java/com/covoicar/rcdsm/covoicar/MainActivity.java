@@ -16,22 +16,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.covoicar.rcdsm.adapter.TripAdapter;
 import com.covoicar.rcdsm.fragment.DatePickerFragment;
 import com.covoicar.rcdsm.fragment.NavigationDrawerFragment;
 import com.covoicar.rcdsm.fragment.SearchFragment;
 import com.covoicar.rcdsm.fragment.TimePickerFragment;
+import com.covoicar.rcdsm.fragment.TravelFragment;
 import com.covoicar.rcdsm.fragment.TripFragment;
 import com.covoicar.rcdsm.manager.TripManager;
 import com.covoicar.rcdsm.models.Trip;
-import com.covoicar.rcdsm.utils.GetDistance;
-
-import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends ActionBarActivity
@@ -84,6 +78,11 @@ public class MainActivity extends ActionBarActivity
         switch (number) {
             case 1:
                 mTitle = getString(R.string.title_section1);
+
+                Fragment travel = new TravelFragment();
+                fragmentManager.beginTransaction().addToBackStack(null)
+                        .replace(R.id.container, travel)
+                        .commit();
                 break;
             case 2:
                 mTitle = getString(R.string.title_section2);
@@ -139,14 +138,11 @@ public class MainActivity extends ActionBarActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onCreateTripClick(String highway,String roundTrip) {
-
-        int i = 0;
 
         start = (EditText)findViewById(R.id.editStart);
         arrival = (EditText)findViewById(R.id.editArrival);
@@ -157,48 +153,56 @@ public class MainActivity extends ActionBarActivity
         int intPrice = Integer.parseInt(price.getSelectedItem().toString());
         int intPlace = Integer.parseInt(place.getSelectedItem().toString());
 
-        TripManager trip = new TripManager(this);
-        Trip trip2 = new Trip();
-        trip2.setId((new java.util.Date()).getTime()+i);
-        i++;
-        trip2.setStart(start.getText().toString());
-        trip2.setArrival(arrival.getText().toString());
-        trip2.setHighway(highway);
-        trip2.setRoundTrip(roundTrip);
-        trip2.setPlace(intPlace);
-        trip2.setPrice(intPrice);
-        trip2.setDateStart(dateStart);
-        trip2.setDateArrival(dateEnd);
-        trip2.setHoursStart(timeStart);
-        trip2.setHoursArrival(timeEnd);
-        trip2.setComment(comment.getText().toString());
-        trip.addTravel(trip2);
+        String dateTimeStart = dateStart+" "+timeStart;
+        Log.e("TEST DATE & HOUR : ", dateStart + " , " + dateEnd + " , " + timeStart + " , " + timeEnd + " = " + dateTimeStart);
+        String dateTimeReturn = dateEnd+" "+timeEnd;
+        Log.e("TEST DATE & HOUR : ", dateStart + " , " + dateEnd + " , " + timeStart + " , " + timeEnd + " = " + dateTimeReturn);
 
-        String duration;
-        String distance;
-
-        GetDistance task = new GetDistance();
-        try {
-            String[] result = task.execute(43.300,5.367,43.600,3.883).get();
-            distance = result[0];
-            duration = result[1];
-            Toast.makeText(this,"DISTANCE : "+distance+" DURATION : "+duration,Toast.LENGTH_SHORT).show();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        final TripManager tripManager = new TripManager(this);
+        final Trip trip = new Trip();
+        trip.setId((new java.util.Date()).getTime());
+        trip.setStart(start.getText().toString());
+        trip.setArrival(arrival.getText().toString());
+        trip.setHighway(highway);
+        trip.setRoundTrip(roundTrip);
+        trip.setPlace(intPlace);
+        trip.setPrice(intPrice);
+        trip.setDateStart(dateStart);
+        trip.setHoursStart(timeStart);
+        trip.setDateTimeStart(dateTimeStart);
+        if(Integer.parseInt(roundTrip)==1){
+            trip.setDateArrival(dateEnd);
+            trip.setHoursArrival(timeEnd);
+            trip.setDateTimeReturn(dateTimeReturn);
         }
+        trip.setComment(comment.getText().toString());
+        tripManager.addTravel(trip);
 
-
-        String DateStart = dateEnd+" "+timeStart;
-        Log.e("TEST DATE & HOUR : ", dateStart + " , " + dateEnd + " , " + timeStart + " , " + timeEnd+" = "+DateStart);
-
-       /* ClientAPI.getInstance().addTrip(start.getText().toString(),arrival.getText().toString(),highway,roundTrip,new ClientAPI.APIListener() {
+        /**
+         * Take coordination (Longitude,Latitude), two different point
+         */
+        ClientApi.getInstance().getCoordinate(trip, new ClientApi.APIListener() {
             @Override
             public void callback() {
-                Log.e("Add note", "Add note");
+
+                /**
+                 * Add new trip
+                 */
+                ClientApi.getInstance().addTrip(trip, new ClientApi.APIListener() {
+                            @Override
+                            public void callback() {
+                                FragmentManager fragmentManager = getSupportFragmentManager();
+                                Fragment travel = new TravelFragment();
+                                fragmentManager.beginTransaction().addToBackStack(null)
+                                        .replace(R.id.container, travel)
+                                        .commit();
+                                Log.e("Add note", "Add note");
+                            }
+                        });
             }
-        });*/
+        });
+
+
     }
 
     @Override
@@ -230,10 +234,6 @@ public class MainActivity extends ActionBarActivity
      */
     public static class PlaceholderFragment extends Fragment {
 
-        private ArrayList<Trip> trips;
-        private ListView tripList;
-        private TripAdapter adapter;
-        private TripManager trip;
 
         /**
          * The fragment argument representing the section number for this
@@ -261,30 +261,7 @@ public class MainActivity extends ActionBarActivity
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-            tripList = (ListView)rootView.findViewById(R.id.tripsListView);
-
-            ClientAPI.getInstance().takeTravel("7d0fcac2ad0d2080e56f", new ClientAPI.APIListener() {
-                @Override
-                public void callback() {
-                    trips = new ArrayList<Trip>();
-                    adapter = new TripAdapter(getActivity(), trips);
-                    tripList.setAdapter(adapter);
-                    trips.clear();
-                    trips.addAll(trip.allListTrip());
-                }
-            });
-
-            sendTrip();
             return rootView;
-    }
-
-    public void sendTrip(){
-        trip = new TripManager(getActivity());
-        trips = new ArrayList<Trip>();
-        adapter = new TripAdapter(getActivity(),trips);
-        tripList.setAdapter(adapter);
-        trips.clear();
-        trips.addAll(trip.allListTrip());
     }
 
         @Override

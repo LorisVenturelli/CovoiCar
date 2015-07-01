@@ -72,7 +72,6 @@ public class TripFragment  extends Fragment {
         createTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startTravel = start.getText().toString();
                 arrivalTravel = arrival.getText().toString();
                 commentTravel = comment.getText().toString();

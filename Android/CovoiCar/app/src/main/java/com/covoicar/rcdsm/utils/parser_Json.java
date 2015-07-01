@@ -2,17 +2,14 @@ package com.covoicar.rcdsm.utils;
 
 import android.util.Log;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Created by rcdsm on 28/06/15.
@@ -28,11 +25,10 @@ public class parser_Json {
 
         //http post
         try {
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(url);
-            HttpResponse response = httpclient.execute(httppost);
-            HttpEntity entity = response.getEntity();
-            is = entity.getContent();
+            URL urlMaps = new URL(url);
+            HttpURLConnection request = (HttpURLConnection) urlMaps.openConnection();
+            request.connect();
+            is = request.getInputStream();
 
         } catch (Exception e) {
             Log.e("log_tag", "Error in http connection " + e.toString());
@@ -40,7 +36,7 @@ public class parser_Json {
 
         //convert response to string
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             StringBuilder sb = new StringBuilder();
             String line = null;
             while ((line = reader.readLine()) != null) {
