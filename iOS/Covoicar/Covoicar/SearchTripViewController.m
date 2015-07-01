@@ -30,9 +30,12 @@
     [self.hourStartField setInputView:datePicker];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [self refreshTableView];
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -56,17 +59,7 @@
     [dayFormat setDateFormat:@"dd/MM"];
     
     
-    if(trip.distanceMeter == 0.0){
-        
-        cell.timeLabel.text = [NSString stringWithFormat:@"%@h%@ (%@)",[heureFormat stringFromDate:date], [minuteFormat stringFromDate:date], @"Calcul ..."];
-        
-        [[TripManager sharedInstance] getDistanceForTheTrip:trip completion:^(float totalDistance) {
-            cell.timeLabel.text = [NSString stringWithFormat:@"%@ %@h%@ (%1.0fkm)", [dayFormat stringFromDate:date],[heureFormat stringFromDate:date], [minuteFormat stringFromDate:date], trip.distanceMeter/1000];
-        }];
-    }
-    else {
-        cell.timeLabel.text = [NSString stringWithFormat:@"%@ %@h%@ (%1.0fkm)", [dayFormat stringFromDate:date],[heureFormat stringFromDate:date], [minuteFormat stringFromDate:date], trip.distanceMeter/1000];
-    }
+    cell.timeLabel.text = [NSString stringWithFormat:@"%@ %@h%@", [dayFormat stringFromDate:date],[heureFormat stringFromDate:date], [minuteFormat stringFromDate:date]];
     
     User* driver = [[UserManager sharedInstance] userWithThisId:(int)trip.driver];
     
@@ -123,7 +116,7 @@
         TripViewController *dest = segue.destinationViewController;
         
         NSInteger cell = self.tableView.indexPathForSelectedRow.row;
-        Trip* trip = [[TripManager sharedInstance] tripAtIndex:(int)cell];
+        Trip* trip = [self._trips objectAtIndex:cell];
         
         dest._trip = trip;
         dest._user = [[UserManager sharedInstance] userWithThisId:(int)trip.driver];

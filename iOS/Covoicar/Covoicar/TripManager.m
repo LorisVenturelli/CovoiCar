@@ -41,7 +41,7 @@
     [realm addOrUpdateObject:trip];
     [realm commitWriteTransaction];
     
-    _trips = [Trip allObjects];
+    _trips = [[Trip allObjects] sortedResultsUsingProperty:@"hourStart" ascending:YES];
     
 }
 
@@ -51,7 +51,7 @@
     [realm deleteObject:trip];
     [realm commitWriteTransaction];
     
-    _trips = [Trip allObjects];
+    _trips = [[Trip allObjects] sortedResultsUsingProperty:@"hourStart" ascending:YES];
 }
 
 - (void) removeAllTrips {
@@ -62,7 +62,7 @@
         [self removeTrip:trip];
     }
     
-    _trips = [Trip allObjects];
+    _trips = [[Trip allObjects] sortedResultsUsingProperty:@"hourStart" ascending:YES];
 }
 
 - (NSUInteger) count {
@@ -73,7 +73,7 @@
 }
 
 - (Trip*) tripAtIndex:(int)index {
-    _trips = [Trip allObjects];
+    _trips = [[Trip allObjects] sortedResultsUsingProperty:@"hourStart" ascending:YES];
     
     NSUInteger nb = (NSUInteger)index;
     
@@ -81,7 +81,7 @@
 }
 
 - (BOOL) tripExistWithThisId:(int)identifier {
-    _trips = [Trip allObjects];
+    _trips = [[Trip allObjects] sortedResultsUsingProperty:@"hourStart" ascending:YES];
     
     for(Trip* trip in _trips) {
         if (trip.id == identifier) {
@@ -94,7 +94,7 @@
 
 
 - (Trip*) tripWithThisId:(int)identifier {
-    _trips = [Trip allObjects];
+    _trips = [[Trip allObjects] sortedResultsUsingProperty:@"hourStart" ascending:YES];
     
     for(Trip* trip in _trips) {
         return trip;
@@ -106,6 +106,9 @@
 
 - (void) sendTripToApiWithParameters:(NSDictionary*)parameters success:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock {
     
+    UserManager* usermanager = [UserManager sharedInstance];
+    User* user = [usermanager getUserInstance];
+    
     // HTTP POST
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager POST:@"http://172.31.1.36:8888/covoicar/trip/add" parameters:parameters success:^(AFHTTPRequestOperation *operation, id jsonResponse) {
@@ -113,6 +116,26 @@
         // Si success login
         if([[jsonResponse valueForKey:@"reponse"] isEqualToString:@"success"])
         {
+            NSArray *dataNewTrip = [jsonResponse objectForKey:@"data"];
+            
+            NSDateFormatter *format = [[NSDateFormatter alloc] init];
+            [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            
+            bool highway = ([[parameters valueForKey:@"highway"] isEqualToString:@"1"]) ? true : false;
+            
+            Trip* newTrip = [Trip tripWithId:[[dataNewTrip valueForKey:@"id"] intValue]
+                                      driver:user.id
+                                       start:[parameters valueForKey:@"start"]
+                                     arrival:[parameters valueForKey:@"arrival"]
+                                     highway:highway
+                                   hourStart:[format dateFromString:[parameters valueForKey:@"hourStart"]]
+                                       price:[[parameters valueForKey:@"price"] integerValue]
+                                       place:[[parameters valueForKey:@"place"] integerValue]
+                              placeAvailable:[[parameters valueForKey:@"place"] integerValue]
+                                     comment:[parameters valueForKey:@"comment"]];
+            
+            [self addOrUpdateTrip:newTrip];
+            
             successBlock(jsonResponse);
         }
         else{
@@ -319,6 +342,31 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"search travels from api timeout = %@", error);
+    }];
+    
+}
+
+
+- (void) reserveTheTrip:(Trip*)trip success:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock {
+    
+    UserManager* usermanager = [UserManager sharedInstance];
+    User* user = [usermanager getUserInstance];
+    
+    // HTTP POST
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{@"token":user.token, @"id_trip":[NSString stringWithFormat:@"%d", trip.id]};
+    [manager POST:@"http://172.31.1.36:8888/covoicar/travel/add" parameters:parameters success:^(AFHTTPRequestOperation *operation, id jsonResponse) {
+        
+        if([[jsonResponse valueForKey:@"reponse"] isEqualToString:@"success"])
+        {
+            successBlock(jsonResponse);
+        }
+        else{
+            errorBlock(jsonResponse);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failureBlock(error);
     }];
     
 }

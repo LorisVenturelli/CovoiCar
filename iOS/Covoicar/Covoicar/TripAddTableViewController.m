@@ -90,6 +90,9 @@
     NSString* hourStart = [otherDateFormat stringFromDate:hourStartDate];
     NSString* roundTrip = [otherDateFormat stringFromDate:roundTripDate];
     
+    if(roundTrip == nil)
+        roundTrip = @"";
+    
     NSDictionary *parameters = @{@"token":user.token,
                                  @"start":self.startField.text,
                                  @"arrival":self.arrivalField.text,
@@ -103,10 +106,23 @@
     NSLog(@"register action void : %@", parameters);
     
     [[TripManager sharedInstance] sendTripToApiWithParameters:parameters success:^(NSDictionary* responseJson) {
+        
         UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Bravo !" message:[responseJson valueForKey:@"message"] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alertView show];
+        
+        // Go to the user's trip list
+        [self.tabBarController setSelectedIndex:0];
+        
+        self.startField.text = @"";
+        self.arrivalField.text = @"";
+        [self.highwaySwitch setOn:YES];
+        self.hourStartField.text = @"";
+        [self.roundTripSwitch setOn:YES];
+        self.priceField.text = @"";
+        self.placeField.text = @"";
+        self.commentField.text = @"";
+        
     } error:^(NSDictionary* responseJson) {
-        // Error login
         [self ShowAlertErrorWithMessage:[responseJson valueForKey:@"message"]];
     } failure:^(NSError *error) {
         [self ShowAlertErrorWithMessage:@"Connexion échouée au serveur."];

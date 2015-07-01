@@ -38,8 +38,25 @@
 
 - (IBAction)reserveAction:(id)sender {
     
+    [[TripManager sharedInstance] reserveTheTrip:self._trip success:^(NSDictionary *responseJson) {
+        
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Bravo !" message:[NSString stringWithFormat:@"Vous avez rejoint le voyage de %@ à %@ !", self._trip.start , self._trip.arrival] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alertView show];
+        
+        // Go to the user's trip list
+        [self.tabBarController setSelectedIndex:0];
+        
+    } error:^(NSDictionary *responseJson) {
+        [self ShowAlertErrorWithMessage:[responseJson valueForKey:@"message"]];
+    } failure:^(NSError *error) {
+        [self ShowAlertErrorWithMessage:@"Le serveur ne répond pas .."];
+    }];
     
-    
+}
+
+- (void)ShowAlertErrorWithMessage:(NSString *)message {
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Erreur" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alertView show];
 }
 
 @end
