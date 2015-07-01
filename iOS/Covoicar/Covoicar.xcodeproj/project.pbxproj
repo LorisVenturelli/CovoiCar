@@ -13,15 +13,14 @@
 		947EE4211B41249E001F6F47 /* Travel.m in Sources */ = {isa = PBXBuildFile; fileRef = 947EE4201B41249E001F6F47 /* Travel.m */; };
 		947EE4241B4127E2001F6F47 /* TravelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 947EE4231B4127E2001F6F47 /* TravelManager.m */; };
 		9486A89A1B3BEA5000BC9852 /* RegisterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9486A8991B3BEA5000BC9852 /* RegisterTableViewController.m */; };
-		9486A89D1B3BF00800BC9852 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9486A89C1B3BF00800BC9852 /* RegisterViewController.m */; };
 		948D59801B42C56D00069379 /* SearchTravelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948D597F1B42C56D00069379 /* SearchTravelViewController.m */; };
+		948D59831B43E16B00069379 /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948D59821B43E16B00069379 /* LoginTableViewController.m */; };
 		94E040CA1B3A98FB00497FCB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040C91B3A98FB00497FCB /* main.m */; };
 		94E040CD1B3A98FB00497FCB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040CC1B3A98FB00497FCB /* AppDelegate.m */; };
 		94E040D31B3A98FB00497FCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94E040D11B3A98FB00497FCB /* Main.storyboard */; };
 		94E040D51B3A98FB00497FCB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94E040D41B3A98FB00497FCB /* Images.xcassets */; };
 		94E040D81B3A98FB00497FCB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94E040D61B3A98FB00497FCB /* LaunchScreen.xib */; };
 		94E040E41B3A98FB00497FCB /* CovoicarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040E31B3A98FB00497FCB /* CovoicarTests.m */; };
-		94E040F01B3A9AB100497FCB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040EF1B3A9AB100497FCB /* LoginViewController.m */; };
 		94E041091B3A9D2C00497FCB /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040F71B3A9D2C00497FCB /* AFHTTPRequestOperation.m */; };
 		94E0410A1B3A9D2C00497FCB /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040F91B3A9D2C00497FCB /* AFHTTPRequestOperationManager.m */; };
 		94E0410B1B3A9D2C00497FCB /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040FB1B3A9D2C00497FCB /* AFHTTPSessionManager.m */; };
@@ -60,10 +59,10 @@
 		947EE4231B4127E2001F6F47 /* TravelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelManager.m; sourceTree = "<group>"; };
 		9486A8981B3BEA5000BC9852 /* RegisterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterTableViewController.h; sourceTree = "<group>"; };
 		9486A8991B3BEA5000BC9852 /* RegisterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterTableViewController.m; sourceTree = "<group>"; };
-		9486A89B1B3BF00800BC9852 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
-		9486A89C1B3BF00800BC9852 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		948D597E1B42C56D00069379 /* SearchTravelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTravelViewController.h; sourceTree = "<group>"; };
 		948D597F1B42C56D00069379 /* SearchTravelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTravelViewController.m; sourceTree = "<group>"; };
+		948D59811B43E16B00069379 /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
+		948D59821B43E16B00069379 /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
 		94E040C41B3A98FB00497FCB /* Covoicar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Covoicar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E040C81B3A98FB00497FCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94E040C91B3A98FB00497FCB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -75,8 +74,6 @@
 		94E040DD1B3A98FB00497FCB /* CovoicarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CovoicarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E040E21B3A98FB00497FCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94E040E31B3A98FB00497FCB /* CovoicarTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CovoicarTests.m; sourceTree = "<group>"; };
-		94E040EE1B3A9AB100497FCB /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		94E040EF1B3A9AB100497FCB /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		94E040F61B3A9D2C00497FCB /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		94E040F71B3A9D2C00497FCB /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		94E040F81B3A9D2C00497FCB /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -177,8 +174,6 @@
 			children = (
 				9486A8981B3BEA5000BC9852 /* RegisterTableViewController.h */,
 				9486A8991B3BEA5000BC9852 /* RegisterTableViewController.m */,
-				9486A89B1B3BF00800BC9852 /* RegisterViewController.h */,
-				9486A89C1B3BF00800BC9852 /* RegisterViewController.m */,
 			);
 			name = Register;
 			sourceTree = "<group>";
@@ -258,8 +253,8 @@
 		94E040ED1B3A9A5100497FCB /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				94E040EE1B3A9AB100497FCB /* LoginViewController.h */,
-				94E040EF1B3A9AB100497FCB /* LoginViewController.m */,
+				948D59811B43E16B00069379 /* LoginTableViewController.h */,
+				948D59821B43E16B00069379 /* LoginTableViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -437,9 +432,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94E040F01B3A9AB100497FCB /* LoginViewController.m in Sources */,
 				947EE41D1B412383001F6F47 /* TravelTableViewCell.m in Sources */,
-				9486A89D1B3BF00800BC9852 /* RegisterViewController.m in Sources */,
 				94E0410D1B3A9D2C00497FCB /* AFSecurityPolicy.m in Sources */,
 				94E0410A1B3A9D2C00497FCB /* AFHTTPRequestOperationManager.m in Sources */,
 				9486A89A1B3BEA5000BC9852 /* RegisterTableViewController.m in Sources */,
@@ -447,6 +440,7 @@
 				94E041091B3A9D2C00497FCB /* AFHTTPRequestOperation.m in Sources */,
 				94E040CD1B3A98FB00497FCB /* AppDelegate.m in Sources */,
 				947EE4211B41249E001F6F47 /* Travel.m in Sources */,
+				948D59831B43E16B00069379 /* LoginTableViewController.m in Sources */,
 				947EE4241B4127E2001F6F47 /* TravelManager.m in Sources */,
 				947EE4191B4120C4001F6F47 /* ListTravelsTableViewController.m in Sources */,
 				94E041201B3AB31F00497FCB /* UserManager.m in Sources */,

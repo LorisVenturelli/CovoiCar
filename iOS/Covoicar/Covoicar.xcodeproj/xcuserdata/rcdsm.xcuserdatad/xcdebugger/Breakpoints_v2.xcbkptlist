@@ -26,12 +26,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Covoicar/TravelManager.m"
-            timestampString = "457370326.591459"
+            timestampString = "457427435.137215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "277"
-            endingLineNumber = "277"
-            landmarkName = "-searchTravelsWithStart:arrival:hourStart:completion:"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "-refreshTravelsFromApi:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Covoicar/UserManager.m"
+            timestampString = "457432576.369918"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "-connectToApiWithEmail:AndPassword:success:error:failure:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

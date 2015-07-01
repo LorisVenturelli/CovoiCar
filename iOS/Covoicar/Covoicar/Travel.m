@@ -14,7 +14,7 @@
     return @"id";
 }
 
-- (instancetype) initWithId:(int)id driver:(NSInteger)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place comment:(NSString *)comment
+- (instancetype) initWithId:(int)id driver:(NSInteger)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place placeAvailable:(NSInteger)placeAvailable comment:(NSString *)comment
 {
     self = [super init];
     if (self != nil) {
@@ -31,15 +31,16 @@
         self.hourStart = hourStart;
         self.price = *(&(price));
         self.place = *(&(place));
+        self.placeAvailable = placeAvailable;
         self.comment = comment;
         
     }
     return self;
 }
 
-+ (Travel*) travelWithId:(int)id driver:(NSInteger)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place comment:(NSString *)comment {
++ (Travel*) travelWithId:(int)id driver:(NSInteger)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place placeAvailable:(NSInteger)placeAvailable comment:(NSString *)comment {
     
-    return [[Travel alloc] initWithId:id driver:driver start:start arrival:arrival highway:highway hourStart:hourStart price:price place:place comment:comment];
+    return [[Travel alloc] initWithId:id driver:driver start:start arrival:arrival highway:highway hourStart:hourStart price:price place:place placeAvailable:placeAvailable comment:comment];
 }
 
 @end

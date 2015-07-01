@@ -16,15 +16,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(submitRegister:) name:@"sendRegister" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
--(void)submitRegister:(NSNotification *)notification{
+
+- (IBAction)submitAction:(id)sender {
+    
     NSDictionary *parameters = @{@"email":self.emailField.text,
                                  @"password":self.passwordField.text,
                                  @"repassword":self.rePasswordField.text,
@@ -33,12 +33,43 @@
                                  @"gender":@"1",
                                  @"birthday":self.birthdayField.text};
     
+    [[UserManager sharedInstance] registerToApi:parameters success:^(NSDictionary *responseJson) {
+        
+        [[UserManager sharedInstance] connectToApiWithEmail:self.emailField.text AndPassword:self.passwordField.text success:^(NSDictionary *responseJson) {
+            
+            // Next UIView
+            UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UIViewController* arrivee = [storyboard instantiateViewControllerWithIdentifier:@"home"];
+            
+            // Transition UIView
+            arrivee.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+            [self presentViewController:arrivee animated:YES completion:nil];
+            
+        } error:^(NSDictionary *responseJson) {
+            
+            [self ShowAlertErrorWithMessage:[responseJson valueForKey:@"message"]];
+            
+        } failure:^(NSError *error) {
+            
+            [self ShowAlertErrorWithMessage:@"Le serveur ne répond pas ..."];
+            
+        }];
+        
+    } error:^(NSDictionary *responseJson) {
+        
+        [self ShowAlertErrorWithMessage:[responseJson valueForKey:@"message"]];
+        
+    } failure:^(NSError *error) {
+        
+        [self ShowAlertErrorWithMessage:@"Le serveur ne répond pas ..."];
+        
+    }];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"registerAction" object:self userInfo:parameters];
 }
 
-- (IBAction)submitAction:(id)sender {
-    [self submitRegister:nil];
+- (void)ShowAlertErrorWithMessage:(NSString *)message {
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Erreur" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alertView show];
 }
 
 @end

@@ -13,11 +13,13 @@
 #import "Travel.h"
 #import "TravelManager.h"
 
-@interface ListTravelsTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface ListTravelsTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, UITabBarDelegate>
 
 @property UIRefreshControl* refreshControl;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+- (IBAction)logoutAction:(id)sender;
 
 - (void)refreshTableView;
 

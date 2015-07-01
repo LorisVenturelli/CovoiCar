@@ -78,8 +78,29 @@
     cell.wayLabel.text = [NSString stringWithFormat:@"%@ - %@", travel.start, travel.arrival];
     cell.priceLabel.text = [NSString stringWithFormat:@"%d €", (int)travel.price];
     cell.driverLabel.text = [NSString stringWithFormat:@"%@ %@", driver.firstname, driver.lastname];
+    cell.placeLabel.text = [NSString stringWithFormat:@"%d pl.", (int)travel.placeAvailable];
     
     return cell;
+}
+
+- (IBAction)logoutAction:(id)sender {
+    
+    [[UserManager sharedInstance] logoutToApiWithSuccessBlock:^(NSDictionary *responseJson) {
+        
+        // Next UIView
+        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController* arrivee = [storyboard instantiateViewControllerWithIdentifier:@"first"];
+        
+        // Transition UIView
+        arrivee.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+        [self presentViewController:arrivee animated:YES completion:nil];
+        
+    } error:^(NSDictionary *responseJson) {
+        [self ShowAlertErrorWithMessage:[responseJson valueForKey:@"message"]];
+    } failure:^(NSError *error) {
+        [self ShowAlertErrorWithMessage:@"Connexion échouée au serveur."];
+    }];
+    
 }
 
 - (void)refreshTableView
@@ -102,6 +123,11 @@
         self.tableView.scrollEnabled = YES;
     }];
     
+}
+
+- (void)ShowAlertErrorWithMessage:(NSString *)message {
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Erreur" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alertView show];
 }
 
 

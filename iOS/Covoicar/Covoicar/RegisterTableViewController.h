@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "UserManager.h"
 #import "AFNetworking.h"
-#import "RegisterViewController.h"
 
-@interface RegisterTableViewController : UITableViewController
+@interface RegisterTableViewController : UITableViewController <UITabBarControllerDelegate, UITabBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
@@ -20,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
 @property (weak, nonatomic) IBOutlet UITextField *birthdayField;
 
--(void)submitRegister:(NSNotification *)notification;
 - (IBAction)submitAction:(id)sender;
 
 @end

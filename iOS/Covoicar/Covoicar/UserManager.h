@@ -10,10 +10,11 @@
 #import <Realm/Realm.h>
 #import "AFNetworking.h"
 #import "User.h"
+#import "TravelManager.h"
 
 @interface UserManager : NSObject
 
-@property int idUserInstance;
+@property NSNumber* idUserInstance;
 
 + (UserManager*) sharedInstance;
 
@@ -28,6 +29,12 @@
 - (User*) userAtIndex:(int)index;
 - (BOOL) userExistWithThisId:(int)identifier;
 - (User*) userWithThisId:(int)identifier;
+
 - (void) getUserFromApiWithId:(int)identifier completion:(void (^)(void))completionBlock;
+
+- (void) registerToApi:(NSDictionary*)parameters success:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock;
+- (void) connectToApiWithEmail:(NSString*)email AndPassword:(NSString*)password success:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock;
+
+- (void) logoutToApiWithSuccessBlock:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock;
 
 @end

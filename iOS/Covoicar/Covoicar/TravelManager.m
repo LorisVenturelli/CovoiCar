@@ -162,6 +162,7 @@
                                                    hourStart:[format dateFromString:[travel valueForKey:@"hourStart"]]
                                                        price:[[travel valueForKey:@"price"] integerValue]
                                                        place:[[travel valueForKey:@"place"] integerValue]
+                                              placeAvailable:[[travel valueForKey:@"placeAvailable"] integerValue]
                                                      comment:[travel valueForKey:@"comment"]];
                     
                     [self addOrUpdateTravel:newTravel];
@@ -270,7 +271,11 @@
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
+    
     NSString* time = [format stringFromDate:hourStart];
+    
+    if(time == nil)
+        time = @"";
     
     // HTTP POST
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -299,6 +304,7 @@
                                                hourStart:[format dateFromString:[travel valueForKey:@"hourStart"]]
                                                    price:[[travel valueForKey:@"price"] integerValue]
                                                    place:[[travel valueForKey:@"place"] integerValue]
+                                          placeAvailable:[[travel valueForKey:@"placeAvailable"] integerValue]
                                                  comment:[travel valueForKey:@"comment"]];
                 
                 [listTravels addObject:newTravel];

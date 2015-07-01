@@ -75,6 +75,7 @@
     cell.wayLabel.text = [NSString stringWithFormat:@"%@ - %@", travel.start, travel.arrival];
     cell.priceLabel.text = [NSString stringWithFormat:@"%d €", (int)travel.price];
     cell.driverLabel.text = [NSString stringWithFormat:@"%@ %@", driver.firstname, driver.lastname];
+    cell.placeLabel.text = [NSString stringWithFormat:@"%d pl.", (int)travel.placeAvailable];
     
     return cell;
 }

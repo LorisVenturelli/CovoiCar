@@ -1,21 +1,20 @@
 //
-//  LoginViewController.h
+//  LoginTableViewController.h
 //  Covoicar
 //
-//  Created by Loris on 24/06/2015.
+//  Created by Loris on 01/07/2015.
 //  Copyright (c) 2015 Loris Venturelli. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "UserManager.h"
 #import "TravelManager.h"
 #import "AFNetworking.h"
 
-@interface LoginViewController : UIViewController
+@interface LoginTableViewController : UITableViewController <UITabBarControllerDelegate, UITabBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
-
-@property (strong, nonatomic) UIViewController *viewController;
 
 - (IBAction)connexionAction:(id)sender;
 - (IBAction)superLoginAction:(id)sender;

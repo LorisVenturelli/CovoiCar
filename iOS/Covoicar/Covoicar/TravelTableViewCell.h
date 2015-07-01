@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *wayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *driverLabel;
+@property (weak, nonatomic) IBOutlet UILabel *placeLabel;
 
 @end
