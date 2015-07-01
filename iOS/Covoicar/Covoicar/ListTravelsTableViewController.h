@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "TravelTableViewCell.h"
-#import "User.h"
+#import "TravelViewController.h"
 #import "UserManager.h"
-#import "Travel.h"
 #import "TravelManager.h"
 
 @interface ListTravelsTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, UITabBarDelegate>

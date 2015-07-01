@@ -130,5 +130,19 @@
     [alertView show];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"viewTravel"]) {
+        TravelViewController *dest = segue.destinationViewController;
+        
+        NSInteger cell = self.tableView.indexPathForSelectedRow.row;
+        Travel* travel = [[TravelManager sharedInstance] travelAtIndex:(int)cell];
+        
+        dest._travel = travel;
+        dest._user = [[UserManager sharedInstance] userWithThisId:(int)travel.driver];
+        dest.canReserve = NO;
+    }
+}
+
 
 @end

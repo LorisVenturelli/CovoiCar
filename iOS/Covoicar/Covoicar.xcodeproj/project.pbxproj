@@ -15,6 +15,8 @@
 		9486A89A1B3BEA5000BC9852 /* RegisterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9486A8991B3BEA5000BC9852 /* RegisterTableViewController.m */; };
 		948D59801B42C56D00069379 /* SearchTravelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948D597F1B42C56D00069379 /* SearchTravelViewController.m */; };
 		948D59831B43E16B00069379 /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948D59821B43E16B00069379 /* LoginTableViewController.m */; };
+		948D59871B43F29C00069379 /* TravelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948D59861B43F29C00069379 /* TravelViewController.m */; };
+		948D598A1B43F65A00069379 /* TravelTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 948D59891B43F65A00069379 /* TravelTableViewController.m */; };
 		94E040CA1B3A98FB00497FCB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040C91B3A98FB00497FCB /* main.m */; };
 		94E040CD1B3A98FB00497FCB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E040CC1B3A98FB00497FCB /* AppDelegate.m */; };
 		94E040D31B3A98FB00497FCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94E040D11B3A98FB00497FCB /* Main.storyboard */; };
@@ -63,6 +65,10 @@
 		948D597F1B42C56D00069379 /* SearchTravelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTravelViewController.m; sourceTree = "<group>"; };
 		948D59811B43E16B00069379 /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
 		948D59821B43E16B00069379 /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
+		948D59851B43F29C00069379 /* TravelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelViewController.h; sourceTree = "<group>"; };
+		948D59861B43F29C00069379 /* TravelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelViewController.m; sourceTree = "<group>"; };
+		948D59881B43F65A00069379 /* TravelTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelTableViewController.h; sourceTree = "<group>"; };
+		948D59891B43F65A00069379 /* TravelTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelTableViewController.m; sourceTree = "<group>"; };
 		94E040C41B3A98FB00497FCB /* Covoicar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Covoicar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94E040C81B3A98FB00497FCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94E040C91B3A98FB00497FCB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -124,6 +130,7 @@
 		947227C11B3C3D8F007F67DA /* Travels */ = {
 			isa = PBXGroup;
 			children = (
+				948D59841B43F27800069379 /* View */,
 				948D597D1B42C53C00069379 /* Search */,
 				947EE41A1B4120D7001F6F47 /* List */,
 				947227C21B3C3D9F007F67DA /* Add */,
@@ -185,6 +192,17 @@
 				948D597F1B42C56D00069379 /* SearchTravelViewController.m */,
 			);
 			name = Search;
+			sourceTree = "<group>";
+		};
+		948D59841B43F27800069379 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				948D59851B43F29C00069379 /* TravelViewController.h */,
+				948D59861B43F29C00069379 /* TravelViewController.m */,
+				948D59881B43F65A00069379 /* TravelTableViewController.h */,
+				948D59891B43F65A00069379 /* TravelTableViewController.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		94E040BB1B3A98FB00497FCB = {
@@ -436,6 +454,7 @@
 				94E0410D1B3A9D2C00497FCB /* AFSecurityPolicy.m in Sources */,
 				94E0410A1B3A9D2C00497FCB /* AFHTTPRequestOperationManager.m in Sources */,
 				9486A89A1B3BEA5000BC9852 /* RegisterTableViewController.m in Sources */,
+				948D59871B43F29C00069379 /* TravelViewController.m in Sources */,
 				94E0410E1B3A9D2C00497FCB /* AFURLConnectionOperation.m in Sources */,
 				94E041091B3A9D2C00497FCB /* AFHTTPRequestOperation.m in Sources */,
 				94E040CD1B3A98FB00497FCB /* AppDelegate.m in Sources */,
@@ -443,6 +462,7 @@
 				948D59831B43E16B00069379 /* LoginTableViewController.m in Sources */,
 				947EE4241B4127E2001F6F47 /* TravelManager.m in Sources */,
 				947EE4191B4120C4001F6F47 /* ListTravelsTableViewController.m in Sources */,
+				948D598A1B43F65A00069379 /* TravelTableViewController.m in Sources */,
 				94E041201B3AB31F00497FCB /* UserManager.m in Sources */,
 				94E0410F1B3A9D2C00497FCB /* AFURLRequestSerialization.m in Sources */,
 				94E0411B1B3AA9D200497FCB /* User.m in Sources */,

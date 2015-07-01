@@ -12,15 +12,13 @@
 
 @end
 
-@implementation SearchTravelViewController {
-    NSMutableArray* _travels;
-}
+@implementation SearchTravelViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if(_travels == nil)
-        _travels = [[NSMutableArray alloc] init];
+    if(self._travels == nil)
+        self._travels = [[NSMutableArray alloc] init];
     
     self.tableView.dataSource = self;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
@@ -40,14 +38,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _travels.count;
+    return self._travels.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     TravelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TravelCell" forIndexPath:indexPath];
     
-    Travel* travel = [_travels objectAtIndex:indexPath.row];
+    Travel* travel = [self._travels objectAtIndex:indexPath.row];
     
     NSDate *date = travel.hourStart;
     NSDateFormatter *heureFormat = [[NSDateFormatter alloc] init];
@@ -91,7 +89,7 @@
     
     [[TravelManager sharedInstance] searchTravelsWithStart:self.startField.text arrival:self.arrivalField.text hourStart:hourStartDate completion:^(NSMutableArray *list) {
         
-        _travels = list;
+        self._travels = list;
         
         [self refreshTableView];
     }];
@@ -117,6 +115,20 @@
     
     self.tableView.scrollEnabled = YES;
     
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"viewTravel"]) {
+        TravelViewController *dest = segue.destinationViewController;
+        
+        NSInteger cell = self.tableView.indexPathForSelectedRow.row;
+        Travel* travel = [[TravelManager sharedInstance] travelAtIndex:(int)cell];
+        
+        dest._travel = travel;
+        dest._user = [[UserManager sharedInstance] userWithThisId:(int)travel.driver];
+        dest.canReserve = YES;
+    }
 }
 
 @end

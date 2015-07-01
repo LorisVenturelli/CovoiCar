@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "UserManager.h"
-#import "Travel.h"
 #import "TravelManager.h"
 #import "TravelTableViewCell.h"
+#import "TravelViewController.h"
 
 @interface SearchTravelViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (strong) NSMutableArray* _travels;
 
 @property (weak, nonatomic) IBOutlet UITextField *startField;
 @property (weak, nonatomic) IBOutlet UITextField *arrivalField;

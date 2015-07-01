@@ -236,6 +236,8 @@
         {
             self.idUserInstance = nil;
             
+            [[TravelManager sharedInstance] removeAllTravels];
+            
             successBlock(jsonResponse);
         }
         else{
