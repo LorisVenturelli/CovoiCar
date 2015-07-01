@@ -1,5 +1,5 @@
 //
-//  TravelViewController.h
+//  TripViewController.h
 //  Covoicar
 //
 //  Created by Loris on 01/07/2015.
@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "UserManager.h"
-#import "TravelManager.h"
-#import "TravelTableViewController.h"
+#import "TripManager.h"
+#import "TripTableViewController.h"
 
-@interface TravelViewController : UIViewController
+@interface TripViewController : UIViewController
 
 @property BOOL canReserve;
 
 @property User* _user;
-@property Travel* _travel;
+@property Trip* _trip;
 
 @property (weak, nonatomic) IBOutlet UIButton *reserveButton;
 @property (weak, nonatomic) IBOutlet UIView *reserveView;

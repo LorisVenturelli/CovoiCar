@@ -1,14 +1,14 @@
 //
-//  TravelTableViewCell.m
+//  TripTableViewCell.m
 //  Covoicar
 //
 //  Created by Loris on 29/06/2015.
 //  Copyright (c) 2015 Loris Venturelli. All rights reserved.
 //
 
-#import "TravelTableViewCell.h"
+#import "TripTableViewCell.h"
 
-@implementation TravelTableViewCell
+@implementation TripTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code

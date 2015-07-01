@@ -1,5 +1,5 @@
 //
-//  SearchTravelViewController.h
+//  SearchTripViewController.h
 //  Covoicar
 //
 //  Created by Loris on 30/06/2015.
@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "UserManager.h"
-#import "TravelManager.h"
-#import "TravelTableViewCell.h"
-#import "TravelViewController.h"
+#import "TripManager.h"
+#import "TripTableViewCell.h"
+#import "TripViewController.h"
 
-@interface SearchTravelViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface SearchTripViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property (strong) NSMutableArray* _travels;
+@property (strong) NSMutableArray* _trips;
 
 @property (weak, nonatomic) IBOutlet UITextField *startField;
 @property (weak, nonatomic) IBOutlet UITextField *arrivalField;

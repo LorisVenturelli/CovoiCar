@@ -479,7 +479,7 @@
         <!--Proposer un trajet-->
         <scene sceneID="uMV-gm-8w4">
             <objects>
-                <tableViewController id="o1Q-Dr-3VW" customClass="TravelAddTableViewController" sceneMemberID="viewController">
+                <tableViewController id="o1Q-Dr-3VW" customClass="TripAddTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="brl-1r-mSb">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -941,7 +941,7 @@
         <!--Rejoindre-->
         <scene sceneID="XFU-CL-Oyh">
             <objects>
-                <viewController id="dQk-SE-ZW5" customClass="SearchTravelViewController" sceneMemberID="viewController">
+                <viewController id="dQk-SE-ZW5" customClass="SearchTripViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Nf4-d2-7Z9"/>
                         <viewControllerLayoutGuide type="bottom" id="yZR-4c-VNA"/>
@@ -990,7 +990,7 @@
                                 <rect key="frame" x="0.0" y="188" width="600" height="363"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TravelCell" rowHeight="80" id="zwW-Ws-kbn" customClass="TravelTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripCell" rowHeight="80" id="zwW-Ws-kbn" customClass="TripTableViewCell">
                                         <rect key="frame" x="0.0" y="260" width="600" height="81"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zwW-Ws-kbn" id="Ugb-sb-Hfb">
@@ -1112,7 +1112,7 @@
                                             <outlet property="priceLabel" destination="EZv-nY-lue" id="wjA-Al-8HE"/>
                                             <outlet property="timeLabel" destination="FPi-9H-BXg" id="798-5T-Iie"/>
                                             <outlet property="wayLabel" destination="CK1-kL-Eib" id="R0I-o9-f9O"/>
-                                            <segue destination="Dyy-de-kGu" kind="show" identifier="viewTravel" id="MZu-Tp-GLU"/>
+                                            <segue destination="Dyy-de-kGu" kind="show" identifier="viewTrip" id="MZu-Tp-GLU"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1202,7 +1202,7 @@
         <!--Mes trajets-->
         <scene sceneID="lUH-1R-l8G">
             <objects>
-                <viewController id="3FT-z9-Sgb" customClass="ListTravelsTableViewController" sceneMemberID="viewController">
+                <viewController id="3FT-z9-Sgb" customClass="ListTripsTableViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bMM-Jb-dk9"/>
                         <viewControllerLayoutGuide type="bottom" id="u8O-pP-Awc"/>
@@ -1214,7 +1214,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="81" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="st6-W0-9ss">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TravelCell" id="7cW-dZ-7qf" customClass="TravelTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripCell" id="7cW-dZ-7qf" customClass="TripTableViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7cW-dZ-7qf" id="CFK-5z-V1N">
@@ -1335,7 +1335,7 @@
                                             <outlet property="priceLabel" destination="kan-BY-67y" id="EBg-yb-C2V"/>
                                             <outlet property="timeLabel" destination="8O9-Po-fbi" id="aFQ-B4-jJK"/>
                                             <outlet property="wayLabel" destination="jf3-QF-k0A" id="GKm-K9-tug"/>
-                                            <segue destination="Dyy-de-kGu" kind="show" identifier="viewTravel" id="dd8-8g-jFw"/>
+                                            <segue destination="Dyy-de-kGu" kind="show" identifier="viewTrip" id="dd8-8g-jFw"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1373,10 +1373,10 @@
             </objects>
             <point key="canvasLocation" x="2782" y="-395"/>
         </scene>
-        <!--Travel View Controller-->
+        <!--Trip View Controller-->
         <scene sceneID="6WL-mv-aWK">
             <objects>
-                <viewController id="Dyy-de-kGu" customClass="TravelViewController" sceneMemberID="viewController">
+                <viewController id="Dyy-de-kGu" customClass="TripViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zKv-bG-jLx"/>
                         <viewControllerLayoutGuide type="bottom" id="9gN-QA-G2g"/>
@@ -1465,10 +1465,10 @@
             </objects>
             <point key="canvasLocation" x="3649" y="-19"/>
         </scene>
-        <!--Travel Table View Controller-->
+        <!--Trip Table View Controller-->
         <scene sceneID="Mnx-4K-iLE">
             <objects>
-                <tableViewController id="DJ8-iC-87Z" customClass="TravelTableViewController" sceneMemberID="viewController">
+                <tableViewController id="DJ8-iC-87Z" customClass="TripTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="osz-zM-m6e">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="468"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

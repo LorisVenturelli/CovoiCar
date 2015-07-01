@@ -1,5 +1,5 @@
 //
-//  TravelTableViewController.h
+//  TripTableViewController.h
 //  Covoicar
 //
 //  Created by Loris on 01/07/2015.
@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "UserManager.h"
-#import "TravelManager.h"
+#import "TripManager.h"
 
-@interface TravelTableViewController : UITableViewController
+@interface TripTableViewController : UITableViewController
 
 
-@property Travel* _travel;
+@property Trip* _trip;
 
 @property (weak, nonatomic) IBOutlet UILabel *dateField;
 @property (weak, nonatomic) IBOutlet UILabel *startField;

@@ -1,18 +1,18 @@
 //
-//  TravelViewController.m
+//  TripViewController.m
 //  Covoicar
 //
 //  Created by Loris on 01/07/2015.
 //  Copyright (c) 2015 Loris Venturelli. All rights reserved.
 //
 
-#import "TravelViewController.h"
+#import "TripViewController.h"
 
-@interface TravelViewController ()
+@interface TripViewController ()
 
 @end
 
-@implementation TravelViewController
+@implementation TripViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,13 +30,15 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"EmbedSegue"]) {
-        TravelTableViewController *embed = segue.destinationViewController;
-        embed._travel = self._travel;
+        TripTableViewController *embed = segue.destinationViewController;
+        embed._trip = self._trip;
         embed._user = self._user;
     }
 }
 
 - (IBAction)reserveAction:(id)sender {
+    
+    
     
 }
 

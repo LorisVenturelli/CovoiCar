@@ -9,7 +9,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Covoicar/TravelAddTableViewController.m"
+            filePath = "Covoicar/TripAddTableViewController.m"
             timestampString = "457368843.570976"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"

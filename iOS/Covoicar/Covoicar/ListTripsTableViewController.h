@@ -1,5 +1,5 @@
 //
-//  ListTravelsTableViewController.h
+//  ListTripsTableViewController.m
 //  Covoicar
 //
 //  Created by Loris on 29/06/2015.
@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TravelTableViewCell.h"
-#import "TravelViewController.h"
+#import "TripTableViewCell.h"
+#import "TripViewController.h"
 #import "UserManager.h"
-#import "TravelManager.h"
+#import "TripManager.h"
 
-@interface ListTravelsTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, UITabBarDelegate>
+@interface ListTripsTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, UITabBarDelegate>
 
 @property UIRefreshControl* refreshControl;
 

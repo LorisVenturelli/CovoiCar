@@ -1,90 +1,90 @@
 //
-//  TravelManager.m
+//  TripManager.m
 //  Covoicar
 //
 //  Created by Loris on 29/06/2015.
 //  Copyright (c) 2015 Loris Venturelli. All rights reserved.
 //
 
-#import "TravelManager.h"
+#import "TripManager.h"
 
 #define STRING_CONSTANT @"MacrosCanBeEvil";
 
-@implementation TravelManager {
-    RLMResults* _travels;
+@implementation TripManager {
+    RLMResults* _trips;
 }
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        _travels = [[Travel allObjects] sortedResultsUsingProperty:@"hourStart" ascending:YES];
+        _trips = [[Trip allObjects] sortedResultsUsingProperty:@"hourStart" ascending:YES];
     }
     return self;
 }
 
-+ (TravelManager*) sharedInstance {
-    static TravelManager* instance = nil;
++ (TripManager*) sharedInstance {
+    static TripManager* instance = nil;
     
     if (instance == nil) {
-        instance = [[TravelManager alloc] init];
+        instance = [[TripManager alloc] init];
     }
     
     return instance;
 }
 
-- (void) addOrUpdateTravel:(Travel *)travel {
+- (void) addOrUpdateTrip:(Trip *)trip {
     
     RLMRealm *realm = [RLMRealm defaultRealm];
     
     [realm beginWriteTransaction];
-    [realm addOrUpdateObject:travel];
+    [realm addOrUpdateObject:trip];
     [realm commitWriteTransaction];
     
-    _travels = [Travel allObjects];
+    _trips = [Trip allObjects];
     
 }
 
-- (void) removeTravel:(Travel *)travel {
+- (void) removeTrip:(Trip *)trip {
     RLMRealm *realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
-    [realm deleteObject:travel];
+    [realm deleteObject:trip];
     [realm commitWriteTransaction];
     
-    _travels = [Travel allObjects];
+    _trips = [Trip allObjects];
 }
 
-- (void) removeAllTravels {
+- (void) removeAllTrips {
     
     for (int i = 0; i < [self count]; i++)
     {
-        Travel* travel = [self travelAtIndex:i];
-        [self removeTravel:travel];
+        Trip* trip = [self tripAtIndex:i];
+        [self removeTrip:trip];
     }
     
-    _travels = [Travel allObjects];
+    _trips = [Trip allObjects];
 }
 
 - (NSUInteger) count {
-    if(_travels == nil)
+    if(_trips == nil)
         return 0;
     
-    return _travels.count;
+    return _trips.count;
 }
 
-- (Travel*) travelAtIndex:(int)index {
-    _travels = [Travel allObjects];
+- (Trip*) tripAtIndex:(int)index {
+    _trips = [Trip allObjects];
     
     NSUInteger nb = (NSUInteger)index;
     
-    return [_travels objectAtIndex:nb];
+    return [_trips objectAtIndex:nb];
 }
 
-- (BOOL) travelExistWithThisId:(int)identifier {
-    _travels = [Travel allObjects];
+- (BOOL) tripExistWithThisId:(int)identifier {
+    _trips = [Trip allObjects];
     
-    for(Travel* travel in _travels) {
-        if (travel.id == identifier) {
+    for(Trip* trip in _trips) {
+        if (trip.id == identifier) {
             return true;
         }
     }
@@ -93,18 +93,18 @@
 }
 
 
-- (Travel*) travelWithThisId:(int)identifier {
-    _travels = [Travel allObjects];
+- (Trip*) tripWithThisId:(int)identifier {
+    _trips = [Trip allObjects];
     
-    for(Travel* travel in _travels) {
-        return travel;
+    for(Trip* trip in _trips) {
+        return trip;
     }
     
     return nil;
 }
 
 
-- (void) sendTravelToApiWithParameters:(NSDictionary*)parameters success:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock {
+- (void) sendTripToApiWithParameters:(NSDictionary*)parameters success:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock {
     
     // HTTP POST
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -126,7 +126,7 @@
 }
 
 
-- (void) refreshTravelsFromApi:(void (^)(void))completionBlock {
+- (void) refreshTripsFromApi:(void (^)(void))completionBlock {
     
     UserManager* usermanager = [UserManager sharedInstance];
     User* user = [usermanager getUserInstance];
@@ -141,31 +141,31 @@
         {
             NSLog(@"travels from api = %@", jsonResponse);
             
-            //[[TravelManager sharedInstance] removeAllTravels];
+            //[[TripManager sharedInstance] removeAllTrips];
             
-            NSArray *allTravels = [jsonResponse objectForKey:@"data"];
+            NSArray *allTrips = [jsonResponse objectForKey:@"data"];
             
             NSDateFormatter *format = [[NSDateFormatter alloc] init];
             [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         
-            for (int i = 0; i < allTravels.count; i++) {
-                NSDictionary *travel=[allTravels objectAtIndex:i];
+            for (int i = 0; i < allTrips.count; i++) {
+                NSDictionary *trip=[allTrips objectAtIndex:i];
                 
-                bool highway = ([[travel valueForKey:@"highway"] isEqualToString:@"1"]) ? true : false;
+                bool highway = ([[trip valueForKey:@"highway"] isEqualToString:@"1"]) ? true : false;
                 
-                [usermanager getUserFromApiWithId:[[travel valueForKey:@"driver"] intValue] completion:^{
-                    Travel* newTravel = [Travel travelWithId:[[travel valueForKey:@"id"] intValue]
-                                                      driver:[[travel valueForKey:@"driver"] intValue]
-                                                       start:[travel valueForKey:@"start"]
-                                                     arrival:[travel valueForKey:@"arrival"]
+                [usermanager getUserFromApiWithId:[[trip valueForKey:@"driver"] intValue] completion:^{
+                    Trip* newTrip = [Trip tripWithId:[[trip valueForKey:@"id"] intValue]
+                                                      driver:[[trip valueForKey:@"driver"] intValue]
+                                                       start:[trip valueForKey:@"start"]
+                                                     arrival:[trip valueForKey:@"arrival"]
                                                      highway:highway
-                                                   hourStart:[format dateFromString:[travel valueForKey:@"hourStart"]]
-                                                       price:[[travel valueForKey:@"price"] integerValue]
-                                                       place:[[travel valueForKey:@"place"] integerValue]
-                                              placeAvailable:[[travel valueForKey:@"placeAvailable"] integerValue]
-                                                     comment:[travel valueForKey:@"comment"]];
+                                                   hourStart:[format dateFromString:[trip valueForKey:@"hourStart"]]
+                                                       price:[[trip valueForKey:@"price"] integerValue]
+                                                       place:[[trip valueForKey:@"place"] integerValue]
+                                              placeAvailable:[[trip valueForKey:@"placeAvailable"] integerValue]
+                                                     comment:[trip valueForKey:@"comment"]];
                     
-                    [self addOrUpdateTravel:newTravel];
+                    [self addOrUpdateTrip:newTrip];
                 }];
             }
             
@@ -182,17 +182,17 @@
     
 }
 
-- (void) getDistanceForTheTravel:(Travel*)travel completion:(void (^)(float totalDistance))completionBlock {
+- (void) getDistanceForTheTrip:(Trip*)trip completion:(void (^)(float totalDistance))completionBlock {
     
     User* user = [[UserManager sharedInstance] getUserInstance];
     
     // HTTP POST
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *parameters = @{@"token":user.token, @"start":travel.start, @"arrival":travel.arrival};
+    NSDictionary *parameters = @{@"token":user.token, @"start":trip.start, @"arrival":trip.arrival};
     
     [manager POST:@"http://172.31.1.36:8888/covoicar/coordinate" parameters:parameters success:^(AFHTTPRequestOperation *operation, id jsonResponse) {
         
-        NSLog(@"reponse getDistanceForTheTravel: %@", jsonResponse);
+        NSLog(@"reponse getDistanceForTheTrip: %@", jsonResponse);
         
         // Si success login
         if([[jsonResponse valueForKey:@"reponse"] isEqualToString:@"success"])
@@ -242,7 +242,7 @@
                     
                     RLMRealm *realm = [RLMRealm defaultRealm];
                     [realm beginWriteTransaction];
-                    travel.distanceMeter = total;
+                    trip.distanceMeter = total;
                     [realm commitWriteTransaction];
                     
                     completionBlock(total);
@@ -252,21 +252,21 @@
             
         }
         else{
-            NSLog(@"getDistanceForTheTravel from api error = %@", jsonResponse);
+            NSLog(@"getDistanceForTheTrip from api error = %@", jsonResponse);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"getDistanceForTheTravel from api timeout = %@", error);
+        NSLog(@"getDistanceForTheTrip from api timeout = %@", error);
     }];
     
 }
 
-- (void) searchTravelsWithStart:(NSString*)start arrival:(NSString*)arrival hourStart:(NSDate*)hourStart completion:(void (^)(NSMutableArray* list))completionBlock {
+- (void) searchTripsWithStart:(NSString*)start arrival:(NSString*)arrival hourStart:(NSDate*)hourStart completion:(void (^)(NSMutableArray* list))completionBlock {
     
     UserManager* usermanager = [UserManager sharedInstance];
     User* user = [usermanager getUserInstance];
     
-    NSMutableArray* listTravels = [[NSMutableArray alloc] init];
+    NSMutableArray* listTrips = [[NSMutableArray alloc] init];
     
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -285,32 +285,32 @@
         if([[jsonResponse valueForKey:@"reponse"] isEqualToString:@"success"])
         {
             
-            NSArray *allTravels = [jsonResponse objectForKey:@"data"];
+            NSArray *allTrips = [jsonResponse objectForKey:@"data"];
             
-            for (int i = 0; i < allTravels.count; i++) {
-                NSDictionary *travel=[allTravels objectAtIndex:i];
+            for (int i = 0; i < allTrips.count; i++) {
+                NSDictionary *trip=[allTrips objectAtIndex:i];
                 
-                bool highway = ([[travel valueForKey:@"highway"] isEqualToString:@"1"]) ? true : false;
+                bool highway = ([[trip valueForKey:@"highway"] isEqualToString:@"1"]) ? true : false;
                 
-                [usermanager getUserFromApiWithId:[[travel valueForKey:@"driver"] intValue] completion:^{
+                [usermanager getUserFromApiWithId:[[trip valueForKey:@"driver"] intValue] completion:^{
                     
                 }];
                 
-                Travel* newTravel = [Travel travelWithId:[[travel valueForKey:@"id"] intValue]
-                                                  driver:[[travel valueForKey:@"driver"] intValue]
-                                                   start:[travel valueForKey:@"start"]
-                                                 arrival:[travel valueForKey:@"arrival"]
+                Trip* newTrip = [Trip tripWithId:[[trip valueForKey:@"id"] intValue]
+                                                  driver:[[trip valueForKey:@"driver"] intValue]
+                                                   start:[trip valueForKey:@"start"]
+                                                 arrival:[trip valueForKey:@"arrival"]
                                                  highway:highway
-                                               hourStart:[format dateFromString:[travel valueForKey:@"hourStart"]]
-                                                   price:[[travel valueForKey:@"price"] integerValue]
-                                                   place:[[travel valueForKey:@"place"] integerValue]
-                                          placeAvailable:[[travel valueForKey:@"placeAvailable"] integerValue]
-                                                 comment:[travel valueForKey:@"comment"]];
+                                               hourStart:[format dateFromString:[trip valueForKey:@"hourStart"]]
+                                                   price:[[trip valueForKey:@"price"] integerValue]
+                                                   place:[[trip valueForKey:@"place"] integerValue]
+                                          placeAvailable:[[trip valueForKey:@"placeAvailable"] integerValue]
+                                                 comment:[trip valueForKey:@"comment"]];
                 
-                [listTravels addObject:newTravel];
+                [listTrips addObject:newTrip];
             }
             
-            completionBlock(listTravels);
+            completionBlock(listTrips);
             
         }
         else{

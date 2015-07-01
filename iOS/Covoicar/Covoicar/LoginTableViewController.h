@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UserManager.h"
-#import "TravelManager.h"
+#import "TripManager.h"
 #import "AFNetworking.h"
 
 @interface LoginTableViewController : UITableViewController <UITabBarControllerDelegate, UITabBarDelegate>

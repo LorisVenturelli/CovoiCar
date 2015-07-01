@@ -1,18 +1,18 @@
 //
-//  ListTravelsTableViewController.m
+//  ListTripsTableViewController.m
 //  Covoicar
 //
 //  Created by Loris on 29/06/2015.
 //  Copyright (c) 2015 Loris Venturelli. All rights reserved.
 //
 
-#import "ListTravelsTableViewController.h"
+#import "ListTripsTableViewController.h"
 
-@interface ListTravelsTableViewController ()
+@interface ListTripsTableViewController ()
 
 @end
 
-@implementation ListTravelsTableViewController
+@implementation ListTripsTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,17 +42,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[TravelManager sharedInstance] count];
+    return [[TripManager sharedInstance] count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    TravelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TravelCell" forIndexPath:indexPath];
+    TripTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TripCell" forIndexPath:indexPath];
     
-    Travel* travel = [[TravelManager sharedInstance] travelAtIndex:(int)indexPath.row];
+    Trip* trip = [[TripManager sharedInstance] tripAtIndex:(int)indexPath.row];
     
-    NSDate *date = travel.hourStart;
+    NSDate *date = trip.hourStart;
     NSDateFormatter *heureFormat = [[NSDateFormatter alloc] init];
     [heureFormat setDateFormat:@"HH"];
     NSDateFormatter *minuteFormat = [[NSDateFormatter alloc] init];
@@ -61,24 +61,24 @@
     [dayFormat setDateFormat:@"dd/MM"];
     
     
-    if(travel.distanceMeter == 0.0){
+    if(trip.distanceMeter == 0.0){
         
         cell.timeLabel.text = [NSString stringWithFormat:@"%@h%@ (%@)",[heureFormat stringFromDate:date], [minuteFormat stringFromDate:date], @"Calcul ..."];
         
-        [[TravelManager sharedInstance] getDistanceForTheTravel:travel completion:^(float totalDistance) {
-            cell.timeLabel.text = [NSString stringWithFormat:@"%@ %@h%@ (%1.0fkm)", [dayFormat stringFromDate:date],[heureFormat stringFromDate:date], [minuteFormat stringFromDate:date], travel.distanceMeter/1000];
+        [[TripManager sharedInstance] getDistanceForTheTrip:trip completion:^(float totalDistance) {
+            cell.timeLabel.text = [NSString stringWithFormat:@"%@ %@h%@ (%1.0fkm)", [dayFormat stringFromDate:date],[heureFormat stringFromDate:date], [minuteFormat stringFromDate:date], trip.distanceMeter/1000];
         }];
     }
     else {
-        cell.timeLabel.text = [NSString stringWithFormat:@"%@ %@h%@ (%1.0fkm)", [dayFormat stringFromDate:date],[heureFormat stringFromDate:date], [minuteFormat stringFromDate:date], travel.distanceMeter/1000];
+        cell.timeLabel.text = [NSString stringWithFormat:@"%@ %@h%@ (%1.0fkm)", [dayFormat stringFromDate:date],[heureFormat stringFromDate:date], [minuteFormat stringFromDate:date], trip.distanceMeter/1000];
     }
     
-    User* driver = [[UserManager sharedInstance] userWithThisId:(int)travel.driver];
+    User* driver = [[UserManager sharedInstance] userWithThisId:(int)trip.driver];
     
-    cell.wayLabel.text = [NSString stringWithFormat:@"%@ - %@", travel.start, travel.arrival];
-    cell.priceLabel.text = [NSString stringWithFormat:@"%d €", (int)travel.price];
+    cell.wayLabel.text = [NSString stringWithFormat:@"%@ - %@", trip.start, trip.arrival];
+    cell.priceLabel.text = [NSString stringWithFormat:@"%d €", (int)trip.price];
     cell.driverLabel.text = [NSString stringWithFormat:@"%@ %@", driver.firstname, driver.lastname];
-    cell.placeLabel.text = [NSString stringWithFormat:@"%d pl.", (int)travel.placeAvailable];
+    cell.placeLabel.text = [NSString stringWithFormat:@"%d pl.", (int)trip.placeAvailable];
     
     return cell;
 }
@@ -117,7 +117,7 @@
         self.refreshControl.attributedTitle = attributedTitle;
     }
     
-    [[TravelManager sharedInstance] refreshTravelsFromApi:^{
+    [[TripManager sharedInstance] refreshTripsFromApi:^{
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
         self.tableView.scrollEnabled = YES;
@@ -132,14 +132,14 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"viewTravel"]) {
-        TravelViewController *dest = segue.destinationViewController;
+    if ([[segue identifier] isEqualToString:@"viewTrip"]) {
+        TripViewController *dest = segue.destinationViewController;
         
         NSInteger cell = self.tableView.indexPathForSelectedRow.row;
-        Travel* travel = [[TravelManager sharedInstance] travelAtIndex:(int)cell];
+        Trip* trip = [[TripManager sharedInstance] tripAtIndex:(int)cell];
         
-        dest._travel = travel;
-        dest._user = [[UserManager sharedInstance] userWithThisId:(int)travel.driver];
+        dest._trip = trip;
+        dest._user = [[UserManager sharedInstance] userWithThisId:(int)trip.driver];
         dest.canReserve = NO;
     }
 }

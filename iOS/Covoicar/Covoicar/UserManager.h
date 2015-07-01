@@ -10,7 +10,7 @@
 #import <Realm/Realm.h>
 #import "AFNetworking.h"
 #import "User.h"
-#import "TravelManager.h"
+#import "TripManager.h"
 
 @interface UserManager : NSObject
 

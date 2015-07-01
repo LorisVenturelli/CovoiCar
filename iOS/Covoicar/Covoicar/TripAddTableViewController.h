@@ -1,5 +1,5 @@
 //
-//  TravelAddTableViewController.h
+//  TripAddTableViewController.h
 //  Covoicar
 //
 //  Created by Loris on 25/06/2015.
@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "AFNetworking.h"
 #import "UserManager.h"
-#import "TravelManager.h"
+#import "TripManager.h"
 
-@interface TravelAddTableViewController : UITableViewController <UITabBarControllerDelegate, UITabBarDelegate>
+@interface TripAddTableViewController : UITableViewController <UITabBarControllerDelegate, UITabBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *startField;
 @property (weak, nonatomic) IBOutlet UITextField *arrivalField;

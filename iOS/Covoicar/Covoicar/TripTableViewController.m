@@ -1,18 +1,18 @@
 //
-//  TravelTableViewController.m
+//  TripTableViewController.m
 //  Covoicar
 //
 //  Created by Loris on 01/07/2015.
 //  Copyright (c) 2015 Loris Venturelli. All rights reserved.
 //
 
-#import "TravelTableViewController.h"
+#import "TripTableViewController.h"
 
-@interface TravelTableViewController ()
+@interface TripTableViewController ()
 
 @end
 
-@implementation TravelTableViewController
+@implementation TripTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -22,20 +22,20 @@
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"d MMMM HH:mm"];
-    self.dateField.text = [formatter stringFromDate:__travel.hourStart];
+    self.dateField.text = [formatter stringFromDate:__trip.hourStart];
     
-    self.startField.text = __travel.start;
-    self.arrivalField.text = __travel.arrival;
+    self.startField.text = __trip.start;
+    self.arrivalField.text = __trip.arrival;
     
     // Highway
-    if(!__travel.highway)
+    if(!__trip.highway)
         self.highwayImage.hidden = YES;
     
-    self.placeField.text = [NSString stringWithFormat:@"%ld", (long)__travel.placeAvailable];
-    self.priceField.text = [NSString stringWithFormat:@"%ld€", (long)__travel.price];
+    self.placeField.text = [NSString stringWithFormat:@"%ld", (long)__trip.placeAvailable];
+    self.priceField.text = [NSString stringWithFormat:@"%ld€", (long)__trip.price];
     
     // Trip comment
-    self.commentField.text = __travel.comment;
+    self.commentField.text = __trip.comment;
     if([self.commentField.text isEqualToString:@""])
         self.commentField.text = @"Aucune description sur ce voyage.";
     

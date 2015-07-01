@@ -1,18 +1,18 @@
 //
-//  TravelAddTableViewController.m
+//  TripAddTableViewController.m
 //  Covoicar
 //
 //  Created by Loris on 25/06/2015.
 //  Copyright (c) 2015 Loris Venturelli. All rights reserved.
 //
 
-#import "TravelAddTableViewController.h"
+#import "TripAddTableViewController.h"
 
-@interface TravelAddTableViewController ()
+@interface TripAddTableViewController ()
 
 @end
 
-@implementation TravelAddTableViewController
+@implementation TripAddTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -102,7 +102,7 @@
     
     NSLog(@"register action void : %@", parameters);
     
-    [[TravelManager sharedInstance] sendTravelToApiWithParameters:parameters success:^(NSDictionary* responseJson) {
+    [[TripManager sharedInstance] sendTripToApiWithParameters:parameters success:^(NSDictionary* responseJson) {
         UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Bravo !" message:[responseJson valueForKey:@"message"] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alertView show];
     } error:^(NSDictionary* responseJson) {

@@ -1,5 +1,5 @@
 //
-//  Travels.h
+//  Trips.h
 //  Covoicar
 //
 //  Created by Loris on 29/06/2015.
@@ -10,7 +10,7 @@
 #import <Realm/Realm.h>
 #import "User.h"
 
-@interface Travel : RLMObject
+@interface Trip : RLMObject
 
 @property int id;
 
@@ -26,7 +26,7 @@
 @property NSInteger placeAvailable;
 @property NSString* comment;
 
-+ (Travel*) travelWithId:(int)id driver:(NSInteger)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place placeAvailable:(NSInteger)placeAvailable comment:(NSString *)comment;
++ (Trip*) tripWithId:(int)id driver:(NSInteger)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place placeAvailable:(NSInteger)placeAvailable comment:(NSString *)comment;
 
 - (instancetype) initWithId:(int)id driver:(NSInteger)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place placeAvailable:(NSInteger)placeAvailable comment:(NSString *)comment;
 

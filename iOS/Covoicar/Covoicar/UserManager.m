@@ -185,7 +185,7 @@
             
             [[UserManager sharedInstance] setUserInstance:user];
             
-            [[TravelManager sharedInstance] refreshTravelsFromApi:^{
+            [[TripManager sharedInstance] refreshTripsFromApi:^{
                 successBlock(jsonResponse);
             }];
         }
@@ -236,7 +236,7 @@
         {
             self.idUserInstance = nil;
             
-            [[TravelManager sharedInstance] removeAllTravels];
+            [[TripManager sharedInstance] removeAllTrips];
             
             successBlock(jsonResponse);
         }
