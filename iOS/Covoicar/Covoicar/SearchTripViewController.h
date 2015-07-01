@@ -15,6 +15,7 @@
 @interface SearchTripViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property UIActivityIndicatorView* activityIndicator;
 
 @property NSMutableArray* _trips;
 

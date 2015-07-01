@@ -20,24 +20,51 @@
     if(self._trips == nil)
         self._trips = [[NSMutableArray alloc] init];
     
+    // Initialize table view
     self.tableView.dataSource = self;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     
+    // Datepicker for date
     UIDatePicker *datePicker = [[UIDatePicker alloc] init];
     datePicker.datePickerMode = UIDatePickerModeDateAndTime;
     [datePicker addTarget:self action:@selector(updateTextFieldForDate:)
          forControlEvents:UIControlEventValueChanged];
+    datePicker.minimumDate = [[NSDate alloc] init];
     [self.hourStartField setInputView:datePicker];
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
     
-    [self refreshTableView];
+    // Initialize Activity indactor on Navigation Bar
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    UIBarButtonItem* barButton = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
+    [self navigationItem].leftBarButtonItem = barButton;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    
+    if (self._trips.count == 0) {
+        
+        // Display a message when the table is empty
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        
+        messageLabel.text = @"Aucun résultat";
+        messageLabel.textColor = [UIColor blackColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        [messageLabel sizeToFit];
+        
+        self.tableView.backgroundView = messageLabel;
+        self.tableView.backgroundColor = [UIColor lightGrayColor];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        return 0;
+        
+    }
+    else {
+        
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        self.tableView.backgroundView = nil;
+        
+        return 1;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -80,11 +107,27 @@
     [dateFormat setDateFormat:@"dd/MM/yyyy HH:mm"];
     NSDate* hourStartDate = [dateFormat dateFromString:self.hourStartField.text];
     
-    [[TripManager sharedInstance] searchTripsWithStart:self.startField.text arrival:self.arrivalField.text hourStart:hourStartDate completion:^(NSMutableArray *list) {
+    
+    [self.activityIndicator startAnimating];
+    
+    [[TripManager sharedInstance] searchTripsWithStart:self.startField.text arrival:self.arrivalField.text hourStart:hourStartDate success:^(NSMutableArray *list) {
         
         self._trips = list;
         
         [self refreshTableView];
+        
+        [self.activityIndicator stopAnimating];
+        
+    } error:^(NSDictionary *responseJson) {
+        
+        [self ShowAlertErrorWithMessage:[responseJson valueForKey:@"message"]];
+        [self.activityIndicator stopAnimating];
+        
+    } failure:^(NSError *error) {
+        
+        [self ShowAlertErrorWithMessage:@"Le serveur ne répond pas .."];
+        [self.activityIndicator stopAnimating];
+        
     }];
     
 }
@@ -122,6 +165,11 @@
         dest._user = [[UserManager sharedInstance] userWithThisId:(int)trip.driver];
         dest.canReserve = YES;
     }
+}
+
+- (void)ShowAlertErrorWithMessage:(NSString *)message {
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Erreur" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alertView show];
 }
 
 @end

@@ -12,6 +12,8 @@
 
 @interface RegisterTableViewController : UITableViewController <UITabBarControllerDelegate, UITabBarDelegate>
 
+@property UIActivityIndicatorView* activityIndicator;
+
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UITextField *rePasswordField;

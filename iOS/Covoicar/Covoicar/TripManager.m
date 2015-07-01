@@ -56,13 +56,13 @@
 
 - (void) removeAllTrips {
     
-    for (int i = 0; i < [self count]; i++)
-    {
-        Trip* trip = [self tripAtIndex:i];
-        [self removeTrip:trip];
-    }
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    [realm beginWriteTransaction];
+    [realm deleteAllObjects];
+    [realm commitWriteTransaction];
     
-    _trips = [[Trip allObjects] sortedResultsUsingProperty:@"hourStart" ascending:YES];
+    _trips = [Trip allObjects];
+    
 }
 
 - (NSUInteger) count {
@@ -284,7 +284,7 @@
     
 }
 
-- (void) searchTripsWithStart:(NSString*)start arrival:(NSString*)arrival hourStart:(NSDate*)hourStart completion:(void (^)(NSMutableArray* list))completionBlock {
+- (void) searchTripsWithStart:(NSString*)start arrival:(NSString*)arrival hourStart:(NSDate*)hourStart success:(void (^)(NSMutableArray* list))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock {
     
     UserManager* usermanager = [UserManager sharedInstance];
     User* user = [usermanager getUserInstance];
@@ -333,15 +333,14 @@
                 [listTrips addObject:newTrip];
             }
             
-            completionBlock(listTrips);
-            
+            successBlock(listTrips);
         }
         else{
-            NSLog(@"search travels from api error = %@", jsonResponse);
+            errorBlock(jsonResponse);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"search travels from api timeout = %@", error);
+        failureBlock(error);
     }];
     
 }
@@ -359,6 +358,8 @@
         
         if([[jsonResponse valueForKey:@"reponse"] isEqualToString:@"success"])
         {
+            [self addOrUpdateTrip:trip];
+            
             successBlock(jsonResponse);
         }
         else{

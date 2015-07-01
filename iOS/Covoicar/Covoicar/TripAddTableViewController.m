@@ -23,13 +23,19 @@
     
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     
-    
+    // Date picker for dates
     UIDatePicker *datePicker = [[UIDatePicker alloc] init];
     datePicker.datePickerMode = UIDatePickerModeDateAndTime;
     [datePicker addTarget:self action:@selector(updateTextFieldForDate:)
          forControlEvents:UIControlEventValueChanged];
+    datePicker.minimumDate = [[NSDate alloc] init];
     [self.hourStartField setInputView:datePicker];
     [self.roundTripField setInputView:datePicker];
+    
+    // Initialize Activity indactor on Navigation Bar
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    UIBarButtonItem* barButton = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
+    [self navigationItem].leftBarButtonItem = barButton;
     
 }
 
@@ -93,6 +99,9 @@
     if(roundTrip == nil)
         roundTrip = @"";
     
+    if(hourStart == nil)
+        hourStart = @"";
+    
     NSDictionary *parameters = @{@"token":user.token,
                                  @"start":self.startField.text,
                                  @"arrival":self.arrivalField.text,
@@ -104,6 +113,8 @@
                                  @"comment":self.commentField.text};
     
     NSLog(@"register action void : %@", parameters);
+    
+    [self.activityIndicator startAnimating];
     
     [[TripManager sharedInstance] sendTripToApiWithParameters:parameters success:^(NSDictionary* responseJson) {
         
@@ -122,10 +133,18 @@
         self.placeField.text = @"";
         self.commentField.text = @"";
         
+        [self.activityIndicator stopAnimating];
+        
     } error:^(NSDictionary* responseJson) {
+        
         [self ShowAlertErrorWithMessage:[responseJson valueForKey:@"message"]];
+        [self.activityIndicator stopAnimating];
+        
     } failure:^(NSError *error) {
+        
         [self ShowAlertErrorWithMessage:@"Connexion échouée au serveur."];
+        [self.activityIndicator stopAnimating];
+        
     }];
     
     

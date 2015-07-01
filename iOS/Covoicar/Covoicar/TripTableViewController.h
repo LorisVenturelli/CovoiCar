@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceField;
 @property (weak, nonatomic) IBOutlet UITextView *commentField;
 @property (weak, nonatomic) IBOutlet UIImageView *highwayImage;
+@property (weak, nonatomic) IBOutlet UILabel *distanceField;
 
 @property User* _user;
 

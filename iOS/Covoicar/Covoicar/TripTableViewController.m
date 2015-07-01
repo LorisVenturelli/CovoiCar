@@ -21,7 +21,7 @@
     self.bioField.editable = NO;
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"d MMMM HH:mm"];
+    [formatter setDateFormat:@"d MMMM yyyy HH:mm"];
     self.dateField.text = [formatter stringFromDate:__trip.hourStart];
     
     self.startField.text = __trip.start;
@@ -54,6 +54,18 @@
     self.bioField.text = __user.bio;
     if([self.bioField.text isEqualToString:@""])
         self.bioField.text = @"Aucune biographie.";
+    
+    if(__trip.distanceMeter == 0.0){
+        
+        self.distanceField.text = @"Calcul ...";
+        
+        [[TripManager sharedInstance] getDistanceForTheTrip:__trip completion:^(float totalDistance) {
+            self.distanceField.text = [NSString stringWithFormat:@"%1.0fkm", totalDistance/1000];
+        }];
+    }
+    else {
+        self.distanceField.text = [NSString stringWithFormat:@"%1.0fkm", self._trip.distanceMeter/1000];
+    }
     
 }
 

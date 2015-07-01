@@ -13,6 +13,8 @@
 
 @interface TripAddTableViewController : UITableViewController <UITabBarControllerDelegate, UITabBarDelegate>
 
+@property UIActivityIndicatorView* activityIndicator;
+
 @property (weak, nonatomic) IBOutlet UITextField *startField;
 @property (weak, nonatomic) IBOutlet UITextField *arrivalField;
 @property (weak, nonatomic) IBOutlet UISwitch *highwaySwitch;
