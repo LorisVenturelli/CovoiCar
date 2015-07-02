@@ -8,7 +8,9 @@
 
 #import "TripTableViewController.h"
 
-@interface TripTableViewController ()
+@interface TripTableViewController () {
+    User* _userInstance;
+}
 
 @end
 
@@ -17,13 +19,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.commentField.editable = NO;
-    self.bioField.editable = NO;
+    // Hide Activity Indicator
+    [self hideActivityIndicator];
     
+    // Get and init the user instance
+    _userInstance = [[UserManager sharedInstance] getUserInstance];
+    
+    // Change text on button if the userInstance is not the driver
+    if((int)self._trip.driver != _userInstance.id)
+        [self.deleteTravelButton setTitle:@"Annuler la réservation" forState:UIControlStateNormal];
+    
+    // Trip's date
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"d MMMM yyyy HH:mm"];
     self.dateField.text = [formatter stringFromDate:__trip.hourStart];
     
+    // Start and arrival field
     self.startField.text = __trip.start;
     self.arrivalField.text = __trip.arrival;
     
@@ -55,6 +66,7 @@
     if([self.bioField.text isEqualToString:@""])
         self.bioField.text = @"Aucune biographie.";
     
+    // Distance between city start and city arrival
     if(__trip.distanceMeter == 0.0){
         
         self.distanceField.text = @"Calcul ...";
@@ -69,6 +81,52 @@
     
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if(self.canReserve)
+        return 3;
+    
+    return 4;
+}
 
+- (IBAction)deleteTravel:(id)sender {
+    
+    [self showActivityIndicator];
+    
+    [[TripManager sharedInstance] deleteTheTripOrTheReservation:self._trip success:^(NSDictionary *responseJson) {
+        
+        [self hideActivityIndicator];
+        
+        [[self navigationController] popViewControllerAnimated:YES];
+        
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Bravo" message:[responseJson valueForKey:@"message"] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alertView show];
+
+        
+    } error:^(NSDictionary *responseJson) {
+        
+        [self hideActivityIndicator];
+        [self ShowAlertErrorWithMessage:[responseJson valueForKey:@"message"]];
+        
+    } failure:^(NSError *error) {
+        
+        [self hideActivityIndicator];
+        [self ShowAlertErrorWithMessage:@"Connexion échouée au serveur."];
+        
+    }];
+    
+}
+
+- (void)ShowAlertErrorWithMessage:(NSString *)message {
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Erreur" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alertView show];
+}
+- (void)showActivityIndicator{
+    [self.activityIndicator setHidden:NO];
+    [self.activityIndicator startAnimating];
+}
+- (void)hideActivityIndicator{
+    [self.activityIndicator setHidden:YES];
+    [self.activityIndicator stopAnimating];
+}
 
 @end

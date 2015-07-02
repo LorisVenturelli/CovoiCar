@@ -124,11 +124,14 @@
         // Go to the user's trip list
         [self.tabBarController setSelectedIndex:0];
         
+        [self.view endEditing:YES];
+        
         self.startField.text = @"";
         self.arrivalField.text = @"";
         [self.highwaySwitch setOn:YES];
         self.hourStartField.text = @"";
         [self.roundTripSwitch setOn:YES];
+        self.roundTripField.text = @"";
         self.priceField.text = @"";
         self.placeField.text = @"";
         self.commentField.text = @"";

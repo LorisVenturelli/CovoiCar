@@ -27,6 +27,9 @@
     self = [super init];
     if (self != nil) {
         
+        firstname = [firstname stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[firstname substringToIndex:1] uppercaseString]];
+        lastname = [lastname stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[lastname substringToIndex:1] uppercaseString]];
+        
         self.id = id;
         self.token = token;
         

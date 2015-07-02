@@ -57,7 +57,7 @@
 - (void) removeAllTrips {
     _trips = [Trip allObjects];
     
-    for (int i = 0; i < [self count]; i++)
+    for (int i = 0; i < _trips.count; i++)
     {
         Trip* trip = [self tripAtIndex:i];
         [self removeTrip:trip];
@@ -266,6 +266,8 @@
                     
                     RLMRealm *realm = [RLMRealm defaultRealm];
                     [realm beginWriteTransaction];
+                    trip.start = [start valueForKey:@"name"];
+                    trip.arrival = [arrival valueForKey:@"name"];
                     trip.distanceMeter = total;
                     [realm commitWriteTransaction];
                     
@@ -359,7 +361,41 @@
         
         if([[jsonResponse valueForKey:@"reponse"] isEqualToString:@"success"])
         {
+            trip.placeAvailable -= 1;
+            
             [self addOrUpdateTrip:trip];
+            
+            successBlock(jsonResponse);
+        }
+        else{
+            errorBlock(jsonResponse);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failureBlock(error);
+    }];
+    
+}
+
+
+- (void) deleteTheTripOrTheReservation:(Trip*)trip success:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock {
+    
+    UserManager* usermanager = [UserManager sharedInstance];
+    User* user = [usermanager getUserInstance];
+    
+    NSString* url = @"http://172.31.1.36:8888/covoicar/travel/delete";
+    
+    if((int)trip.driver == user.id)
+        url = @"http://172.31.1.36:8888/covoicar/trip/delete";
+    
+    // HTTP POST
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{@"token":user.token, @"id_trip":[NSString stringWithFormat:@"%d", trip.id]};
+    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id jsonResponse) {
+        
+        if([[jsonResponse valueForKey:@"reponse"] isEqualToString:@"success"])
+        {
+            [self removeTrip:trip];
             
             successBlock(jsonResponse);
         }

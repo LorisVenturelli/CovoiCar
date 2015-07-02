@@ -12,6 +12,7 @@
 
 @interface TripTableViewController : UITableViewController
 
+@property BOOL canReserve;
 
 @property Trip* _trip;
 
@@ -30,6 +31,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *phoneField;
 @property (weak, nonatomic) IBOutlet UILabel *emailField;
 @property (weak, nonatomic) IBOutlet UITextView *bioField;
+
+
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIButton *deleteTravelButton;
+
+- (IBAction)deleteTravel:(id)sender;
 
 
 @end
