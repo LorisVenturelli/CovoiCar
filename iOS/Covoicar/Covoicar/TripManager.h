@@ -15,8 +15,10 @@
 
 @interface TripManager : NSObject
 
+// Instance of trip manager
 + (TripManager*) sharedInstance;
 
+// Manage the trip
 - (void) addOrUpdateTrip:(Trip*)trip;
 - (void) removeTrip:(Trip*)trip;
 - (void) removeAllTrips;
@@ -26,6 +28,7 @@
 - (BOOL) tripExistWithThisId:(int)identifier;
 - (Trip*) tripWithThisId:(int)identifier;
 
+// Methods for API
 - (void) refreshTripsFromApi:(void (^)(void))completionBlock;
 - (void) getDistanceForTheTrip:(Trip*)trip completion:(void (^)(float totalDistance))completionBlock;
 - (void) sendTripToApiWithParameters:(NSDictionary*)parameters success:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock;

@@ -12,6 +12,7 @@
     RLMResults* _users;
 }
 
+// Init the UserManager
 - (instancetype)init
 {
     self = [super init];
@@ -21,6 +22,7 @@
     return self;
 }
 
+// Get the instance (singleton)
 + (UserManager*) sharedInstance {
     static UserManager* instance = nil;
     
@@ -31,6 +33,7 @@
     return instance;
 }
 
+// Load NSUserDefault for UserInstance
 - (void)loadNSUserDefaultsForUserInstance {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences objectForKey:@"idUserInstance"] != nil)
@@ -39,7 +42,7 @@
     }
 }
 
-
+// Set User Instance
 - (void) setUserInstance:(User *)userInstance {
     [self addOrUpdateUser:userInstance];
     self.idUserInstance = [NSNumber numberWithInt:userInstance.id];
@@ -55,6 +58,7 @@
         NSLog(@"NSUserDefaults has save with id %@", self.idUserInstance);
 }
 
+// Return User Instance
 - (User*) getUserInstance{
     
     [self loadNSUserDefaultsForUserInstance];
@@ -65,6 +69,7 @@
     return nil;
 }
 
+// Return bool if user is instancied
 - (BOOL) userIsInstancied{
     
     [self loadNSUserDefaultsForUserInstance];
@@ -79,6 +84,7 @@
     return ret;
 }
 
+// Delete the instance of the user
 - (void)deleteUserInstance {
     self.idUserInstance = nil;
     
@@ -87,6 +93,7 @@
     [preferences synchronize];
 }
 
+// Add or update a User
 - (void) addOrUpdateUser:(User*)user {
     
     RLMRealm *realm = [RLMRealm defaultRealm];
@@ -99,6 +106,7 @@
     
 }
 
+// Remove an User
 - (void) removeUser:(User *)user {
     RLMRealm *realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
@@ -108,6 +116,7 @@
     _users = [User allObjects];
 }
 
+// Count all users
 - (NSUInteger) count {
     if(_users == nil)
         return 0;
@@ -115,6 +124,7 @@
     return _users.count;
 }
 
+// Return an User at an index on the list
 - (User*) userAtIndex:(int)index {
     _users = [User allObjects];
     
@@ -123,7 +133,7 @@
     return [_users objectAtIndex:nb];
 }
 
-
+// Return bool if user exist with an id
 - (BOOL) userExistWithThisId:(int)identifier {
     _users = [User allObjects];
     
@@ -136,7 +146,7 @@
     return false;
 }
 
-
+// Return a User by an id
 - (User*) userWithThisId:(int)identifier {
     _users = [User allObjects];
     
@@ -149,6 +159,7 @@
     return nil;
 }
 
+// Get an User from API by an id
 - (void) getUserFromApiWithId:(int)identifier completion:(void (^)(void))completionBlock {
     
     User* user = [self getUserInstance];
@@ -193,8 +204,7 @@
     
 }
 
-
-
+// Method for connect the UserInstance with API
 - (void) connectToApiWithEmail:(NSString*)email AndPassword:(NSString*)password success:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock {
     
     // HTTP POST
@@ -234,6 +244,7 @@
     
 }
 
+// Method for regist an User to API
 - (void) registerToApi:(NSDictionary*)parameters success:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock {
     
     // HTTP POST
@@ -255,7 +266,7 @@
     
 }
 
-
+// Logout an User with API
 - (void) logoutToApiWithSuccessBlock:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock {
     
     User* userInstance = [[UserManager sharedInstance] getUserInstance];

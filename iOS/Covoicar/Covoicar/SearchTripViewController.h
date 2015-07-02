@@ -14,17 +14,25 @@
 
 @interface SearchTripViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+// TableView for the search's results
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property UIActivityIndicatorView* activityIndicator;
 
+// All trips of the research
 @property NSMutableArray* _trips;
 
+// Field for the research
 @property (weak, nonatomic) IBOutlet UITextField *startField;
 @property (weak, nonatomic) IBOutlet UITextField *arrivalField;
 @property (weak, nonatomic) IBOutlet UITextField *hourStartField;
 
+/**
+ * Research action
+ * @return IBAction
+ */
 - (IBAction)submitAction:(id)sender;
 
-- (void)refreshTableView;
+
+- (void)ShowAlertErrorWithMessage:(NSString *)message;
 
 @end

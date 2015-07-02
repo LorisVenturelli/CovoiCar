@@ -14,6 +14,7 @@
 
 @property UIActivityIndicatorView* activityIndicator;
 
+// All labels form
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UITextField *rePasswordField;
@@ -21,6 +22,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *firstNameField;
 @property (weak, nonatomic) IBOutlet UITextField *birthdayField;
 
+/**
+ * Send the form for save the user to API
+ * @return IBAction
+ */
 - (IBAction)submitAction:(id)sender;
 
 @end

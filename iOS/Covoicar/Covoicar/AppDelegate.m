@@ -19,6 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    // If user is logged and instancied, go to home view
     UserManager* manager = [UserManager sharedInstance];
     bool userIsInstancied = [manager userIsInstancied];
     if(userIsInstancied){

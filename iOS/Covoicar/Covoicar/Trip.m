@@ -10,10 +10,18 @@
 
 @implementation Trip
 
+/**
+ * Primary key for Realm
+ * @return NSString
+ */
 + (NSString*)primaryKey {
     return @"id";
 }
 
+/**
+ * Instance the trip
+ * @return instancetype
+ */
 - (instancetype) initWithId:(int)id driver:(NSInteger)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place placeAvailable:(NSInteger)placeAvailable comment:(NSString *)comment
 {
     self = [super init];
@@ -38,6 +46,10 @@
     return self;
 }
 
+/**
+ * Construct the trip
+ * @return Trip
+ */
 + (Trip*) tripWithId:(int)id driver:(NSInteger)driver start:(NSString *)start arrival:(NSString *)arrival highway:(bool)highway hourStart:(NSDate *)hourStart price:(NSInteger)price place:(NSInteger)place placeAvailable:(NSInteger)placeAvailable comment:(NSString *)comment {
     
     return [[Trip alloc] initWithId:id driver:driver start:start arrival:arrival highway:highway hourStart:hourStart price:price place:place placeAvailable:placeAvailable comment:comment];

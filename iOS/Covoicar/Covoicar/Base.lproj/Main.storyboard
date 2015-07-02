@@ -897,7 +897,7 @@
                     <navigationItem key="navigationItem" title="Proposer un trajet" id="Hz4-nY-spE">
                         <barButtonItem key="rightBarButtonItem" title="Publier" id="zwl-ap-Sqc">
                             <connections>
-                                <action selector="submitTabBarAction:" destination="o1Q-Dr-3VW" id="FR6-Db-ps7"/>
+                                <action selector="submitAction:" destination="o1Q-Dr-3VW" id="DBd-iK-0dW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

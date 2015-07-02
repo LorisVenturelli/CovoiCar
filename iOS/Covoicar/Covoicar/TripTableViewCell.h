@@ -10,6 +10,7 @@
 
 @interface TripTableViewCell : UITableViewCell
 
+// All label for the cell
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *wayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;

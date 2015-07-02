@@ -71,6 +71,7 @@
         
         self.distanceField.text = @"Calcul ...";
         
+        // Get the distance function
         [[TripManager sharedInstance] getDistanceForTheTrip:__trip completion:^(float totalDistance) {
             self.distanceField.text = [NSString stringWithFormat:@"%1.0fkm", totalDistance/1000];
         }];
@@ -82,48 +83,56 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    // If we can reserve the trip, don't show the last section : the delete function
     if(self.canReserve)
         return 3;
     
     return 4;
 }
 
+// Action for delete the travel or trip if we are the driver
 - (IBAction)deleteTravel:(id)sender {
     
     [self showActivityIndicator];
     
+    // Send the request for delete the trip or the reservation
     [[TripManager sharedInstance] deleteTheTripOrTheReservation:self._trip success:^(NSDictionary *responseJson) {
         
         [self hideActivityIndicator];
         
+        // if success, go back on the navigationController
         [[self navigationController] popViewControllerAnimated:YES];
         
+        // Show the success response from API
         UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Bravo" message:[responseJson valueForKey:@"message"] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alertView show];
-
         
     } error:^(NSDictionary *responseJson) {
-        
+        // API return an error
         [self hideActivityIndicator];
         [self ShowAlertErrorWithMessage:[responseJson valueForKey:@"message"]];
-        
     } failure:^(NSError *error) {
-        
+        // The server don't responding
         [self hideActivityIndicator];
         [self ShowAlertErrorWithMessage:@"Connexion échouée au serveur."];
-        
     }];
     
 }
 
+// Function for show an alert with error message
 - (void)ShowAlertErrorWithMessage:(NSString *)message {
     UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Erreur" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alertView show];
 }
+
+// Method for show and start ActivityIndicator
 - (void)showActivityIndicator{
     [self.activityIndicator setHidden:NO];
     [self.activityIndicator startAnimating];
 }
+
+// Method for hide and stop ActivityIndicator
 - (void)hideActivityIndicator{
     [self.activityIndicator setHidden:YES];
     [self.activityIndicator stopAnimating];

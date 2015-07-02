@@ -16,8 +16,10 @@
 
 @property NSNumber* idUserInstance;
 
+// Instance of UserManager
 + (UserManager*) sharedInstance;
 
+// Manage user
 - (void) setUserInstance:(User *)userInstance;
 - (User*) getUserInstance;
 - (BOOL) userIsInstancied;
@@ -30,8 +32,8 @@
 - (BOOL) userExistWithThisId:(int)identifier;
 - (User*) userWithThisId:(int)identifier;
 
+// Methods for API
 - (void) getUserFromApiWithId:(int)identifier completion:(void (^)(void))completionBlock;
-
 - (void) registerToApi:(NSDictionary*)parameters success:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock;
 - (void) connectToApiWithEmail:(NSString*)email AndPassword:(NSString*)password success:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock;
 

@@ -14,6 +14,7 @@
     RLMResults* _trips;
 }
 
+// Init the TripManager
 - (instancetype)init
 {
     self = [super init];
@@ -23,6 +24,7 @@
     return self;
 }
 
+// Get the instance (singleton)
 + (TripManager*) sharedInstance {
     static TripManager* instance = nil;
     
@@ -33,6 +35,7 @@
     return instance;
 }
 
+// Add or update a trip
 - (void) addOrUpdateTrip:(Trip *)trip {
     
     RLMRealm *realm = [RLMRealm defaultRealm];
@@ -45,6 +48,7 @@
     
 }
 
+// Remove a trip
 - (void) removeTrip:(Trip *)trip {
     RLMRealm *realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
@@ -54,6 +58,11 @@
     _trips = [[Trip allObjects] sortedResultsUsingProperty:@"hourStart" ascending:YES];
 }
 
+/**
+ *
+ **/
+
+// Remove all trips
 - (void) removeAllTrips {
     _trips = [Trip allObjects];
     
@@ -65,7 +74,8 @@
     
     _trips = [Trip allObjects];
 }
-
+ 
+// Count all trips
 - (NSUInteger) count {
     if(_trips == nil)
         return 0;
@@ -73,6 +83,7 @@
     return _trips.count;
 }
 
+// Return the trip at a index
 - (Trip*) tripAtIndex:(int)index {
     _trips = [[Trip allObjects] sortedResultsUsingProperty:@"hourStart" ascending:YES];
     
@@ -81,6 +92,7 @@
     return [_trips objectAtIndex:nb];
 }
 
+// Return bool if a trip exist with a id
 - (BOOL) tripExistWithThisId:(int)identifier {
     _trips = [[Trip allObjects] sortedResultsUsingProperty:@"hourStart" ascending:YES];
     
@@ -93,7 +105,7 @@
     return false;
 }
 
-
+// Return a trip with an id
 - (Trip*) tripWithThisId:(int)identifier {
     _trips = [[Trip allObjects] sortedResultsUsingProperty:@"hourStart" ascending:YES];
     
@@ -104,7 +116,7 @@
     return nil;
 }
 
-
+// Send a trip to API
 - (void) sendTripToApiWithParameters:(NSDictionary*)parameters success:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock {
     
     UserManager* usermanager = [UserManager sharedInstance];
@@ -149,7 +161,7 @@
     
 }
 
-
+// Refresh all trips from API
 - (void) refreshTripsFromApi:(void (^)(void))completionBlock {
     
     UserManager* usermanager = [UserManager sharedInstance];
@@ -206,6 +218,7 @@
     
 }
 
+// Get the distance between a city start and arrival start
 - (void) getDistanceForTheTrip:(Trip*)trip completion:(void (^)(float totalDistance))completionBlock {
     
     User* user = [[UserManager sharedInstance] getUserInstance];
@@ -251,19 +264,24 @@
             [directionsRequest setDestination:destination];
             MKDirections *directions = [[MKDirections alloc] initWithRequest:directionsRequest];
             
+            // Send request
             [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
                 
                 NSArray *arrRoutes = [response routes];
                 
+                // For each routes
                 [arrRoutes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     
                     MKRoute *rout = obj;
                     NSArray *steps = [rout steps];
                     
+                    // For each steps
                     [steps enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                        total = total + [obj distance];
+                        // Add to the totalDistance
+                        total += [obj distance];
                     }];
                     
+                    // Save the total distance
                     RLMRealm *realm = [RLMRealm defaultRealm];
                     [realm beginWriteTransaction];
                     trip.start = [start valueForKey:@"name"];
@@ -271,6 +289,7 @@
                     trip.distanceMeter = total;
                     [realm commitWriteTransaction];
                     
+                    // Callback
                     completionBlock(total);
                     
                 }];
@@ -287,6 +306,7 @@
     
 }
 
+// Search all trips with API
 - (void) searchTripsWithStart:(NSString*)start arrival:(NSString*)arrival hourStart:(NSDate*)hourStart success:(void (^)(NSMutableArray* list))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock {
     
     UserManager* usermanager = [UserManager sharedInstance];
@@ -348,7 +368,7 @@
     
 }
 
-
+// Reserve a trip with API
 - (void) reserveTheTrip:(Trip*)trip success:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock {
     
     UserManager* usermanager = [UserManager sharedInstance];
@@ -377,7 +397,7 @@
     
 }
 
-
+// Delete a trip or a reservation with API
 - (void) deleteTheTripOrTheReservation:(Trip*)trip success:(void (^)(NSDictionary* responseJson))successBlock error:(void (^)(NSDictionary* responseJson))errorBlock failure:(void (^)(NSError* error))failureBlock {
     
     UserManager* usermanager = [UserManager sharedInstance];

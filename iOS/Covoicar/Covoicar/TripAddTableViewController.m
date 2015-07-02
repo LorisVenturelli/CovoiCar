@@ -17,10 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addTripAction:) name:@"addTripAction" object:nil];
-    
-    self.navigationItem.title = @"Proposer un trajet";
-    
+    // Add an interactive action for hide it
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     
     // Date picker for dates
@@ -39,12 +36,10 @@
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-
+// Action on switch the roundTrip
 - (IBAction)roundTripAction:(id)sender {
+    
+    // Toggle the cell on switch change
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1]];
     
     [cell setHidden:!cell.hidden];
@@ -52,35 +47,11 @@
 }
 
 - (IBAction)submitAction:(UIButton *)sender {
-    [self addTripAction:nil];
-}
-
-- (IBAction)submitTabBarAction:(id)sender {
-    [self addTripAction:nil];
-}
-
-
--(void)updateTextFieldForDate:(UIDatePicker *)sender
-{
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"dd/MM/yyyy HH:mm"];
-    
-    if ([self.hourStartField isFirstResponder])
-    {
-        self.hourStartField.text = [dateFormat stringFromDate:sender.date];
-    }
-    else if ([self.roundTripField isFirstResponder])
-    {
-        self.roundTripField.text = [dateFormat stringFromDate:sender.date];
-    }
-}
-
-- (void)addTripAction:(NSNotification *)notification{
-    
+    // Get user instance
     User* user = [[UserManager sharedInstance] getUserInstance];
     
+    // Convert the switch highway for the API
     NSString* highway = @"0";
-    
     if(self.highwaySwitch.isOn)
         highway = @"1";
     
@@ -96,12 +67,14 @@
     NSString* hourStart = [otherDateFormat stringFromDate:hourStartDate];
     NSString* roundTrip = [otherDateFormat stringFromDate:roundTripDate];
     
+    // Convert 2 dates to string if there are null
     if(roundTrip == nil)
         roundTrip = @"";
     
     if(hourStart == nil)
         hourStart = @"";
     
+    // Params for API
     NSDictionary *parameters = @{@"token":user.token,
                                  @"start":self.startField.text,
                                  @"arrival":self.arrivalField.text,
@@ -112,20 +85,23 @@
                                  @"place":self.placeField.text,
                                  @"comment":self.commentField.text};
     
-    NSLog(@"register action void : %@", parameters);
-    
+    // Start acitivityIndicator
     [self.activityIndicator startAnimating];
     
+    // Request to send the trip to API
     [[TripManager sharedInstance] sendTripToApiWithParameters:parameters success:^(NSDictionary* responseJson) {
         
+        // If success, show an alert message
         UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Bravo !" message:[responseJson valueForKey:@"message"] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alertView show];
+        
+        // Hide the keyboard
+        [self.view endEditing:YES];
         
         // Go to the user's trip list
         [self.tabBarController setSelectedIndex:0];
         
-        [self.view endEditing:YES];
-        
+        // Empty the form
         self.startField.text = @"";
         self.arrivalField.text = @"";
         [self.highwaySwitch setOn:YES];
@@ -136,29 +112,45 @@
         self.placeField.text = @"";
         self.commentField.text = @"";
         
+        // Stop the activity indicator
         [self.activityIndicator stopAnimating];
         
     } error:^(NSDictionary* responseJson) {
-        
+        // API return an error
         [self ShowAlertErrorWithMessage:[responseJson valueForKey:@"message"]];
         [self.activityIndicator stopAnimating];
         
     } failure:^(NSError *error) {
-        
+        // Server don't respond
         [self ShowAlertErrorWithMessage:@"Connexion échouée au serveur."];
         [self.activityIndicator stopAnimating];
         
     }];
-    
-    
 }
 
+// Method for update the textfield when the datepicker change
+-(void)updateTextFieldForDate:(UIDatePicker *)sender
+{
+    // Date format
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"dd/MM/yyyy HH:mm"];
+    
+    // For hour start field
+    if ([self.hourStartField isFirstResponder])
+    {
+        self.hourStartField.text = [dateFormat stringFromDate:sender.date];
+    }
+    // For round trip field
+    else if ([self.roundTripField isFirstResponder])
+    {
+        self.roundTripField.text = [dateFormat stringFromDate:sender.date];
+    }
+}
+
+// Function for show an alert with error message
 - (void)ShowAlertErrorWithMessage:(NSString *)message {
     UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Erreur" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alertView show];
 }
-
-
-
 
 @end

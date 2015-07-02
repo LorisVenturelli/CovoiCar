@@ -10,10 +10,18 @@
 
 @implementation User
 
+/**
+ * Primary key for Realm
+ * @return NSString
+ */
 + (NSString*)primaryKey {
     return @"id";
 }
 
+/** 
+ * Instance the user
+ * @return instancetype
+ */
 - (instancetype) initWithId:(int)id
                       token:(NSString *)token
                       email:(NSString *)email
@@ -45,6 +53,10 @@
     return self;
 }
 
+/**
+ * Construct the user
+ * @return User
+ */
 + (User *)userWithId:(int)id
                token:(NSString *)token
                email:(NSString *)email
@@ -57,8 +69,6 @@
 {
     return [[User alloc] initWithId:id token:token email:email firstName:firstname lastName:lastname phone:phone bio:bio birthday:birthday gender:gender];
 }
-
-
 
 @end
 RLM_ARRAY_TYPE(User)

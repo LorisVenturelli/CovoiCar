@@ -17,9 +17,16 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
-
-
+/**
+ * Button to connect the user
+ * @return IBAction
+ */
 - (IBAction)connexionAction:(id)sender;
+
+/**
+ * Connection fast the user with an account write on the code (for the fatest test)
+ * @return instancetype
+ */
 - (IBAction)superLoginAction:(id)sender;
 
 @end

@@ -14,13 +14,13 @@
 
 @interface ListTripsTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, UITabBarDelegate>
 
+// Refresh control for the tableView
 @property UIRefreshControl* refreshControl;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+// Logout action
 - (IBAction)logoutAction:(id)sender;
-
-- (void)refreshTableView;
 
 @end
 
