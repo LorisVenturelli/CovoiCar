@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self hideActivityIndicator];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,8 +60,10 @@
 
 - (void)APIConnectWithEmail:(NSString *)email andPassword:(NSString *)password
 {
-    
+    [self showActivityIndicator];
     [[UserManager sharedInstance] connectToApiWithEmail:email AndPassword:password success:^(NSDictionary *responseJson) {
+        
+        [self hideActivityIndicator];
         
         // Next UIView
         UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -72,10 +75,12 @@
         
     } error:^(NSDictionary *responseJson) {
         
+        [self hideActivityIndicator];
         [self ShowAlertErrorWithMessage:[responseJson valueForKey:@"message"]];
         
     } failure:^(NSError *error) {
         
+        [self hideActivityIndicator];
         [self ShowAlertErrorWithMessage:@"Connexion échouée au serveur."];
         
     }];
@@ -87,5 +92,13 @@
     [alertView show];
 }
 
+- (void)showActivityIndicator{
+    [self.activityIndicator setHidden:NO];
+    [self.activityIndicator startAnimating];
+}
+- (void)hideActivityIndicator{
+    [self.activityIndicator setHidden:YES];
+    [self.activityIndicator stopAnimating];
+}
 
 @end

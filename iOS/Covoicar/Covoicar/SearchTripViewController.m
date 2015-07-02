@@ -52,7 +52,6 @@
         [messageLabel sizeToFit];
         
         self.tableView.backgroundView = messageLabel;
-        self.tableView.backgroundColor = [UIColor lightGrayColor];
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         return 0;
@@ -60,8 +59,8 @@
     }
     else {
         
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.tableView.backgroundView = nil;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         
         return 1;
     }

@@ -55,14 +55,15 @@
 }
 
 - (void) removeAllTrips {
-    
-    RLMRealm *realm = [RLMRealm defaultRealm];
-    [realm beginWriteTransaction];
-    [realm deleteAllObjects];
-    [realm commitWriteTransaction];
-    
     _trips = [Trip allObjects];
     
+    for (int i = 0; i < [self count]; i++)
+    {
+        Trip* trip = [self tripAtIndex:i];
+        [self removeTrip:trip];
+    }
+    
+    _trips = [Trip allObjects];
 }
 
 - (NSUInteger) count {

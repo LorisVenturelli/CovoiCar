@@ -15,6 +15,9 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+
 
 - (IBAction)connexionAction:(id)sender;
 - (IBAction)superLoginAction:(id)sender;

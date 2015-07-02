@@ -19,6 +19,18 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    UserManager* manager = [UserManager sharedInstance];
+    bool userIsInstancied = [manager userIsInstancied];
+    if(userIsInstancied){
+        
+        self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"home"];
+        [self.window makeKeyAndVisible];
+    }
+    
     return YES;
 }
 

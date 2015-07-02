@@ -31,18 +31,45 @@
     return instance;
 }
 
+- (void)loadNSUserDefaultsForUserInstance {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences objectForKey:@"idUserInstance"] != nil)
+    {
+        self.idUserInstance = [preferences objectForKey:@"idUserInstance"];
+    }
+}
+
 
 - (void) setUserInstance:(User *)userInstance {
     [self addOrUpdateUser:userInstance];
     self.idUserInstance = [NSNumber numberWithInt:userInstance.id];
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setObject:self.idUserInstance forKey:@"idUserInstance"];
+    //  Save to disk
+    BOOL didSave = [preferences synchronize];
+    
+    if (!didSave)
+        NSLog(@"NSUserDefaults not save with id %@", self.idUserInstance);
+    else
+        NSLog(@"NSUserDefaults has save with id %@", self.idUserInstance);
 }
 
 - (User*) getUserInstance{
-    return [self userWithThisId:[self.idUserInstance intValue]];
+    
+    [self loadNSUserDefaultsForUserInstance];
+    
+    if(self.idUserInstance != nil)
+        return [self userWithThisId:[self.idUserInstance intValue]];
+    
+    return nil;
 }
 
 - (BOOL) userIsInstancied{
-    bool ret = (self.idUserInstance != nil);
+    
+    [self loadNSUserDefaultsForUserInstance];
+    
+    bool ret = (self.idUserInstance != nil && [self userExistWithThisId:[self.idUserInstance intValue]] == true);
     
     if(ret)
         NSLog(@"User is instancied !");
@@ -50,6 +77,14 @@
         NSLog(@"User is not instancied : %@", self.idUserInstance);
     
     return ret;
+}
+
+- (void)deleteUserInstance {
+    self.idUserInstance = nil;
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setObject:nil forKey:@"idUserInstance"];
+    [preferences synchronize];
 }
 
 - (void) addOrUpdateUser:(User*)user {
@@ -234,7 +269,7 @@
         // Si success login
         if([[jsonResponse valueForKey:@"reponse"] isEqualToString:@"success"])
         {
-            self.idUserInstance = nil;
+            [self deleteUserInstance];
             
             [[TripManager sharedInstance] removeAllTrips];
             
