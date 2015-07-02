@@ -15,10 +15,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.covoicar.rcdsm.adapter.TripAdapter;
 import com.covoicar.rcdsm.fragment.DatePickerFragment;
+import com.covoicar.rcdsm.fragment.MoreTravelFragment;
 import com.covoicar.rcdsm.fragment.NavigationDrawerFragment;
 import com.covoicar.rcdsm.fragment.SearchFragment;
 import com.covoicar.rcdsm.fragment.TimePickerFragment;
@@ -26,10 +30,13 @@ import com.covoicar.rcdsm.fragment.TravelFragment;
 import com.covoicar.rcdsm.fragment.TripFragment;
 import com.covoicar.rcdsm.manager.TripManager;
 import com.covoicar.rcdsm.models.Trip;
+import com.covoicar.rcdsm.models.User;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks,TripFragment.OnCreateTripListener,DatePickerFragment.TheListenerDateStart,TimePickerFragment.TheListenerTimeStart,DatePickerFragment.TheListenerDateEnd,TimePickerFragment.TheListenerTimeEnd{
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,TripFragment.OnCreateTripListener,DatePickerFragment.TheListenerDateStart,TimePickerFragment.TheListenerTimeStart,DatePickerFragment.TheListenerDateEnd,TimePickerFragment.TheListenerTimeEnd,DatePickerFragment.TheListenerDateSearch,TimePickerFragment.TheListenerTimeSearch,SearchFragment.OnSearchTripListener,MoreTravelFragment.OnReservationListener{
 
     private EditText start,arrival,comment;
     private Spinner price,place;
@@ -37,6 +44,11 @@ public class MainActivity extends ActionBarActivity
     private String dateEnd;
     private String timeStart;
     private String timeEnd;
+    private String dateSearch;
+    private String timeSearch;
+    private ListView tripSearchList;
+    private ArrayList<Trip> trips;
+
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -158,9 +170,8 @@ public class MainActivity extends ActionBarActivity
         String dateTimeReturn = dateEnd+" "+timeEnd;
         Log.e("TEST DATE & HOUR : ", dateStart + " , " + dateEnd + " , " + timeStart + " , " + timeEnd + " = " + dateTimeReturn);
 
-        final TripManager tripManager = new TripManager(this);
+
         final Trip trip = new Trip();
-        trip.setId((new java.util.Date()).getTime());
         trip.setStart(start.getText().toString());
         trip.setArrival(arrival.getText().toString());
         trip.setHighway(highway);
@@ -176,15 +187,6 @@ public class MainActivity extends ActionBarActivity
             trip.setDateTimeReturn(dateTimeReturn);
         }
         trip.setComment(comment.getText().toString());
-        tripManager.addTravel(trip);
-
-        /**
-         * Take coordination (Longitude,Latitude), two different point
-         */
-        ClientApi.getInstance().getCoordinate(trip, new ClientApi.APIListener() {
-            @Override
-            public void callback() {
-
                 /**
                  * Add new trip
                  */
@@ -198,11 +200,10 @@ public class MainActivity extends ActionBarActivity
                                         .commit();
                                 Log.e("Add note", "Add note");
                             }
-                        });
-            }
-        });
 
-
+                    @Override
+                    public void searchResultsCallback(ArrayList<Trip> trips) {/* not used */}
+                });
     }
 
     @Override
@@ -227,6 +228,104 @@ public class MainActivity extends ActionBarActivity
     public void returnTimeEnd(String timeEnd) {
         this.timeEnd = timeEnd;
         Log.e("TEST DATE  : ", this.timeEnd);
+    }
+
+    @Override
+    public void onSearchTripClick() {
+
+        String startTravelSearch,arrvialTravelSearch;
+        EditText start,arrival;
+
+        tripSearchList = (ListView)findViewById(R.id.listSearch);
+        start = (EditText)findViewById(R.id.editStartSearch);
+        arrival = (EditText)findViewById(R.id.editArrivalSearch);
+
+        startTravelSearch = start.getText().toString();
+        arrvialTravelSearch = arrival.getText().toString();
+
+        String dateTimeSearch = dateSearch+" "+timeSearch;
+        Log.e("TEST DATE & HOUR : ", dateSearch + " , " + timeSearch + " = " + dateTimeSearch);
+
+        User user = User.getInstance();
+        ClientApi.getInstance().searchTravel(user.getToken(), startTravelSearch, arrvialTravelSearch, dateTimeSearch, new ClientApi.APIListener() {
+            @Override
+            public void callback() { /* not used */ }
+
+            @Override
+            public void searchResultsCallback(ArrayList<Trip> trips) {
+                collectTrip(trips);
+            }
+        });
+
+    }
+
+    public void collectTrip(ArrayList<Trip> trips){
+
+        final TripAdapter adapter;
+
+        adapter = new TripAdapter(this,trips);
+        tripSearchList.setAdapter(adapter);
+
+        // Click event for single list row
+        tripSearchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position,final long id) {
+                TripManager tripManager = new TripManager(getApplicationContext());
+                final Trip trip = tripManager.getTripWithId(id);
+
+                ClientApi.getInstance().getDriver(trip, new ClientApi.APIListener() {
+                    @Override
+                    public void callback() {
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        Fragment moreTravel = new MoreTravelFragment();
+                        Bundle args = new Bundle();
+                        args.putString("start", trip.getStart());
+                        args.putString("arrival", trip.getArrival());
+                        args.putString("datetime", trip.getDateTimeStart());
+                        args.putString("distanceTravel", trip.getDistance());
+                        args.putString("timeTravel", trip.getDuration());
+                        args.putInt("driver", trip.getDriver());
+                        args.putLong("idTrip", id);
+                        args.putBoolean("buttonReserved",true);
+                        moreTravel.setArguments(args);
+                        fragmentManager.beginTransaction().addToBackStack(null)
+                                .replace(R.id.container, moreTravel)
+                                .commit();
+                    }
+
+                    @Override
+                    public void searchResultsCallback(ArrayList<Trip> trips) {/*not used*/}
+                });
+
+
+            }
+        });
+    }
+
+    @Override
+    public void returnDateSearch(String dateSearch) {
+        this.dateSearch = dateSearch;
+        Log.e("TEST DATE SEARCH  : ", this.dateSearch);
+    }
+
+    @Override
+    public void returnTimeSearch(String timeSearch) {
+        this.timeSearch = timeSearch;
+        Log.e("TEST DATE SEARCH  : ", this.timeSearch);
+    }
+
+    @Override
+    public void onReservationClick(Long idTrip) {
+
+        ClientApi.getInstance().reserveTheTrip(User.getInstance().getToken(), String.valueOf(idTrip), new ClientApi.APIListener() {
+            @Override
+            public void callback() { /* not used */ }
+
+            @Override
+            public void searchResultsCallback(ArrayList<Trip> trips) {
+            }
+        });
+
     }
 
     /**
@@ -315,5 +414,15 @@ public class MainActivity extends ActionBarActivity
         args.putInt("infoDate", 2);
         newFragment.setArguments(args);
         newFragment.show(ft, "datePicker");
+    }
+
+
+    public void showTimeStartSearchPickerDialog(View v) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        DialogFragment newFragment = new TimePickerFragment();
+        Bundle args = new Bundle();
+        args.putInt("infoTime", 2);
+        newFragment.setArguments(args);
+        newFragment.show(ft, "timePicker");
     }
 }

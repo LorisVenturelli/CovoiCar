@@ -20,7 +20,10 @@ import com.androidquery.AQuery;
 import com.covoicar.rcdsm.fragment.ConnexionFragment;
 import com.covoicar.rcdsm.fragment.LoginFragment;
 import com.covoicar.rcdsm.fragment.RegisterFragment;
+import com.covoicar.rcdsm.models.Trip;
 import com.covoicar.rcdsm.models.User;
+
+import java.util.ArrayList;
 
 public class ConnexionActivity extends ActionBarActivity implements ConnexionFragment.OnRegisterClickListener,ConnexionFragment.OnConnexionClickListener,RegisterFragment.OnFirstConnexionClickListener,LoginFragment.OnLoginClickListener,LoginFragment.OnRegisterPageClickListener {
 
@@ -52,6 +55,9 @@ public class ConnexionActivity extends ActionBarActivity implements ConnexionFra
                     startActivity(intent);
                     finish();
                 }
+
+                @Override
+                public void searchResultsCallback(ArrayList<Trip> trips) {/* not used */}
             });
         }
 
@@ -110,6 +116,9 @@ public class ConnexionActivity extends ActionBarActivity implements ConnexionFra
                 startActivity(intent);
                 finish();
             }
+
+            @Override
+            public void searchResultsCallback(ArrayList<Trip> trips) {/* not used */}
         });
 
     }
@@ -153,6 +162,9 @@ public class ConnexionActivity extends ActionBarActivity implements ConnexionFra
                 startActivity(intent);
                 finish();
             }
+
+            @Override
+            public void searchResultsCallback(ArrayList<Trip> trips) {/* not used */}
         });
 
     }

@@ -1,5 +1,7 @@
 package com.covoicar.rcdsm.models;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.RealmClass;
@@ -8,7 +10,7 @@ import io.realm.annotations.RealmClass;
  * Created by rcdsm on 23/06/15.
  */
 @RealmClass
-public class User extends RealmObject {
+public class User extends RealmObject implements Serializable{
 
     @PrimaryKey
     private long        id;
@@ -21,7 +23,7 @@ public class User extends RealmObject {
     private String      birthday;
     private String      gender;
     private String      token;
-    private static User instance;
+    private static      User instance;
 
     public static User getInstance(){
         if (instance == null) {

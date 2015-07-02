@@ -3,6 +3,7 @@ package com.covoicar.rcdsm.manager;
 import android.content.Context;
 import android.util.Log;
 
+import com.covoicar.rcdsm.models.Driver;
 import com.covoicar.rcdsm.models.Trip;
 
 import java.util.ArrayList;
@@ -74,7 +75,10 @@ public class TripManager {
     public void addTravel(Trip valueTrip){
         try{
             realm.beginTransaction();
+            Log.e("DEBUT DE LA TRANSACTION", "ADDTRAVEL :OK");
+
             Trip travel = realm.createObject(Trip.class);
+
             travel.setId(valueTrip.getId());
             travel.setStart(valueTrip.getStart());
             travel.setArrival(valueTrip.getArrival());
@@ -95,40 +99,35 @@ public class TripManager {
             Log.e("Realm Error", "error"+e);
         } finally {
             realm.commitTransaction();
+            Log.e("FIN DE LA TRANSACTION", "ADDTRAVEL :OK");
         }
     }
 
-    /*public void addTravel(final Trip valueTrip){
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                Trip trip = realm.createObject(Trip.class);
-                trip.setId(valueTrip.getId());
-                trip.setStart(valueTrip.getStart());
-                trip.setArrival(valueTrip.getArrival());
-                trip.setHighway(valueTrip.getHighway());
-                trip.setRoundTrip(valueTrip.getRoundTrip());
-                trip.setDateStart(valueTrip.getDateStart());
-                trip.setHoursStart(valueTrip.getHoursStart());
-                trip.setDateTimeStart(valueTrip.getDateTimeStart());
-                trip.setComment(valueTrip.getComment());
-                trip.setPlace(valueTrip.getPlace());
-                trip.setPrice(valueTrip.getPrice());
-                if (Integer.parseInt(valueTrip.getRoundTrip()) == 1) {
-                    trip.setDateArrival(valueTrip.getDateArrival());
-                    trip.setHoursArrival(valueTrip.getHoursArrival());
-                    trip.setDateTimeReturn(valueTrip.getDateTimeReturn());
-                }
-            }
-        });
-    }*/
+    public Trip getTripWithId(long id){
 
-    public void addInfoDistDur(Trip valueTrip){
+        return realm.where(Trip.class).equalTo("id", id).findFirst();
+
+    }
+
+    public Driver getDriverWithId(long idDriver){
+        RealmResults<Driver> results = realm.where(Driver.class).findAll();
+        Driver myDriver = new Driver();
+        for(Driver driver : results)
+        {
+            if(driver.getId() == idDriver)
+            {
+                myDriver = driver;
+            }
+        }
+        return myDriver;
+    }
+
+
+    public void addUserDriver(Trip valueTrip){
         try{
             realm.beginTransaction();
             Trip travel = realm.copyToRealmOrUpdate(valueTrip);
-            travel.setDistance(valueTrip.getDistance());
-            travel.setDuration(valueTrip.getDuration());
+            travel.setUserDriver(valueTrip.getUserDriver());
         }catch (Exception e){
             Log.e("Realm Error", "error"+e);
         } finally {

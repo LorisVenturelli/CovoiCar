@@ -20,6 +20,7 @@ public class DatePickerFragment extends DialogFragment
 
     TheListenerDateStart listenerStart;
     TheListenerDateEnd listenerEnd;
+    TheListenerDateSearch listenerSearch;
 
     public interface TheListenerDateStart{
         public void returnDateStart(String dateStart);
@@ -27,6 +28,10 @@ public class DatePickerFragment extends DialogFragment
 
     public interface TheListenerDateEnd{
         public void returnDateEnd(String dateEnd);
+    }
+
+    public interface TheListenerDateSearch{
+        public void returnDateSearch(String dateSearch);
     }
 
     private int info;
@@ -40,6 +45,7 @@ public class DatePickerFragment extends DialogFragment
         int day = c.get(Calendar.DAY_OF_MONTH);
         listenerStart = (TheListenerDateStart) getActivity();
         listenerEnd = (TheListenerDateEnd) getActivity();
+        listenerSearch = (TheListenerDateSearch) getActivity();
 
 
         // Create a new instance of DatePickerDialog and return it
@@ -73,6 +79,10 @@ public class DatePickerFragment extends DialogFragment
             }
         }else if(info==2) {
             ((TextView) getActivity().findViewById(R.id.textDateStartSearch)).setText("Date : "+formattedDate);
+            if (listenerSearch != null)
+            {
+                listenerSearch.returnDateSearch(formattedDate);
+            }
         }
 
     }

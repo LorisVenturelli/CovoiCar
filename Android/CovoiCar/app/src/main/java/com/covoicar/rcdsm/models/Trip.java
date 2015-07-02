@@ -1,5 +1,7 @@
 package com.covoicar.rcdsm.models;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.RealmClass;
@@ -8,13 +10,13 @@ import io.realm.annotations.RealmClass;
  * Created by rcdsm on 25/06/15.
  */
 @RealmClass
-public class Trip extends RealmObject  {
+public class Trip extends RealmObject implements Serializable{
 
     @PrimaryKey
     private long     id;
 
     private String start;
-    private int idDriver;
+    private int    driver;
     private String arrival;
     private String highway;
     private String roundTrip;
@@ -30,7 +32,7 @@ public class Trip extends RealmObject  {
     private String dateTimeStart;
     private String dateTimeReturn;
     private int placeAvailable;
-    private User driver;
+    private Driver userDriver;
 
     public int getPlaceAvailable() {
         return placeAvailable;
@@ -40,13 +42,6 @@ public class Trip extends RealmObject  {
         this.placeAvailable = placeAvailable;
     }
 
-    public int getIdDriver() {
-        return idDriver;
-    }
-
-    public void setIdDriver(int idDriver) {
-        this.idDriver = idDriver;
-    }
 
     public String getDateTimeReturn() {
         return dateTimeReturn;
@@ -174,19 +169,28 @@ public class Trip extends RealmObject  {
         this.dateArrival = dateArrival;
     }
 
-        public User getDriver() {
-            return driver;
-        }
-
-       public void setDriver(User driver) {
-        driver.setBirthday(driver.getBirthday());
-        driver.setBio(driver.getBio());
-        driver.setId(driver.getId());
-        driver.setPhone(driver.getPhone());
-        driver.setEmail(driver.getEmail());
-        driver.setFirstName(driver.getFirstName());
-        driver.setLastName(driver.getLastName());
-        driver.setGender(driver.getGender());
+    public int getDriver() {
+        return driver;
     }
+
+    public void setDriver(int driver) {
+        this.driver = driver;
+    }
+
+    public Driver getUserDriver() {
+        return userDriver;
+    }
+
+    public void setUserDriver(Driver userDriver) {
+        userDriver.setBirthday(userDriver.getBirthday());
+        //userDriver.setBio(userDriver.getBio());
+        userDriver.setId(userDriver.getId());
+        //userDriver.setPhone(userDriver.getPhone());
+        userDriver.setEmail(userDriver.getEmail());
+        userDriver.setFirstName(userDriver.getFirstName());
+        userDriver.setLastName(userDriver.getLastName());
+        userDriver.setGender(userDriver.getGender());
+    }
+
 
 }

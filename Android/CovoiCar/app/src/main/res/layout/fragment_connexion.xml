@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/connexion">
+    android:id="@+id/connexion"
+    android:background="@android:color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,6 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Ceconnexion"
+                android:textSize="20dp"
                 android:id="@+id/buttonConnexion"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
@@ -30,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ou"
+                android:textSize="20dp"
                 android:layout_alignBottom="@+id/buttonConnection"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal" />
@@ -37,6 +40,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="20dp"
                 android:text="@string/inscription"
                 android:id="@+id/buttonInscription"
                 android:layout_gravity="center_horizontal" />
@@ -48,10 +52,20 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/tilte_connexion"
-            android:layout_centerHorizontal="true"
-            android:layout_above="@+id/linearConnexion"
             android:id="@+id/textView4Connexion"
-            android:paddingBottom="20dp" />
+            android:paddingBottom="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:layout_below="@+id/textView4Connexion"
+            android:src="@drawable/logo_covoircar"
+            android:layout_above="@+id/linearConnexion"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="10dp" />
 
     </RelativeLayout>
 </FrameLayout>

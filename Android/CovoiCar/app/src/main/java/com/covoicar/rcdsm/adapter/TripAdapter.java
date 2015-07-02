@@ -1,5 +1,6 @@
 package com.covoicar.rcdsm.adapter;
 
+
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
@@ -7,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.covoicar.rcdsm.covoicar.R;
@@ -28,6 +28,9 @@ public class TripAdapter extends BaseAdapter {
 
     Context context;
     ArrayList<Trip> trips;
+    Trip currentTrip;
+    String dateInfo = null;
+    String timeInfo = null;
 
     LayoutInflater inflater;
 
@@ -54,7 +57,7 @@ public class TripAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        final ViewHolder holder;
 
         if(convertView==null) {
             convertView = inflater.inflate(R.layout.item_travel, null);
@@ -65,7 +68,8 @@ public class TripAdapter extends BaseAdapter {
             holder.startTravel = (TextView) convertView.findViewById(R.id.startTravel);
             holder.arrivalTravel = (TextView) convertView.findViewById(R.id.arrivalTravel);
             holder.infoPlace = (TextView)convertView.findViewById(R.id.infoPlace);
-            holder.more = (ImageView)convertView.findViewById(R.id.imageMore);
+            holder.duration =(TextView)convertView.findViewById(R.id.duration);
+            holder.distance=(TextView)convertView.findViewById(R.id.distance);
             convertView.setTag(holder);
         }
         else {
@@ -74,13 +78,15 @@ public class TripAdapter extends BaseAdapter {
 
         try{
 
-            Trip currentTrip = trips.get(position);
+            currentTrip = trips.get(position);
 
             holder.startTravel.setText(currentTrip.getStart());
             holder.arrivalTravel.setText(currentTrip.getArrival());
-            holder.price.setText(String.valueOf(currentTrip.getPrice()+"€"));
+            holder.price.setText(String.valueOf(currentTrip.getPrice() + "€"));
             holder.price.setTextColor(Color.rgb(0, 200, 0));
             holder.infoPlace.setText(String.valueOf(currentTrip.getPlace()));
+            holder.distance.setText(currentTrip.getDistance());
+            holder.duration.setText(currentTrip.getDuration());
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -91,8 +97,6 @@ public class TripAdapter extends BaseAdapter {
 
             String dateInString = currentTrip.getDateTimeStart();
             Date date1 = null;
-            String dateInfo = null;
-            String timeInfo = null;
 
             try {
                 StringTokenizer date = new StringTokenizer(dateInString, " ");
@@ -114,7 +118,7 @@ public class TripAdapter extends BaseAdapter {
                 }else if(date1.equals(date2)){
                     holder.date.setText("Aujourd'hui");
                 }else{
-                    holder.date.setText(dateInString);
+                    holder.date.setText(dateInfo);
                 }
             }
 
@@ -122,8 +126,8 @@ public class TripAdapter extends BaseAdapter {
                 StringTokenizer time = new StringTokenizer(timeInfo, ":");
                 String hourInfo = time.nextToken();
                 String minuteInfo = time.nextToken();
-                String test = hourInfo + ":" + minuteInfo;
-                holder.hours.setText(test);
+                String newTime = hourInfo + ":" + minuteInfo;
+                holder.hours.setText(newTime);
             }else {
                 Log.e("ERROR 2 ", " ERROR 2");
             }
@@ -131,6 +135,7 @@ public class TripAdapter extends BaseAdapter {
         }catch (ParseException e1){
             e1.printStackTrace();
         }
+
         return convertView;
     }
 
@@ -140,7 +145,8 @@ public class TripAdapter extends BaseAdapter {
         public TextView startTravel;
         public TextView arrivalTravel;
         public TextView infoPlace;
+        private TextView duration;
+        private TextView distance;
         public TextView price;
-        public ImageView more;
     }
 }

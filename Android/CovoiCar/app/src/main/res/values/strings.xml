@@ -41,8 +41,9 @@
     <string name="comment">Commentaire de trajet</string>
     <string name="modify">Modifier</string>
     <string name="numberPlace">Nombre de place :</string>
+    <string name="reservez">Réservez en ligne</string>
 
-    <string name="action_example">Example action</string>
+    <string name="action_deconnexion">Deconnexion</string>
 
     <string name="action_settings">Settings</string>
 

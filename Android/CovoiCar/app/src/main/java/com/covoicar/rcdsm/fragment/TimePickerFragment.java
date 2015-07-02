@@ -21,14 +21,7 @@ public  class TimePickerFragment extends DialogFragment
 
     TheListenerTimeStart listenerTimeStart;
     TheListenerTimeEnd listenerTimeEnd;
-
-    public interface TheListenerTimeStart{
-        public void returnTimeStart(String timeStart);
-    }
-
-    public interface TheListenerTimeEnd{
-        public void returnTimeEnd(String timeEnd);
-    }
+    TheListenerTimeSearch listenerTimeSearch;
 
     private int info;
 
@@ -40,6 +33,7 @@ public  class TimePickerFragment extends DialogFragment
         int minute = c.get(Calendar.MINUTE);
         listenerTimeStart = (TheListenerTimeStart) getActivity();
         listenerTimeEnd = (TheListenerTimeEnd) getActivity();
+        listenerTimeSearch = (TheListenerTimeSearch) getActivity();
 
         // Create a new instance of TimePickerDialog and return it
         return new TimePickerDialog(getActivity(), this, hour, minute,
@@ -58,18 +52,36 @@ public  class TimePickerFragment extends DialogFragment
         SimpleDateFormat sdf = new SimpleDateFormat("kk:mm:ss");
         String formattedDate = sdf.format(c.getTime());
 
-        if (info==0){
+        if (info == 0){
             ((TextView) getActivity().findViewById(R.id.textTimeStart)).setText("Heure : "+formattedDate);
             if (listenerTimeStart != null)
             {
                 listenerTimeStart.returnTimeStart(formattedDate);
             }
-        }else if(info==1) {
+        }else if(info == 1) {
             ((TextView) getActivity().findViewById(R.id.textTimeArrival)).setText("Heure : " + formattedDate);
             if (listenerTimeEnd != null)
             {
                 listenerTimeEnd.returnTimeEnd(formattedDate);
             }
+        }else if(info == 2) {
+            ((TextView) getActivity().findViewById(R.id.textTimeSearch)).setText("Heure : " + formattedDate);
+            if (listenerTimeSearch != null)
+            {
+                listenerTimeSearch.returnTimeSearch(formattedDate);
+            }
         }
+    }
+
+    public interface TheListenerTimeStart{
+        public void returnTimeStart(String timeStart);
+    }
+
+    public interface TheListenerTimeEnd{
+        public void returnTimeEnd(String timeEnd);
+    }
+
+    public interface TheListenerTimeSearch{
+        public void returnTimeSearch(String timeSerch);
     }
 }

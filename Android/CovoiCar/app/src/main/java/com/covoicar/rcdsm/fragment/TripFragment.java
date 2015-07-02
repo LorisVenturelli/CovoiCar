@@ -49,6 +49,7 @@ public class TripFragment  extends Fragment {
         arrival = (EditText)view.findViewById(R.id.editArrival);
         comment = (EditText)view.findViewById(R.id.editComment);
 
+
         price = (Spinner)view.findViewById(R.id.spinnerPrice);
         place = (Spinner)view.findViewById(R.id.spinnerPlace);
 

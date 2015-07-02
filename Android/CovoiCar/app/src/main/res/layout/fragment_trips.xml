@@ -23,6 +23,8 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
                 android:background="#00000000"
                 android:hint="@string/start"
                 android:id="@+id/editStart"
@@ -54,6 +56,8 @@
 
             <EditText
                 android:layout_width="fill_parent"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
                 android:layout_height="wrap_content"
                 android:hint="@string/arrival"
                 android:background="#00000000"
@@ -300,11 +304,11 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
                 android:hint="@string/comment"
                 android:id="@+id/editComment"/>
         </RelativeLayout>
-
-
 
         <Button
             android:layout_width="wrap_content"
@@ -313,9 +317,6 @@
             android:id="@+id/buttonCreateTrip"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
-
-
-
 
     </RelativeLayout>
 

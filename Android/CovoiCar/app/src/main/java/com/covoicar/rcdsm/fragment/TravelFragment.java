@@ -2,9 +2,11 @@ package com.covoicar.rcdsm.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.covoicar.rcdsm.adapter.TripAdapter;
@@ -34,7 +36,7 @@ public class TravelFragment extends Fragment {
          * Inflate the layout for this fragment
          */
         tripList = (ListView)view.findViewById(R.id.tripsListView);
-        User user = User.getInstance();
+        final User user = User.getInstance();
 
         /**
          * Take all travel create by User and participation travel
@@ -43,6 +45,45 @@ public class TravelFragment extends Fragment {
             @Override
             public void callback() {
                 collectTrip();
+            }
+
+            @Override
+            public void searchResultsCallback(ArrayList<Trip> trips) {/* not used */}
+        });
+
+        // Click event for single list row
+        tripList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int posiotion, final long id){
+                TripManager tripManager = new TripManager(getActivity());
+                final Trip trip = tripManager.getTripWithId(id);
+
+                ClientApi.getInstance().getDriver(trip, new ClientApi.APIListener() {
+                    @Override
+                    public void callback() {
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        Fragment moreTravel = new MoreTravelFragment();
+                        Bundle args = new Bundle();
+                        args.putString("start",trip.getStart());
+                        args.putString("arrival",trip.getArrival());
+                        args.putString("datetime",trip.getDateTimeStart());
+                        args.putString("distanceTravel",trip.getDistance());
+                        args.putString("timeTravel", trip.getDuration());
+                        args.putInt("driver", trip.getDriver());
+                        args.putBoolean("buttonReserved", false);
+                        args.putLong("idTrip", id);
+                        moreTravel.setArguments(args);
+                        fragmentManager.beginTransaction().addToBackStack(null)
+                                .replace(R.id.container, moreTravel)
+                                .commit();
+                    }
+
+                    @Override
+                    public void searchResultsCallback(ArrayList<Trip> trips) {/*not used*/}
+                });
+
+
             }
         });
 
@@ -56,4 +97,5 @@ public class TravelFragment extends Fragment {
         adapter = new TripAdapter(getActivity(),trips);
         tripList.setAdapter(adapter);
     }
+
 }

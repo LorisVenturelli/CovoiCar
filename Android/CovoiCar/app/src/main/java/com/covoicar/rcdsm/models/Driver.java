@@ -33,7 +33,6 @@ public class Driver extends RealmObject {
         this.id = valueId;
     }
 
-
     public String getEmail() {
         return email;
     }
