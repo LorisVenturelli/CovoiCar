@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -17,7 +16,11 @@ import java.util.ArrayList;
 /**
  * Created by rcdsm on 23/06/15.
  */
-public class RegisterFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+
+/**
+ * Fragment register new user
+ */
+public class RegisterFragment extends Fragment {
 
     private Button      connexion;
     private Spinner     gender;
@@ -41,6 +44,7 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
         gender.setAdapter(adapterGender);
 
 
+        //Add years inside Spinner
         ArrayList<String> years = new ArrayList<String>();
         years.add("Année de naissance");
         for (int i = 1997; i >= 1900; i--) {
@@ -50,6 +54,7 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
         birthday = (Spinner)view.findViewById(R.id.spinnerBirthday);
         birthday.setAdapter(adapterBirthday);
 
+        //Add Listener on button
         connexion = (Button) view.findViewById(R.id.buttonConnexionRegister);
         connexion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,16 +65,9 @@ public class RegisterFragment extends Fragment implements AdapterView.OnItemSele
         return view;
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
+    /**
+     * Listener on button add new user
+     */
     public interface OnFirstConnexionClickListener {
         public void onFirstConnexionClick();
     }

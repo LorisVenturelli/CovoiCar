@@ -13,6 +13,10 @@ import com.covoicar.rcdsm.models.User;
 /**
  * Created by rcdsm on 25/06/15.
  */
+
+/**
+ *Fragment Search
+ */
 public class SearchFragment extends Fragment {
 
     private Button searchButton;
@@ -37,11 +41,12 @@ public class SearchFragment extends Fragment {
         /**
          * Take all travel create by User and participation travel
          */
-
-
         return view;
     }
 
+    /**
+     * Listener on button search
+     */
     public interface OnSearchTripListener {
         public void onSearchTripClick();
     }

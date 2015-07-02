@@ -153,6 +153,11 @@ public class MainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Listener create Trip
+     * @param highway : pass information highway
+     * @param roundTrip : pass information roundTrip
+     */
     @Override
     public void onCreateTripClick(String highway,String roundTrip) {
 
@@ -171,6 +176,7 @@ public class MainActivity extends ActionBarActivity
         Log.e("TEST DATE & HOUR : ", dateStart + " , " + dateEnd + " , " + timeStart + " , " + timeEnd + " = " + dateTimeReturn);
 
 
+        //Create new Trip
         final Trip trip = new Trip();
         trip.setStart(start.getText().toString());
         trip.setArrival(arrival.getText().toString());
@@ -206,30 +212,49 @@ public class MainActivity extends ActionBarActivity
                 });
     }
 
+    /**
+     * Listener DatePicker
+     * @param dateStart
+     */
     @Override
     public void returnDateStart(String dateStart) {
         this.dateStart = dateStart;
         Log.e("TEST DATE  : ", this.dateStart);
     }
 
+    /**
+     * Listener TimePicker
+     * @param timeStart
+     */
     @Override
     public void returnTimeStart(String timeStart) {
         this.timeStart = timeStart;
         Log.e("TEST DATE  : ", this.timeStart);
     }
 
+    /**
+     * Listener DatePicker
+     * @param dateEnd
+     */
     @Override
     public void returnDateEnd(String dateEnd) {
         this.dateEnd = dateEnd;
         Log.e("TEST DATE  : ", this.dateEnd);
     }
 
+    /**
+     * Listener TimePicker
+     * @param timeEnd
+     */
     @Override
     public void returnTimeEnd(String timeEnd) {
         this.timeEnd = timeEnd;
         Log.e("TEST DATE  : ", this.timeEnd);
     }
 
+    /**
+     * Listener Search Trip
+     */
     @Override
     public void onSearchTripClick() {
 

@@ -25,6 +25,9 @@ import com.covoicar.rcdsm.models.User;
 
 import java.util.ArrayList;
 
+/**
+ * Class Connexion manages Fragment Login and Register
+ */
 public class ConnexionActivity extends ActionBarActivity implements ConnexionFragment.OnRegisterClickListener,ConnexionFragment.OnConnexionClickListener,RegisterFragment.OnFirstConnexionClickListener,LoginFragment.OnLoginClickListener,LoginFragment.OnRegisterPageClickListener {
 
     private AQuery      aq;

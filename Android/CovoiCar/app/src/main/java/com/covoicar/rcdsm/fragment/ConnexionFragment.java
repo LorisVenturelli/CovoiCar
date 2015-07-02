@@ -12,6 +12,10 @@ import com.covoicar.rcdsm.covoicar.R;
 /**
  * Created by rcdsm on 23/06/15.
  */
+
+/**
+ * Fragment Connexion
+ */
 public class ConnexionFragment extends Fragment {
 
     private TextView register;

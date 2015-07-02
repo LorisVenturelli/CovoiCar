@@ -15,6 +15,10 @@ import java.util.Calendar;
 /**
  * Created by rcdsm on 25/06/15.
  */
+
+/**
+ * Fragment DatePicker display calendar
+ */
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 

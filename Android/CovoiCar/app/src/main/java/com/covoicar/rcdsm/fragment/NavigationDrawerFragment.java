@@ -1,6 +1,7 @@
 package com.covoicar.rcdsm.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -249,14 +250,14 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        /*if (item.getItemId() == R.id.action_deconnexion) {
+        if (item.getItemId() == R.id.action_deconnexion) {
             SharedPreferences preferences = getActivity().getApplicationContext().getSharedPreferences("Login", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.clear();
             editor.commit();
 
             return true;
-        }*/
+        }
 
         return super.onOptionsItemSelected(item);
     }

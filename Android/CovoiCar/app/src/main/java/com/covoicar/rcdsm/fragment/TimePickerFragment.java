@@ -16,6 +16,10 @@ import java.util.Calendar;
 /**
  * Created by rcdsm on 25/06/15.
  */
+
+/**
+ * Fragment TimePicker display clock
+ */
 public  class TimePickerFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
 
@@ -73,14 +77,23 @@ public  class TimePickerFragment extends DialogFragment
         }
     }
 
+    /**
+     * Listener for time start
+     */
     public interface TheListenerTimeStart{
         public void returnTimeStart(String timeStart);
     }
 
+    /**
+     * Listener for time end
+     */
     public interface TheListenerTimeEnd{
         public void returnTimeEnd(String timeEnd);
     }
 
+    /**
+     * Listener for time search
+     */
     public interface TheListenerTimeSearch{
         public void returnTimeSearch(String timeSerch);
     }

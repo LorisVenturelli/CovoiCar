@@ -28,6 +28,12 @@ import io.realm.Realm;
 /**
  * Created by rcdsm on 23/06/15.
  */
+
+
+/**
+ *
+ * Class with all callback for manage apllication with API
+ */
 public class ClientApi {
 
     private Context context;
@@ -52,6 +58,10 @@ public class ClientApi {
         this.context = appContext;
     }
 
+
+    /**
+     *Connect user
+     */
     public void connect(final String email,final String password,APIListener listener){
 
         preferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE);
@@ -108,6 +118,11 @@ public class ClientApi {
         });
     }
 
+
+    /**
+     *
+     * Subcrib user
+     */
     public void subscrib(final String email,final String password,final String confirmPassword,String lastname,String firstname,int gender,String birthday,APIListener listener){
 
 
@@ -131,7 +146,6 @@ public class ClientApi {
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
 
-                User user = User.getInstance();
                 if (confirmPassword.equals(password)) {
                     try {
                         if (json.getString("reponse").equals("success")) {
@@ -149,11 +163,15 @@ public class ClientApi {
         });
     }
 
+
+    /**
+     *
+     * Add new Trip
+     */
     public void addTrip(final Trip trip, APIListener listener){
 
         preferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE);
         final APIListener _listener = listener;
-        realm = Realm.getInstance(context);
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("start", trip.getStart());
@@ -194,6 +212,11 @@ public class ClientApi {
         });
     }
 
+
+    /**
+     *
+     * Take all travel and registre inside Realm
+     */
     public void takeTravel(final String token,APIListener listener){
 
         final APIListener _listener = listener;
@@ -211,9 +234,7 @@ public class ClientApi {
             public void callback(String url, JSONObject json, AjaxStatus status) {
                 try {
                     if (json.getString("reponse").equals("success")) {
-                        Toast.makeText(aq.getContext(), json.getString("message"), Toast.LENGTH_SHORT).show();
                         JSONArray jArray  = json.getJSONArray("data");
-
 
                         for(int i=0;i<jArray.length();i++)
                         {
@@ -242,6 +263,11 @@ public class ClientApi {
                                 Log.e("FIN DE LA TRANSACTION", "TAKETRAVEL :OK"+i);
                             }
 
+
+                            /**
+                             *
+                             * Get coordination for each travel
+                             */
                         getCoordinate(trip, new ClientApi.APIListener() {
                             @Override
                             public void callback() {
@@ -265,6 +291,11 @@ public class ClientApi {
         });
     }
 
+
+    /**
+     *
+     * Get info user
+     */
     public void infoUser(final String token,APIListener listener){
 
         preferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE);
@@ -274,13 +305,11 @@ public class ClientApi {
         Map<String, String> params = new HashMap<String, String>();
         params.put("token", token);
 
-
         String url =  "http://"+ip+"/covoicar/user/info";
         aq.ajax(url, params, JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
-
                 if (json != null) {
                     User user = User.getInstance();
                     try {
@@ -312,6 +341,11 @@ public class ClientApi {
         });
     }
 
+
+    /**
+     *
+     * Get driver from Trip
+     */
     public void getDriver(final Trip trip,APIListener listener){
 
         preferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE);
@@ -376,6 +410,11 @@ public class ClientApi {
         });
     }
 
+
+    /**
+     *
+     * Get coordination travel
+     */
     public void getCoordinate(final Trip trip, APIListener listener){
 
         preferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE);
@@ -428,8 +467,6 @@ public class ClientApi {
                                     realm.commitTransaction();
                                 }
 
-                                Toast.makeText(aq.getContext(),"DISTANCE : "+distance+" Duration : "+duration , Toast.LENGTH_SHORT).show();
-
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             } catch (ExecutionException e) {
@@ -452,6 +489,11 @@ public class ClientApi {
         });
     }
 
+
+    /**
+     *
+     * Search travel with ID
+     */
     public void searchTravel(final String token,final String start,final String arrival,final String time,APIListener listener){
 
         preferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE);
@@ -465,14 +507,12 @@ public class ClientApi {
         params.put("arrival", arrival);
         params.put("time", time);
 
-
         String url =  "http://"+ip+"/covoicar/trip/search";
         aq.ajax(url, params, JSONObject.class, new AjaxCallback<JSONObject>() {
 
             @Override
             public void callback(String url, JSONObject json, AjaxStatus status) {
                 ArrayList<Trip> filteredTrips = new ArrayList<Trip>();
-
                 User driver = new User();
                 if (json != null) {
                     try {
@@ -497,6 +537,11 @@ public class ClientApi {
 
                                 filteredTrips.add(trip);
 
+
+                                /**
+                                 *
+                                 * Get coordinate for each Travel found
+                                 */
                                 getCoordinate(trip, new ClientApi.APIListener() {
                                     @Override
                                     public void callback() {
@@ -524,6 +569,11 @@ public class ClientApi {
         });
     }
 
+
+    /**
+     *
+     * Reserved travel
+     */
     public void reserveTheTrip(final String token,final String id_trip,APIListener listener){
 
         preferences = context.getSharedPreferences("Login", Context.MODE_PRIVATE);
@@ -564,6 +614,10 @@ public class ClientApi {
 
     }
 
+    /**
+     *
+     * Listener Api
+     */
     public interface APIListener{
         public void callback();
         public void searchResultsCallback(ArrayList<Trip> trips);

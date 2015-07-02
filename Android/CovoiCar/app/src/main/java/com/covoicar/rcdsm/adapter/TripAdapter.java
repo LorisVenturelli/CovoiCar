@@ -24,6 +24,12 @@ import java.util.StringTokenizer;
 /**
  * Created by rcdsm on 25/06/15.
  */
+
+/**
+ *Adapter  acts as a bridge between an AdapterView and the underlying data for that view.
+ *The Adapter provides access to the data items.
+ *The Adapter is also responsible for making a View for each item in the data set.
+ */
 public class TripAdapter extends BaseAdapter {
 
     Context context;
@@ -78,6 +84,7 @@ public class TripAdapter extends BaseAdapter {
 
         try{
 
+            //Get position Trip
             currentTrip = trips.get(position);
 
             holder.startTravel.setText(currentTrip.getStart());
@@ -89,7 +96,6 @@ public class TripAdapter extends BaseAdapter {
             holder.duration.setText(currentTrip.getDuration());
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
             Calendar c = Calendar.getInstance();
             System.out.println("Current time => " + c.getTime());
             String formattedDate = formatter.format(c.getTime());
@@ -139,6 +145,9 @@ public class TripAdapter extends BaseAdapter {
         return convertView;
     }
 
+    /**
+     * A ViewHolder describes an item view.
+     */
     class ViewHolder {
         public TextView date;
         public TextView hours;

@@ -22,6 +22,10 @@ import java.util.ArrayList;
 /**
  * Created by rcdsm on 24/06/15.
  */
+
+/**
+ * Fragment Trip
+ */
 public class TripFragment  extends Fragment {
 
     private Switch switchRoundTrip,switchHighway;
@@ -39,7 +43,6 @@ public class TripFragment  extends Fragment {
         /**
          * Inflate the layout for this fragment
          */
-
         switchRoundTrip = (Switch)view.findViewById(R.id.switchRoundTrip);
         switchHighway = (Switch)view.findViewById(R.id.switchHighway);
         dateArrival = (RelativeLayout)view.findViewById(R.id.dateArrival);
@@ -48,7 +51,6 @@ public class TripFragment  extends Fragment {
         start = (EditText)view.findViewById(R.id.editStart);
         arrival = (EditText)view.findViewById(R.id.editArrival);
         comment = (EditText)view.findViewById(R.id.editComment);
-
 
         price = (Spinner)view.findViewById(R.id.spinnerPrice);
         place = (Spinner)view.findViewById(R.id.spinnerPlace);
@@ -68,7 +70,6 @@ public class TripFragment  extends Fragment {
         }
         ArrayAdapter<String> adapterPrice = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, prices);
         price.setAdapter(adapterPrice);
-
 
         createTrip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +140,9 @@ public class TripFragment  extends Fragment {
         return view;
     }
 
+    /**
+     * Listener on button creat Trip
+     */
     public interface OnCreateTripListener {
         public void onCreateTripClick(String highway,String roundTrip);
     }

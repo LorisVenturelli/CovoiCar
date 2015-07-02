@@ -18,6 +18,10 @@ import java.util.StringTokenizer;
 /**
  * Created by rcdsm on 01/07/15.
  */
+
+/**
+ * Fragment information travel
+ */
 public class MoreTravelFragment extends Fragment {
 
     String startInfo,arrivalInfo,emailInfo,bioInfo,phoneInfo,nameInfo,dateInfo,lastNameInfo,dateTimeInfo,timeInfo,timeInfoTravel, distanceInfoTravel;
@@ -60,11 +64,12 @@ public class MoreTravelFragment extends Fragment {
             }
         });
 
+        //Slit date which content date and time
         StringTokenizer date = new StringTokenizer(dateTimeInfo, " ");
         dateInfo = date.nextToken();
         timeInfo = date.nextToken();
 
-
+        //Slit time for have hh H mm
         StringTokenizer times = new StringTokenizer(timeInfo, ":");
         String hourInfo = times.nextToken();
         String minuteInfo = times.nextToken();
@@ -92,6 +97,11 @@ public class MoreTravelFragment extends Fragment {
         return view;
     }
 
+    /**
+     * @param args :content all information travel and user
+     * Get data travel and user inside Bundle
+     *
+     */
     public void setArguments(Bundle args) {
         super.setArguments(args);
         startInfo = args.getString("start");
@@ -105,6 +115,9 @@ public class MoreTravelFragment extends Fragment {
 
     }
 
+    /**
+     * Listener on the button reserved
+     */
     public interface OnReservationListener {
         public void onReservationClick(Long idTrips);
     }
